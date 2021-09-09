@@ -15,3 +15,6 @@ html, body {
 .text-primary {
     color: var(--color-primary) !important;
 }
+
+.ui-menubar	{background-color: #FEDBD8
+}
