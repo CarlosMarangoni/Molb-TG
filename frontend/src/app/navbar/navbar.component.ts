@@ -10,26 +10,7 @@ export class NavbarComponent {
 
 
   ngOnInit(): void {
-    this.items = [
-      {
-        icon: 'pi pi-fw pi-search',        
-      },
-      {
-       
-        icon: 'pi pi-fw pi-user',
-        items: [
-          {
-            label: 'Logout',
-            icon: 'pi pi-fw pi-power-off',
-            
-          },
-          {
-            label: 'Profile',
-            icon: 'pi pi-fw pi-users'           
-          }
-        ]
-      }
-    ];
+    
   }
 
 }

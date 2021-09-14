@@ -1,20 +1,75 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
 :root {
-    --color-primary: #FA8072;
+    --color-primary: #ec9d95
+    ;
+    --color-secondary: #FEDBD8;
+
 }
 
-html, body {
-    height: 100%;
+.navbar-brand{
+    padding: 0;
+    margin: 0;
+}
+
+.logo{
+    height: 50px;
+    padding-right: 15px;
+    padding-left: 5px;
+}
+
+.navbar-inverse{
+    height: 65px;
+    padding-top: 5px;
+}
+
+html{
     font-family: "Ubuntu", sans-serif;
+}
+
+body {
+    min-height: 400px;
+    margin-bottom: 100px;
+    clear: both;
+    font-family: "Ubuntu", sans-serif;
+ }
+
+ username{
+     line-height:50px ;
+ }
+
+.text-primary {
+    color: var(--color-primary) !important;
+}
+
+.btn-primary {
+    background-color: var(--color-primary) !important;
+    border-color: var(--color-secondary) !important;
+}
+
+.btn-primary:hover,.btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color:var(--color-secondary) !important;
+    border-color:var(--color-primary) !important; /*set the color you want here*/
 }
 
 .bg-primary {
     background-color: var(--color-primary) !important;
 }
 
-.text-primary {
-    color: var(--color-primary) !important;
+.border-primary{
+    border-color: var(--color-primary) !important;
 }
 
-.ui-menubar	{background-color: #FEDBD8
+.bg-secondary {
+    background-color: var(--color-secondary) !important;
 }
+
+.border-20 {
+    border-width:20px !important;
+}
+
+.border-5 {
+    border-width:5px !important;
+}
+

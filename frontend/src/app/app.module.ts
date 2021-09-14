@@ -9,18 +9,24 @@ import { HomeComponent } from './home/home.component';
 
 import {MenubarModule} from 'primeng/menubar';
 import { FooterComponent } from './footer/footer.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {InputTextModule} from 'primeng/inputtext';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(rootRouterConfig),
-    MenubarModule
+    MenubarModule,
+    NgbModule,
+    InputTextModule
   ],
   exports:[
  
