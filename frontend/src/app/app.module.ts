@@ -12,6 +12,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {InputTextModule} from 'primeng/inputtext';
 import { ProfileComponent } from './profile/profile.component';
+import { PostDetailComponent } from './post-detail/post-detail.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ProfileComponent } from './profile/profile.component';
     NavbarComponent,
     HomeComponent,
     FooterComponent,
-    ProfileComponent
+    ProfileComponent,
+    PostDetailComponent
   ],
   imports: [
     BrowserModule,
