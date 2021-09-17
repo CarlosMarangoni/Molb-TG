@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router'
 import { rootRouterConfig } from './app.routes';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -17,6 +18,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { RegisterComponent } from './register/register.component';
+
+
 
 @NgModule({
   declarations: [
@@ -27,7 +34,9 @@ import {MatInputModule } from '@angular/material/input';
     ProfileComponent,
     PostDetailComponent,
     BuyComponent,
-    LoginComponent
+    LoginComponent,
+    ForgotPasswordComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -36,8 +45,10 @@ import {MatInputModule } from '@angular/material/input';
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule
-
+    MatInputModule,
+    MatIconModule,
+    FormsModule,
+    MatButtonModule
   ],
   exports:[
  

@@ -1,3 +1,5 @@
+import { RegisterComponent } from './register/register.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { BuyComponent } from './buy/buy.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -10,6 +12,8 @@ export const rootRouterConfig: Routes = [
     { path: 'profile', component: ProfileComponent },
     { path: 'post-detail', component: PostDetailComponent },
     { path: 'buy', component: BuyComponent },
-    { path: 'login', component: LoginComponent }
+    { path: 'login', component: LoginComponent },
+    { path: 'forgot-password', component: ForgotPasswordComponent },
+    { path: 'register', component: RegisterComponent }
 
 ]

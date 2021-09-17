@@ -1,0 +1,48 @@
+<div class="container bg-secondary">
+    <form>
+        <div class="text-center p-4">
+            <img src="/assets/img/profile.png" width="30%" alt="">
+        </div>
+        <div class="text-center">
+            <input type="file">
+        </div>
+
+        <div class="text-center">
+            <mat-form-field appearance="outline" style="min-width: 40%">
+                <mat-label>Usuário</mat-label>
+                <input matInput placeholder="Digite seu usuário" type="text">
+            </mat-form-field>
+        </div>
+
+        <div class="text-center">
+            <mat-form-field appearance="outline" style="min-width: 40%">
+                <mat-label>E-mail</mat-label>
+                <input matInput placeholder="Digite seu e-mail" type="email">
+            </mat-form-field>
+        </div>
+        <div class="text-center">
+            <mat-form-field appearance="fill" style="min-width: 40%">
+                <mat-label>Digite sua senha</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            </mat-form-field>
+        </div>
+        <div class="text-center">
+            <mat-form-field appearance="fill" style="min-width: 40%">
+                <mat-label>Confirmar senha</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            </mat-form-field>
+        </div>
+        <div class="text-center p-3">
+            <button class="btn btn-primary btn-lg" style="width: 30%;" type="submit">Registrar</button><br>
+        </div>
+        <div style="height: 250px;">
+
+        </div>
+    </form>
+</div>
