@@ -6,13 +6,17 @@ import { rootRouterConfig } from './app.routes';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
-
-import {MenubarModule} from 'primeng/menubar';
 import { FooterComponent } from './footer/footer.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {InputTextModule} from 'primeng/inputtext';
 import { ProfileComponent } from './profile/profile.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
+import { BuyComponent } from './buy/buy.component';
+import { LoginComponent } from './login/login.component';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -21,14 +25,19 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
     HomeComponent,
     FooterComponent,
     ProfileComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    BuyComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(rootRouterConfig),
-    MenubarModule,
     NgbModule,
-    InputTextModule
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule
+
   ],
   exports:[
  

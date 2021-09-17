@@ -1,3 +1,5 @@
+import { LoginComponent } from './login/login.component';
+import { BuyComponent } from './buy/buy.component';
 import { ProfileComponent } from './profile/profile.component';
 import { Routes } from "@angular/router"
 import { HomeComponent } from "./home/home.component"
@@ -6,6 +8,8 @@ export const rootRouterConfig: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
     { path: 'profile', component: ProfileComponent },
-    { path: 'post-detail', component: PostDetailComponent }
+    { path: 'post-detail', component: PostDetailComponent },
+    { path: 'buy', component: BuyComponent },
+    { path: 'login', component: LoginComponent }
 
 ]
