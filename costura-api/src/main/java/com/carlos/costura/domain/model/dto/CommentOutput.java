@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommentOutput {
 
+    private String username;
+
     private String description;
 
     private Integer stars;
 
-    private Long postId;
-
     public static CommentOutput toOutput(Comment comment){
-        return new CommentOutput(comment.getDescription(), comment.getStars(),comment.getPost().getId());
+        return new CommentOutput(comment.getUser().getUsername(),comment.getDescription(), comment.getStars());
     }
 
 }

@@ -16,17 +16,23 @@ public class PostOutput {
 
     private String postImage;
 
+//    private String username;
+
     private String description;
 
     private BigDecimal price;
+
+    private List<CommentOutput> comments;
 
     private List<SaleItemForm> items;
 
     public static PostOutput toOutput(Post post){
         return new PostOutput(
                 post.getPostImage(),
+//                post.getUser().getUsername(),
                 post.getDescription(),
                 post.getPrice(),
+                post.getComments().stream().map(CommentOutput::toOutput).collect(Collectors.toList()),
                 post.getItems().stream().map(SaleItemForm::toForm).collect(Collectors.toList()));
     }
 

@@ -1,5 +1,6 @@
 package com.carlos.costura.domain.model.dto;
 
+import com.carlos.costura.domain.model.Comment;
 import com.carlos.costura.domain.model.Post;
 import com.carlos.costura.domain.model.SaleItem;
 import lombok.AllArgsConstructor;

@@ -35,6 +35,8 @@ public class Post {
 
     private Integer commentAmount;
 
+    private Double averageStars;
+
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 

@@ -29,11 +29,11 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserForm> addUser(@RequestBody UserForm userForm, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<User> addUser(@RequestBody UserForm userForm, UriComponentsBuilder uriComponentsBuilder){
         User createdUser = userService.save(userForm);
         UriComponents uriComponents = uriComponentsBuilder.path("/users/{id}").buildAndExpand(createdUser.getId());
         var location = uriComponents.toUri();
-        return ResponseEntity.created(location).body(userForm);
+        return ResponseEntity.created(location).body(createdUser);
 
     }
 }

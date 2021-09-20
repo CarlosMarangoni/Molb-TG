@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/posts")
@@ -32,15 +33,15 @@ public class PostsController {
     private CommentService commentService;
 
     @GetMapping
-    public ResponseEntity<List<Post>> getAllPosts(){
+    public ResponseEntity<List<PostOutput>> getAllPosts(){
         List<Post> posts = postRepository.findAll();
-        return ResponseEntity.ok(posts);
+        return ResponseEntity.ok(posts.stream().map(PostOutput::toOutput).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Post> getPost(@PathVariable Long id){
+    public ResponseEntity<PostOutput> getPost(@PathVariable Long id){
         Post post = postRepository.findById(id).get();
-        return ResponseEntity.ok(post);
+        return ResponseEntity.ok(PostOutput.toOutput(post));
     }
 
     @PostMapping
