@@ -61,11 +61,7 @@ public class PostsController {
         return ResponseEntity.created(location).body(CommentOutput.toOutput(savedComment));
     }
 
-//    @PostMapping("/{postId}/like")
-//    public ResponseEntity<CommentOutput> addLike(@PathVariable Long postId, UriComponentsBuilder uriComponentsBuilder){
-//
-//        return null;
-//    }
+
 
 
 
