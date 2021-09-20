@@ -3,6 +3,7 @@ package com.carlos.costura.domain.service;
 import com.carlos.costura.domain.model.Post;
 import com.carlos.costura.domain.model.SaleItem;
 import com.carlos.costura.domain.model.dto.PostForm;
+import com.carlos.costura.domain.model.dto.PostOutput;
 import com.carlos.costura.domain.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,6 @@ public class PostService {
             c.getSaleItemPK().setItem(atomicSum.incrementAndGet());
         });
 
-        Post savedPost = postRepository.save(postModel);
-        return savedPost;
+        return postRepository.save(postModel);
     }
 }

@@ -24,15 +24,11 @@ public class SaleItem {
 
     private String description;
 
-    private BigDecimal price;
-
-    public SaleItem(String description, BigDecimal price) {
+    public SaleItem(String description) {
         this.description = description;
-        this.price = price;
     }
 
     public static SaleItem toModel(SaleItemForm saleItemForm) {
-        return new SaleItem(saleItemForm.getDescription(),
-                saleItemForm.getPrice());
+        return new SaleItem(saleItemForm.getDescription());
     }
 }

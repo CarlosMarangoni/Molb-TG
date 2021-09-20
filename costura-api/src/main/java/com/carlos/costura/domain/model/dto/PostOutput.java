@@ -1,7 +1,6 @@
 package com.carlos.costura.domain.model.dto;
 
 import com.carlos.costura.domain.model.Post;
-import com.carlos.costura.domain.model.SaleItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,7 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostForm {
+public class PostOutput {
 
     private String postImage;
 
@@ -23,8 +22,8 @@ public class PostForm {
 
     private List<SaleItemForm> items;
 
-    public static PostForm toForm(Post post){
-        return new PostForm(
+    public static PostOutput toOutput(Post post){
+        return new PostOutput(
                 post.getPostImage(),
                 post.getDescription(),
                 post.getPrice(),
