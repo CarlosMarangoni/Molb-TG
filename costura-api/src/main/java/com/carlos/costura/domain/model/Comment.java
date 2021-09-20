@@ -1,6 +1,7 @@
 package com.carlos.costura.domain.model;
 
 import com.carlos.costura.domain.model.dto.CommentForm;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class Comment {
     private User user;
 
     @ManyToOne
+    @JsonIgnore
     private Post post;
 
     public Comment(String description, Integer stars) {

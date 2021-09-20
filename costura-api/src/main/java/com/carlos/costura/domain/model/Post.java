@@ -35,7 +35,7 @@ public class Post {
 
     private Integer commentAmount;
 
-    @OneToMany(mappedBy = "comments")
+    @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "saleItemPK.post",cascade = CascadeType.ALL)
