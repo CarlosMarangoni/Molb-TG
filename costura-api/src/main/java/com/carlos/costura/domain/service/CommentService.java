@@ -26,7 +26,7 @@ public class CommentService {
         Post postOfTheComment = postRepository.findById(postId).get();
         postOfTheComment.addComment();
         commentModel.setPost(postOfTheComment);
-        commentModel.setUser(new User(1L,"Marina","marina_silva","marina@email.com", "1234",OffsetDateTime.now()));
+        commentModel.setUser(new User(1L));
 
         return commentRepository.save(commentModel);
 

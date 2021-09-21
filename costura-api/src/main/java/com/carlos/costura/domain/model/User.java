@@ -13,6 +13,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -37,6 +39,12 @@ public class User{
 
     private String password;
 
+    @OneToMany(mappedBy = "user")
+    private List<Purchase> purchaseList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Sale> saleList = new ArrayList<>();
+
     @CreationTimestamp
     private OffsetDateTime createdAt;
 
@@ -45,6 +53,10 @@ public class User{
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public User(Long id) {
+        this.id= id;
     }
 
     public static User toModel(UserForm userForm){
