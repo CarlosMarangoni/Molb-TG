@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserForm {
+public class LoginForm {
 
     private String username;
 
@@ -18,8 +18,8 @@ public class UserForm {
 
     private String password;
 
-    public static UserForm toForm(User user){
-        return new UserForm(
+    public static LoginForm toForm(User user){
+        return new LoginForm(
                 user.getUser(),
                 user.getName(),
                 user.getEmail(),

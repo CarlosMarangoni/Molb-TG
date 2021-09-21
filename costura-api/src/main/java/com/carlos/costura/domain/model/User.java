@@ -1,13 +1,10 @@
 package com.carlos.costura.domain.model;
 
-import com.carlos.costura.domain.model.dto.UserForm;
+import com.carlos.costura.domain.model.dto.LoginForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -65,12 +62,12 @@ public class User implements UserDetails {
         this.id= id;
     }
 
-    public static User toModel(UserForm userForm){
+    public static User toModel(LoginForm loginForm){
         return new User(
-                userForm.getName(),
-                userForm.getUsername(),
-                userForm.getEmail(),
-                userForm.getPassword());
+                loginForm.getName(),
+                loginForm.getUsername(),
+                loginForm.getEmail(),
+                loginForm.getPassword());
     }
 
     @Override
