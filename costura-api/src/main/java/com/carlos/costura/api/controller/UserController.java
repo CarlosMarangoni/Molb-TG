@@ -4,6 +4,7 @@ import com.carlos.costura.domain.model.User;
 import com.carlos.costura.domain.model.dto.UserForm;
 import com.carlos.costura.domain.repository.UserRepository;
 import com.carlos.costura.domain.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,13 +14,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private UserService userService;
 
     @GetMapping

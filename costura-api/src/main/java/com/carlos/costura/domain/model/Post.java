@@ -37,6 +37,9 @@ public class Post {
 
     private Double averageStars;
 
+    @OneToMany(mappedBy = "likesPK.post")
+    private List<Like> likes = new ArrayList<>();
+
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
@@ -59,5 +62,9 @@ public class Post {
 
     public void addComment() {
         this.commentAmount+=1;
+    }
+
+    public void addLike() {
+        this.likeAmount+=1;
     }
 }

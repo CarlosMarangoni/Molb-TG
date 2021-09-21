@@ -6,11 +6,10 @@ import com.carlos.costura.domain.model.dto.CommentForm;
 import com.carlos.costura.domain.model.dto.CommentOutput;
 import com.carlos.costura.domain.model.dto.PostForm;
 import com.carlos.costura.domain.model.dto.PostOutput;
-import com.carlos.costura.domain.repository.CommentRepository;
 import com.carlos.costura.domain.repository.PostRepository;
 import com.carlos.costura.domain.service.CommentService;
 import com.carlos.costura.domain.service.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
@@ -20,16 +19,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/posts")
 public class PostsController {
 
-    @Autowired
     private PostService postService;
 
-    @Autowired
     private PostRepository postRepository;
 
-    @Autowired
     private CommentService commentService;
 
     @GetMapping
@@ -61,7 +58,10 @@ public class PostsController {
         return ResponseEntity.created(location).body(CommentOutput.toOutput(savedComment));
     }
 
-
+    @PostMapping("/{postId}/like")
+    public void addLike(@PathVariable Long postId){
+        postService.addLike(postId);
+    }
 
 
 

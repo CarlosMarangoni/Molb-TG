@@ -3,13 +3,13 @@ package com.carlos.costura.domain.service;
 import com.carlos.costura.domain.model.User;
 import com.carlos.costura.domain.model.dto.UserForm;
 import com.carlos.costura.domain.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class UserService {
 
-    @Autowired
     private UserRepository userRepository;
 
     public User save(UserForm user){

@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "comments")
+@Table(name = "post_comments")
 public class Comment {
 
     @Id
