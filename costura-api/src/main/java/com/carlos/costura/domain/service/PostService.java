@@ -1,6 +1,7 @@
 package com.carlos.costura.domain.service;
 
 import com.carlos.costura.domain.model.Post;
+import com.carlos.costura.domain.model.Purchase;
 import com.carlos.costura.domain.model.dto.PostForm;
 import com.carlos.costura.domain.repository.PostRepository;
 import lombok.AllArgsConstructor;
@@ -28,5 +29,11 @@ public class  PostService {
     public void addLike(Long postId) {
         Post likedPost = postRepository.findById(postId).get();
         likedPost.addLike();
+    }
+
+    public Purchase buy(Long postId){
+
+
+        return null;
     }
 }

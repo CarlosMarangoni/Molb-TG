@@ -20,7 +20,7 @@ public class UserForm {
 
     public static UserForm toForm(User user){
         return new UserForm(
-                user.getUsername(),
+                user.getUser(),
                 user.getName(),
                 user.getEmail(),
                 user.getPassword()
