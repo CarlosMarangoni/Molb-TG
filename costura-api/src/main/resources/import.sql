@@ -1,6 +1,6 @@
 INSERT INTO users values(1, "2021-08-31 13:59:35.453600","carlos.marangoni1@gmail.com","Carlos Eduardo Marangoni Mendes","$2a$10$Z3.Vg4ERBJQIIVoHolb34OM90CFfKKBTcLrP6pTcuEEA/Fo6vr0Ha","carlos_marangoni");
-INSERT INTO authorities values(1,"User");
-INSERT INTO authorities values(1,"Admin");
+INSERT INTO authorities values(1,"USER");
+INSERT INTO authorities values(2,"ADMIN");
 INSERT INTO users_authorities values(1,1);
 INSERT INTO post values(1,4,1,"Postagem de teste",1,"teste.jpg",25.4,1);
 INSERT INTO sale_item values(1,"Molde sutiã P",1);

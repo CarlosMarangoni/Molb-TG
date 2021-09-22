@@ -8,6 +8,7 @@ import com.carlos.costura.domain.repository.CommentRepository;
 import com.carlos.costura.domain.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -26,7 +27,8 @@ public class CommentService {
         Post postOfTheComment = postRepository.findById(postId).get();
         postOfTheComment.addComment();
         commentModel.setPost(postOfTheComment);
-        commentModel.setUser(new User(1L));
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        commentModel.setUser(user);
 
         return commentRepository.save(commentModel);
 
