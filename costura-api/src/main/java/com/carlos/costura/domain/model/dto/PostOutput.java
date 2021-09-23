@@ -16,11 +16,13 @@ public class PostOutput {
 
     private String postImage;
 
-//    private String username;
+    private String user;
 
     private String description;
 
     private BigDecimal price;
+
+    private List<LikeOutput> likes;
 
     private List<CommentOutput> comments;
 
@@ -29,9 +31,10 @@ public class PostOutput {
     public static PostOutput toOutput(Post post){
         return new PostOutput(
                 post.getPostImage(),
-//                post.getUser().getUsername(),
+                post.getUser().getUser(),
                 post.getDescription(),
                 post.getPrice(),
+                post.getLikes().stream().map(LikeOutput::toOutput).collect(Collectors.toList()),
                 post.getComments().stream().map(CommentOutput::toOutput).collect(Collectors.toList()),
                 post.getItems().stream().map(SaleItemForm::toForm).collect(Collectors.toList()));
     }

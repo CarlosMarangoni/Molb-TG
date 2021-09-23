@@ -2,13 +2,11 @@ package com.carlos.costura.api.controller;
 
 import com.carlos.costura.domain.model.Comment;
 import com.carlos.costura.domain.model.Post;
-import com.carlos.costura.domain.model.Purchase;
 import com.carlos.costura.domain.model.dto.CommentForm;
 import com.carlos.costura.domain.model.dto.CommentOutput;
 import com.carlos.costura.domain.model.dto.PostForm;
 import com.carlos.costura.domain.model.dto.PostOutput;
 import com.carlos.costura.domain.repository.PostRepository;
-import com.carlos.costura.domain.service.CommentService;
 import com.carlos.costura.domain.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +26,6 @@ public class PostsController {
 
     private PostRepository postRepository;
 
-    private CommentService commentService;
 
     @GetMapping
     public ResponseEntity<List<PostOutput>> getAllPosts(){
@@ -53,7 +50,7 @@ public class PostsController {
     @PostMapping("/{postId}/comment")
     public ResponseEntity<CommentOutput> addComment(@PathVariable Long postId,
                                                     @RequestBody CommentForm commentForm, UriComponentsBuilder uriComponentsBuilder){
-        Comment savedComment = commentService.save(commentForm,postId);
+        Comment savedComment = postService.addComment(commentForm,postId);
         UriComponents uriComponents = uriComponentsBuilder.path("/posts/{postId}/comment/{id}").buildAndExpand(savedComment.getPost().getId(),savedComment.getId());
         var location = uriComponents.toUri();
         return ResponseEntity.created(location).body(CommentOutput.toOutput(savedComment));

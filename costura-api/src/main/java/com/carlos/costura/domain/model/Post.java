@@ -60,11 +60,11 @@ public class Post {
                 postForm.getItems().stream().map(SaleItem::toModel).collect(Collectors.toList()));
     }
 
-    public void addComment() {
+    public void plusOneComment() {
         this.commentAmount+=1;
     }
 
-    public void addLike() {
+    public void plusOneLike() {
         this.likeAmount+=1;
     }
 }

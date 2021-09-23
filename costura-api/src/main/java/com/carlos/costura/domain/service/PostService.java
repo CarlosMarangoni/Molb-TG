@@ -1,9 +1,10 @@
 package com.carlos.costura.domain.service;
 
-import com.carlos.costura.domain.model.Post;
-import com.carlos.costura.domain.model.Purchase;
-import com.carlos.costura.domain.model.User;
+import com.carlos.costura.domain.model.*;
+import com.carlos.costura.domain.model.dto.CommentForm;
 import com.carlos.costura.domain.model.dto.PostForm;
+import com.carlos.costura.domain.repository.CommentRepository;
+import com.carlos.costura.domain.repository.LikeRepository;
 import com.carlos.costura.domain.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class  PostService {
 
     private PostRepository postRepository;
+
+    private CommentRepository commentRepository;
+
+    private LikeRepository likeRepository;
 
     public Post save(PostForm postForm) {
         AtomicInteger atomicSum = new AtomicInteger(0);
@@ -31,13 +36,30 @@ public class  PostService {
     }
 
     public void addLike(Long postId) {
+        Like like = new Like();
         Post likedPost = postRepository.findById(postId).get();
-        likedPost.addLike();
+        like.getLikesPK().setPost(likedPost);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        like.getLikesPK().setUser(user);
+        likedPost.plusOneLike();
+        likeRepository.save(like);
+
     }
 
-    public Purchase buy(Long postId){
+    public Comment addComment(CommentForm commentForm, Long postId) {
+        Comment commentModel = Comment.toModel(commentForm);
+        Post commentedPost = postRepository.findById(postId).get();
+        commentModel.setPost(commentedPost);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        commentModel.setUser(user);
+        commentedPost.plusOneComment();
 
-
-        return null;
+        return commentRepository.save(commentModel);
     }
+
+//    public Purchase buy(Long postId){
+//
+//
+//        return null;
+//    }
 }
