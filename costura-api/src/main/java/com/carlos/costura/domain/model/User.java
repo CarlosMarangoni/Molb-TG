@@ -49,7 +49,7 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Sale> saleList = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<User> followers = new LinkedList<>();
 
     @OneToMany(mappedBy = "user")

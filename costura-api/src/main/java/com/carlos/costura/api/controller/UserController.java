@@ -21,7 +21,6 @@ public class UserController {
 
     private UserService userService;
 
-
     @GetMapping("/users/{id}")
     public ResponseEntity<UserOutput> getUser(@PathVariable Long id){
         User user = userRepository.findById(id).get();
