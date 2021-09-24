@@ -57,9 +57,9 @@ public class  PostService {
         return commentRepository.save(commentModel);
     }
 
-//    public Purchase buy(Long postId){
-//
-//
-//        return null;
-//    }
+    public Purchase buy(Long postId) {
+        Post postToBuy = postRepository.findById(postId).get();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return null;
+    }
 }

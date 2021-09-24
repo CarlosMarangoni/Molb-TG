@@ -2,6 +2,7 @@ package com.carlos.costura.api.controller;
 
 import com.carlos.costura.domain.model.Comment;
 import com.carlos.costura.domain.model.Post;
+import com.carlos.costura.domain.model.Purchase;
 import com.carlos.costura.domain.model.dto.CommentForm;
 import com.carlos.costura.domain.model.dto.CommentOutput;
 import com.carlos.costura.domain.model.dto.PostForm;
@@ -61,10 +62,10 @@ public class PostsController {
         postService.addLike(postId);
     }
 
-//    @PostMapping("/{postId}/buy")
-//    public ResponseEntity<Purchase> buyPost(@PathVariable Long postId){
-//        Purchase purchase = postService.buy(postId);
-//
-//
-//    }
+    @PostMapping("/{postId}/buy")
+    public ResponseEntity<Purchase> buyPost(@PathVariable Long postId){
+        Purchase purchase = postService.buy(postId);
+
+        return null;
+    }
 }

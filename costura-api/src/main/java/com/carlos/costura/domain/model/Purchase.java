@@ -34,5 +34,7 @@ public class Purchase {
     @CreationTimestamp
     private OffsetDateTime date;
 
+    @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
+
 }

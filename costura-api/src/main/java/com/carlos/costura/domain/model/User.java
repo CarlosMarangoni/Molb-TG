@@ -3,6 +3,7 @@ package com.carlos.costura.domain.model;
 import com.carlos.costura.domain.model.dto.LoginForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,18 +15,21 @@ import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
 
     @NotNull
@@ -44,6 +48,12 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<Sale> saleList = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<User> followers = new LinkedList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts = new ArrayList<>();
 
     @CreationTimestamp
     private OffsetDateTime createdAt;

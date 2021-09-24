@@ -4,10 +4,12 @@ import com.carlos.costura.domain.model.dto.PostForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +25,7 @@ public class Post {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     private String postImage;
@@ -36,6 +39,9 @@ public class Post {
     private Integer commentAmount;
 
     private Double averageStars;
+
+    @CreationTimestamp
+    private OffsetDateTime createdAt;
 
     @OneToMany(mappedBy = "likesPK.post")
     private List<Like> likes = new ArrayList<>();
