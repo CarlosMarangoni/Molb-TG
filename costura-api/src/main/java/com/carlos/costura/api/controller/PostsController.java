@@ -4,14 +4,17 @@ import com.carlos.costura.domain.exception.PageNotFoundException;
 import com.carlos.costura.domain.model.Comment;
 import com.carlos.costura.domain.model.Post;
 import com.carlos.costura.domain.model.Purchase;
+import com.carlos.costura.domain.model.User;
 import com.carlos.costura.domain.model.dto.CommentForm;
 import com.carlos.costura.domain.model.dto.CommentOutput;
 import com.carlos.costura.domain.model.dto.PostForm;
 import com.carlos.costura.domain.model.dto.PostOutput;
 import com.carlos.costura.domain.repository.PostRepository;
+import com.carlos.costura.domain.repository.UserRepository;
 import com.carlos.costura.domain.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -29,12 +32,23 @@ public class PostsController {
 
     private PostRepository postRepository;
 
+    private UserRepository userRepository;
+
 
     @GetMapping
     public ResponseEntity<List<PostOutput>> getAllPosts(){
-        List<Post> posts = postRepository.findAll();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        user = userRepository.findById(user.getId()).orElseThrow(() -> new PageNotFoundException("Página não encontrada"));
+        List<Post> posts = postRepository.findAllByUserFollowed(user);
         return ResponseEntity.ok(posts.stream().map(PostOutput::toOutput).collect(Collectors.toList()));
     }
+
+
+//    @GetMapping
+//    public ResponseEntity<List<PostOutput>> getAllPosts(){
+//        List<Post> posts = postRepository.findAll();
+//        return ResponseEntity.ok(posts.stream().map(PostOutput::toOutput).collect(Collectors.toList()));
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<PostOutput> getPost(@PathVariable Long id){
