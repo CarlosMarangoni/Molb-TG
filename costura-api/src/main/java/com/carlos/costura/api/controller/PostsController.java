@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,12 +44,6 @@ public class PostsController {
     }
 
 
-//    @GetMapping
-//    public ResponseEntity<List<PostOutput>> getAllPosts(){
-//        List<Post> posts = postRepository.findAll();
-//        return ResponseEntity.ok(posts.stream().map(PostOutput::toOutput).collect(Collectors.toList()));
-//    }
-
     @GetMapping("/{id}")
     public ResponseEntity<PostOutput> getPost(@PathVariable Long id){
         Post post = postRepository.findById(id).orElseThrow(() -> new PageNotFoundException("Página não encontrada."));
@@ -57,7 +51,7 @@ public class PostsController {
     }
 
     @PostMapping
-    public ResponseEntity<PostOutput> addPost(@RequestBody PostForm postForm, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<PostOutput> addPost(@Valid @RequestBody PostForm postForm, UriComponentsBuilder uriComponentsBuilder){
         Post savedPost = postService.save(postForm);
         UriComponents uriComponents = uriComponentsBuilder.path("/posts/{id}").buildAndExpand(savedPost.getId());
         var location = uriComponents.toUri();

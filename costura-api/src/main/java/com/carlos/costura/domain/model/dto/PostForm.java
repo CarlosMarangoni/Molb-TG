@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +29,8 @@ public class PostForm {
     @NotNull
     private BigDecimal price;
 
-    private List<SaleItemForm> items;
+    @NotEmpty
+    private List<SaleItemForm> items = new ArrayList<>();
 
     public static PostForm toForm(Post post){
         return new PostForm(
