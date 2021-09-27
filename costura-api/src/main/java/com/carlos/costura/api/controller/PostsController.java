@@ -1,5 +1,6 @@
 package com.carlos.costura.api.controller;
 
+import com.carlos.costura.domain.exception.PageNotFoundException;
 import com.carlos.costura.domain.model.Comment;
 import com.carlos.costura.domain.model.Post;
 import com.carlos.costura.domain.model.Purchase;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +38,7 @@ public class PostsController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PostOutput> getPost(@PathVariable Long id){
-        Post post = postRepository.findById(id).get();
+        Post post = postRepository.findById(id).orElseThrow(() -> new PageNotFoundException("Página não encontrada."));
         return ResponseEntity.ok(PostOutput.toOutput(post));
     }
 

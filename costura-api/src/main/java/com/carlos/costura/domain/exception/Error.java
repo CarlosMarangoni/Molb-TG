@@ -19,4 +19,6 @@ public class Error {
 
     private String message;
 
+    private String path;
+
 }

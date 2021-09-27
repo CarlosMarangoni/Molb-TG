@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -30,13 +31,15 @@ public class Post {
 
     private String postImage;
 
+    @NotNull
     private String description;
 
+    @NotNull
     private BigDecimal price;
 
-    private Integer likeAmount;
+    private Integer likeAmount = 0;
 
-    private Integer commentAmount;
+    private Integer commentAmount = 0;
 
     private Double averageStars;
 

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 
 @Data
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class SaleItemForm {
 
+    @NotEmpty
     private String description;
 
     public static SaleItemForm toForm(SaleItem item){

@@ -17,15 +17,18 @@ public class UserOutput {
 
     private String name;
 
+    private List<FollowerOutput> following;
+
     private List<FollowerOutput> followers;
 
-    private List<PostOutput> posts;
+    private List<PostSummary> posts;
 
     public static UserOutput toOutput(User user){
         return new UserOutput(
                 user.getUser(),
                 user.getName(),
+                user.getFollowing().stream().map(FollowerOutput::toOutput).collect(Collectors.toList()),
                 user.getFollowers().stream().map(FollowerOutput::toOutput).collect(Collectors.toList()),
-                user.getPosts().stream().map(PostOutput::toOutput).collect(Collectors.toList()));
+                user.getPosts().stream().map(PostSummary::toSummary).collect(Collectors.toList()));
     }
 }

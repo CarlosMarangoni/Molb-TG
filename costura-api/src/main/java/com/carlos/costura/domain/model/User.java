@@ -39,8 +39,10 @@ public class User implements UserDetails {
     private String user;
 
     @Email
+    @NotNull
     private String email;
 
+    @NotNull
     private String password;
 
     @OneToMany(mappedBy = "user")
@@ -49,8 +51,11 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Sale> saleList = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     private List<User> followers = new LinkedList<>();
+
+    @ManyToMany
+    private List<User> following = new LinkedList<>();
 
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
