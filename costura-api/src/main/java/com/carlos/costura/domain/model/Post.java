@@ -31,6 +31,8 @@ public class Post {
 
     private String postImage;
 
+    private String imageName;
+
     @NotNull
     private String description;
 

@@ -1,5 +1,6 @@
 package com.carlos.costura.domain.service;
 
+import com.carlos.costura.domain.exception.AuthorizationException;
 import com.carlos.costura.domain.model.*;
 import com.carlos.costura.domain.model.dto.CommentForm;
 import com.carlos.costura.domain.model.dto.PostForm;
@@ -24,8 +25,8 @@ public class  PostService {
 
     public Post save(PostForm postForm) {
         AtomicInteger atomicSum = new AtomicInteger(0);
+        User user = User.isAuthenticated();
         Post postModel = Post.toModel(postForm);
-        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         postModel.setUser(user);
         postModel.getItems().forEach(c ->{
             c.getSaleItemPK().setPost(postModel);
@@ -36,10 +37,10 @@ public class  PostService {
     }
 
     public void addLike(Long postId) {
+        User user = User.isAuthenticated();
         Like like = new Like();
         Post likedPost = postRepository.findById(postId).get();
         like.getLikesPK().setPost(likedPost);
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         like.getLikesPK().setUser(user);
         likedPost.plusOneLike();
         likeRepository.save(like);
@@ -47,10 +48,10 @@ public class  PostService {
     }
 
     public Comment addComment(CommentForm commentForm, Long postId) {
+        User user = User.isAuthenticated();
         Comment commentModel = Comment.toModel(commentForm);
         Post commentedPost = postRepository.findById(postId).get();
         commentModel.setPost(commentedPost);
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         commentModel.setUser(user);
         commentedPost.plusOneComment();
 
@@ -60,6 +61,9 @@ public class  PostService {
     public Purchase buy(Long postId) {
         Post postToBuy = postRepository.findById(postId).get();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (user == null){
+            throw new AuthorizationException("Acesso negado.");
+        }
         return null;
     }
 }

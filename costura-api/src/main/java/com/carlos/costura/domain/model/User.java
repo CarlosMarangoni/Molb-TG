@@ -1,5 +1,6 @@
 package com.carlos.costura.domain.model;
 
+import com.carlos.costura.domain.exception.AuthorizationException;
 import com.carlos.costura.domain.model.dto.LoginForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -66,6 +68,8 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Authorities> authorities = new ArrayList<>();
 
+    private String profileImage;
+
     public User(String name, String user, String email, String password) {
         this.name = name;
         this.user = user;
@@ -113,5 +117,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public static User isAuthenticated(){
+        User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (loggedUser == null){
+            throw new AuthorizationException("Acesso negado.");
+        }
+        return loggedUser;
     }
 }
