@@ -10,7 +10,9 @@ import com.carlos.costura.domain.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URI;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -23,10 +25,17 @@ public class  PostService {
 
     private LikeRepository likeRepository;
 
-    public Post save(PostForm postForm) {
+    private S3Service s3Service;
+
+    public Post save(PostForm postForm,MultipartFile imageFile) {
         AtomicInteger atomicSum = new AtomicInteger(0);
         User user = User.isAuthenticated();
         Post postModel = Post.toModel(postForm);
+        if(imageFile != null){
+            postModel.setPostImage(uploadPostPicture(imageFile).toString());
+        }else{
+            postModel.setPostImage("");
+        }
         postModel.setUser(user);
         postModel.getItems().forEach(c ->{
             c.getSaleItemPK().setPost(postModel);
@@ -56,6 +65,11 @@ public class  PostService {
         commentedPost.plusOneComment();
 
         return commentRepository.save(commentModel);
+    }
+
+    public URI uploadPostPicture(MultipartFile multipartFile)
+    {
+        return s3Service.uploadFile(multipartFile);
     }
 
     public Purchase buy(Long postId) {

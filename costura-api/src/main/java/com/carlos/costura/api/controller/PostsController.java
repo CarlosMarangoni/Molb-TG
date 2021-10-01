@@ -16,10 +16,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,12 +53,23 @@ public class PostsController {
     }
 
     @PostMapping
-    public ResponseEntity<PostOutput> addPost(@Valid @RequestBody PostForm postForm, UriComponentsBuilder uriComponentsBuilder){
-        Post savedPost = postService.save(postForm);
+    public ResponseEntity<PostOutput> addPost(@RequestParam(name = "file",required = false) MultipartFile imageFile,
+                                              @Valid @RequestPart("post") PostForm postForm, UriComponentsBuilder uriComponentsBuilder){
+        Post savedPost = postService.save(postForm,imageFile);
         UriComponents uriComponents = uriComponentsBuilder.path("/posts/{id}").buildAndExpand(savedPost.getId());
         var location = uriComponents.toUri();
         return ResponseEntity.created(location).body(PostOutput.toOutput(savedPost));
     }
+
+    @PostMapping("/picture")
+    public ResponseEntity<Void> uploadPicture(@RequestParam(name = "file") MultipartFile file){
+
+        URI uri = postService.uploadPostPicture(file);
+
+        return ResponseEntity.created(uri).build();
+
+    }
+
 
     @PostMapping("/{postId}/comment")
     public ResponseEntity<CommentOutput> addComment(@PathVariable Long postId,

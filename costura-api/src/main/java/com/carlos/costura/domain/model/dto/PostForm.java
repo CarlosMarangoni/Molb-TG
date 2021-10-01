@@ -6,6 +6,7 @@ import com.carlos.costura.domain.model.SaleItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
@@ -18,10 +19,7 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class PostForm {
-
-    private String postImage;
 
     @NotEmpty
     private String description;
@@ -32,9 +30,14 @@ public class PostForm {
     @NotEmpty
     private List<SaleItemForm> items = new ArrayList<>();
 
+    public PostForm(String description, BigDecimal price, List<SaleItemForm> items) {
+        this.description = description;
+        this.price = price;
+        this.items = items;
+    }
+
     public static PostForm toForm(Post post){
         return new PostForm(
-                post.getPostImage(),
                 post.getDescription(),
                 post.getPrice(),
                 post.getItems().stream().map(SaleItemForm::toForm).collect(Collectors.toList()));

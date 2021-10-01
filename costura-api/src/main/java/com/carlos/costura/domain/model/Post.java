@@ -57,15 +57,14 @@ public class Post {
     @OneToMany(mappedBy = "saleItemPK.post",cascade = CascadeType.ALL)
     private List<SaleItem> items = new ArrayList<>();
 
-    public Post(String postImage, String description, BigDecimal price, List<SaleItem> items) {
-        this.postImage = postImage;
+    public Post(String description, BigDecimal price, List<SaleItem> items) {
         this.description = description;
         this.price = price;
         this.items = items;
     }
 
     public static Post toModel(PostForm postForm) {
-        return new Post(postForm.getPostImage(),
+        return new Post(
                 postForm.getDescription(),
                 postForm.getPrice(),
                 postForm.getItems().stream().map(SaleItem::toModel).collect(Collectors.toList()));
