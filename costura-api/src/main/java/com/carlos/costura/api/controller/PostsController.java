@@ -1,18 +1,13 @@
 package com.carlos.costura.api.controller;
 
 import com.carlos.costura.domain.exception.PageNotFoundException;
-import com.carlos.costura.domain.model.Comment;
-import com.carlos.costura.domain.model.Post;
-import com.carlos.costura.domain.model.Purchase;
-import com.carlos.costura.domain.model.User;
-import com.carlos.costura.domain.model.dto.CommentForm;
-import com.carlos.costura.domain.model.dto.CommentOutput;
-import com.carlos.costura.domain.model.dto.PostForm;
-import com.carlos.costura.domain.model.dto.PostOutput;
+import com.carlos.costura.domain.model.*;
+import com.carlos.costura.domain.model.dto.*;
 import com.carlos.costura.domain.repository.PostRepository;
 import com.carlos.costura.domain.repository.UserRepository;
 import com.carlos.costura.domain.service.PostService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -61,13 +56,10 @@ public class PostsController {
         return ResponseEntity.created(location).body(PostOutput.toOutput(savedPost));
     }
 
-    @PostMapping("/picture")
-    public ResponseEntity<Void> uploadPicture(@RequestParam(name = "file") MultipartFile file){
-
-        URI uri = postService.uploadPostPicture(file);
-
-        return ResponseEntity.created(uri).build();
-
+    @PostMapping("/{postId}/item")
+    public ResponseEntity<PostOutput> addItem(@RequestBody SaleItemForm saleItemForm, @PathVariable Long postId){
+        Post post = postService.addItem(saleItemForm,postId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(PostOutput.toOutput(post));
     }
 
 
@@ -83,6 +75,13 @@ public class PostsController {
     @PostMapping("/{postId}/like")
     public void addLike(@PathVariable Long postId){
         postService.addLike(postId);
+    }
+
+
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<?> deletePost(@PathVariable Long postId){
+        postService.delete(postId);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{postId}/buy")

@@ -31,8 +31,6 @@ public class Post {
 
     private String postImage;
 
-    private String imageName;
-
     @NotNull
     private String description;
 
@@ -48,10 +46,10 @@ public class Post {
     @CreationTimestamp
     private OffsetDateTime createdAt;
 
-    @OneToMany(mappedBy = "likesPK.post")
+    @OneToMany(mappedBy = "likesPK.post",cascade = CascadeType.ALL)
     private List<Like> likes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "saleItemPK.post",cascade = CascadeType.ALL)
