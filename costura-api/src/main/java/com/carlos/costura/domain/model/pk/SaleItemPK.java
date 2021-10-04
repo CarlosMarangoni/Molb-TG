@@ -2,17 +2,18 @@ package com.carlos.costura.domain.model.pk;
 
 import com.carlos.costura.domain.model.Post;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Embeddable
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @EqualsAndHashCode
+@Builder
+@AllArgsConstructor
 public class SaleItemPK implements Serializable {
 
     private static final long serialVersionUID = 1L;

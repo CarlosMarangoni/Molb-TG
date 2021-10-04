@@ -84,6 +84,12 @@ public class PostsController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/{postId}/item/{itemId}")
+    public ResponseEntity<?> deleteItem(@PathVariable Long postId,@PathVariable Integer itemId){
+        postService.deleteItem(postId,itemId);
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping("/{postId}/buy")
     public ResponseEntity<Purchase> buyPost(@PathVariable Long postId){
         Purchase purchase = postService.buy(postId);
