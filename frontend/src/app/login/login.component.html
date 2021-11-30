@@ -3,26 +3,28 @@
         <img src="/assets/img/logo2.svg" width="40%" alt="">
     </div>
 
-    <div class="text-center">
-        <mat-form-field appearance="outline" style="min-width: 40%">
-            <mat-label>E-mail</mat-label>
-            <input matInput placeholder="Digite seu e-mail" type="email">
-        </mat-form-field>
-    </div>
-    <div class="text-center">
-        <mat-form-field appearance="fill" style="min-width: 40%">
-            <mat-label>Digite sua senha</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'">
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-        </mat-form-field>
-    </div>
+    <form id='accesspanel' action="login" method="POST">
+        <div class="text-center">
+            <mat-form-field appearance="outline" style="min-width: 40%">
+                <mat-label>E-mail</mat-label>
+                <input matInput placeholder="Digite seu e-mail" type="email" name='username' id='username' [(ngModel)]="username">
+            </mat-form-field>
+        </div>
+        <div class="text-center">
+            <mat-form-field appearance="fill" style="min-width: 40%">
+                <mat-label>Digite sua senha</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" name='password' id='password' [(ngModel)]="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
 
-    <div class="text-center p-3">
-        <button class="btn btn-primary" style="width: 30%;">Login</button><br>
-        <a style="font-size: x-small;">Esqueceu a senha? Clique aqui.</a>
-    </div>
+        <div class="text-center p-3">
+            <input class='btn btn-primary' style="width: 30%;" type='submit' name='Login' value='Login' (click)="doLogin()"><br>
+            <a style="font-size: x-small;">Esqueceu a senha? Clique aqui.</a>
+        </div>
+    </form>
     <div class="text-center" style="height: 20rem;">
         <div>
             <span>Não tem uma conta? </span><span class="btn btn-primary">Criar conta</span>

@@ -4,6 +4,7 @@ import com.carlos.costura.domain.exception.AuthorizationException;
 import com.carlos.costura.domain.exception.PageNotFoundException;
 import com.carlos.costura.domain.model.User;
 import com.carlos.costura.domain.model.dto.LoginForm;
+import com.carlos.costura.domain.model.dto.PostOutput;
 import com.carlos.costura.domain.model.dto.UserOutput;
 import com.carlos.costura.domain.repository.UserRepository;
 import com.carlos.costura.domain.service.UserService;
@@ -17,6 +18,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -26,6 +29,18 @@ public class UserController {
     private UserRepository userRepository;
 
     private UserService userService;
+
+    @GetMapping("/login")
+    public String login(){
+        return "Login realizado com sucesso.";
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<UserOutput>> getUsers(){
+        List<User> users = userRepository.findAll();
+        return ResponseEntity.ok(users.stream().map(UserOutput::toOutput).collect(Collectors.toList()));
+
+    }
 
     @GetMapping("/users/{id}")
     public ResponseEntity<UserOutput> getUser(@PathVariable Long id){

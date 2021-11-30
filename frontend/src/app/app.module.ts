@@ -22,7 +22,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegisterComponent } from './register/register.component';
-
+import { LoginService } from './service/login.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -48,12 +49,13 @@ import { RegisterComponent } from './register/register.component';
     MatInputModule,
     MatIconModule,
     FormsModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule
   ],
   exports:[
  
   ],
-  providers: [],
+  providers: [LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
