@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Entity
@@ -24,11 +25,16 @@ public class SaleItem {
 
     private String description;
 
-    public SaleItem(String description) {
+    @NotNull
+    private BigDecimal price;
+
+    public SaleItem(String description,BigDecimal price) {
         this.description = description;
+        this.price = price;
     }
 
     public static SaleItem toModel(SaleItemForm saleItemForm) {
-        return new SaleItem(saleItemForm.getDescription());
+        return new SaleItem(saleItemForm.getDescription(),
+                saleItemForm.getPrice());
     }
 }

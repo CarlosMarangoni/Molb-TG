@@ -16,8 +16,12 @@ public class SaleItemForm {
     @NotEmpty
     private String description;
 
+    @NotEmpty
+    private BigDecimal price;
+
     public static SaleItemForm toForm(SaleItem item){
         return new SaleItemForm(
-                item.getDescription());
+                item.getDescription(),
+                item.getPrice());
     }
 }

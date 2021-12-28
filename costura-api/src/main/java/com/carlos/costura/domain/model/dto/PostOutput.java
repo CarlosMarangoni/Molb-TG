@@ -21,8 +21,6 @@ public class PostOutput {
 
     private String description;
 
-    private BigDecimal price;
-
     private OffsetDateTime createdAt;
 
     private List<LikeOutput> likes;
@@ -36,7 +34,6 @@ public class PostOutput {
                 post.getPostImage(),
                 post.getUser().getUser(),
                 post.getDescription(),
-                post.getPrice(),
                 post.getCreatedAt(),
                 post.getLikes().stream().map(LikeOutput::toOutput).collect(Collectors.toList()),
                 post.getComments().stream().map(CommentOutput::toOutput).collect(Collectors.toList()),

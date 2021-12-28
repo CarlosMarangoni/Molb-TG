@@ -119,11 +119,19 @@ public class User implements UserDetails {
         return true;
     }
 
-    public static User isAuthenticated(){
+    public static User isAuthenticatedReturnUser(){
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (loggedUser == null){
             throw new AuthorizationException("Acesso negado.");
         }
         return loggedUser;
+    }
+
+    public static Boolean isAuthenticated(){
+        User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (loggedUser == null){
+            throw new AuthorizationException("Acesso negado.");
+        }
+        return Boolean.TRUE;
     }
 }

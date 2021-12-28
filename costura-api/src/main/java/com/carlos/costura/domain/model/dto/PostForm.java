@@ -25,21 +25,21 @@ public class PostForm {
     private String description;
 
     @NotNull
-    private BigDecimal price;
+    private Long userId;
 
     @NotEmpty
     private List<SaleItemForm> items = new ArrayList<>();
 
-    public PostForm(String description, BigDecimal price, List<SaleItemForm> items) {
+    public PostForm(String description,Long userId, List<SaleItemForm> items) {
         this.description = description;
-        this.price = price;
+        this.userId = userId;
         this.items = items;
     }
 
     public static PostForm toForm(Post post){
         return new PostForm(
                 post.getDescription(),
-                post.getPrice(),
+                post.getUser().getId(),
                 post.getItems().stream().map(SaleItemForm::toForm).collect(Collectors.toList()));
     }
 

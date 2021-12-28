@@ -34,9 +34,6 @@ public class Post {
     @NotNull
     private String description;
 
-    @NotNull
-    private BigDecimal price;
-
     private Integer likeAmount = 0;
 
     private Integer commentAmount = 0;
@@ -55,16 +52,14 @@ public class Post {
     @OneToMany(mappedBy = "saleItemPK.post",cascade = CascadeType.ALL)
     private List<SaleItem> items = new ArrayList<>();
 
-    public Post(String description, BigDecimal price, List<SaleItem> items) {
+    public Post(String description, List<SaleItem> items) {
         this.description = description;
-        this.price = price;
         this.items = items;
     }
 
     public static Post toModel(PostForm postForm) {
         return new Post(
                 postForm.getDescription(),
-                postForm.getPrice(),
                 postForm.getItems().stream().map(SaleItem::toModel).collect(Collectors.toList()));
     }
 

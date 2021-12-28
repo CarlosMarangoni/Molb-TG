@@ -1,12 +1,10 @@
 package com.carlos.costura.domain.service;
 
-import com.carlos.costura.domain.exception.AuthorizationException;
 import com.carlos.costura.domain.exception.PageNotFoundException;
 import com.carlos.costura.domain.model.User;
 import com.carlos.costura.domain.model.dto.LoginForm;
 import com.carlos.costura.domain.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,7 +30,7 @@ public class UserService {
     }
 
     public void followUser(Long id) {
-        User loggedUser = User.isAuthenticated();
+        User loggedUser = User.isAuthenticatedReturnUser();
         User followedUser = userRepository.findById(id).orElseThrow(() -> new PageNotFoundException("Usuário não encontrado."));
         loggedUser = userRepository.findById(loggedUser.getId()).orElseThrow(() -> new PageNotFoundException("Usuário não encontrado."));
 

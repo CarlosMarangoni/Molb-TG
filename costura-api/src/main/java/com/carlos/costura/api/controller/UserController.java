@@ -1,16 +1,13 @@
 package com.carlos.costura.api.controller;
 
-import com.carlos.costura.domain.exception.AuthorizationException;
 import com.carlos.costura.domain.exception.PageNotFoundException;
 import com.carlos.costura.domain.model.User;
 import com.carlos.costura.domain.model.dto.LoginForm;
-import com.carlos.costura.domain.model.dto.PostOutput;
 import com.carlos.costura.domain.model.dto.UserOutput;
 import com.carlos.costura.domain.repository.UserRepository;
 import com.carlos.costura.domain.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponents;
@@ -60,7 +57,7 @@ public class UserController {
 
     @PostMapping("/users/picture")
     public ResponseEntity<Void> uploadPicture(@RequestParam(name = "file") MultipartFile file){
-        User loggedUser = User.isAuthenticated();
+        User loggedUser = User.isAuthenticatedReturnUser();
         loggedUser = userRepository.findById(loggedUser.getId()).get();
         URI uri = userService.uploadProfilePicture(file);
         loggedUser.setProfileImage(uri.toString());

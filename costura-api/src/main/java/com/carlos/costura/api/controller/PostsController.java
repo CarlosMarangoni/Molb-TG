@@ -36,7 +36,7 @@ public class PostsController {
     public ResponseEntity<List<PostOutput>> getAllPosts(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         user = userRepository.findById(user.getId()).orElseThrow(() -> new PageNotFoundException("Página não encontrada"));
-        List<Post> posts = postRepository.findAllByUserFollowed(user);
+        List<Post> posts = postRepository.findAll();
         return ResponseEntity.ok(posts.stream().map(PostOutput::toOutput).collect(Collectors.toList()));
     }
 

@@ -20,8 +20,6 @@ public class PostSummary {
 
     private String description;
 
-    private BigDecimal price;
-
     private OffsetDateTime createdAt;
 
     private Integer likeAmount;
@@ -33,7 +31,6 @@ public class PostSummary {
                 post.getPostImage(),
                 post.getUser().getUser(),
                 post.getDescription(),
-                post.getPrice(),
                 post.getCreatedAt(),
                 post.getLikeAmount(),
                 post.getCommentAmount()

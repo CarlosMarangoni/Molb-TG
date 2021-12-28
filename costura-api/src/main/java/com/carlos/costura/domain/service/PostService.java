@@ -7,16 +7,12 @@ import com.carlos.costura.domain.model.dto.CommentForm;
 import com.carlos.costura.domain.model.dto.PostForm;
 import com.carlos.costura.domain.model.dto.SaleItemForm;
 import com.carlos.costura.domain.model.pk.SaleItemPK;
-import com.carlos.costura.domain.repository.CommentRepository;
-import com.carlos.costura.domain.repository.LikeRepository;
-import com.carlos.costura.domain.repository.PostRepository;
-import com.carlos.costura.domain.repository.SaleItemRepository;
+import com.carlos.costura.domain.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
 import java.net.URI;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -31,30 +27,37 @@ public class  PostService {
 
     private LikeRepository likeRepository;
 
+    private UserRepository userRepository;
+
     private SaleItemRepository saleItemRepository;
 
     private S3Service s3Service;
 
     public Post save(PostForm postForm,MultipartFile imageFile) {
         AtomicInteger atomicSum = new AtomicInteger(0);
-        User user = User.isAuthenticated();
-        Post postModel = Post.toModel(postForm);
-        if(imageFile != null){
-            postModel.setPostImage(uploadPostPicture(imageFile).toString());
-        }else{
-            postModel.setPostImage("");
-        }
-        postModel.setUser(user);
-        postModel.getItems().forEach(c ->{
-            c.getSaleItemPK().setPost(postModel);
-            c.getSaleItemPK().setItem(atomicSum.incrementAndGet());
-        });
+        if(User.isAuthenticated()){
+            User user = userRepository.findById(postForm.getUserId()).orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+            Post postModel = Post.toModel(postForm);
+            if(imageFile != null){
+                postModel.setPostImage(uploadPostPicture(imageFile).toString());
+            }else{
+                postModel.setPostImage("");
+            }
+            postModel.setUser(user);
+            postModel.getItems().forEach(c ->{
+                c.getSaleItemPK().setPost(postModel);
+                c.getSaleItemPK().setItem(atomicSum.incrementAndGet());
+            });
 
-        return postRepository.save(postModel);
+            return postRepository.save(postModel);
+        }else {
+            throw new AuthorizationException("Acesso negado.");
+        }
+
     }
 
     public void addLike(Long postId) {
-        User user = User.isAuthenticated();
+        User user = User.isAuthenticatedReturnUser();
         Like like = new Like();
         Post likedPost = postRepository.findById(postId).get();
         like.getLikesPK().setPost(likedPost);
@@ -65,7 +68,7 @@ public class  PostService {
     }
 
     public Comment addComment(CommentForm commentForm, Long postId) {
-        User user = User.isAuthenticated();
+        User user = User.isAuthenticatedReturnUser();
         Comment commentModel = Comment.toModel(commentForm);
         Post commentedPost = postRepository.findById(postId).get();
         commentModel.setPost(commentedPost);
@@ -95,7 +98,7 @@ public class  PostService {
 
     public Post addItem(SaleItemForm saleItemForm, Long postId) {
         SaleItem saleItem = SaleItem.toModel(saleItemForm);
-        User loggedUser = User.isAuthenticated();
+        User loggedUser = User.isAuthenticatedReturnUser();
         Post post = postRepository.findById(postId).orElseThrow(() -> new PageNotFoundException("Post não encontrado."));
         if(loggedUser.getId().equals(post.getUser().getId())){
            List<SaleItem> items = post.getItems();
@@ -112,7 +115,7 @@ public class  PostService {
 
     public void deleteItem(Long postId, Integer itemId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new PageNotFoundException("Post não encontrado."));
-        User loggedUser = User.isAuthenticated();
+        User loggedUser = User.isAuthenticatedReturnUser();
         List<SaleItem> items = post.getItems();
         if(loggedUser.getId().equals(post.getUser().getId())) {
             saleItemRepository.deleteById(SaleItemPK.builder()
