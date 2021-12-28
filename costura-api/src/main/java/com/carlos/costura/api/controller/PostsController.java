@@ -7,6 +7,9 @@ import com.carlos.costura.domain.repository.PostRepository;
 import com.carlos.costura.domain.repository.UserRepository;
 import com.carlos.costura.domain.service.PostService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,11 +36,13 @@ public class PostsController {
 
 
     @GetMapping
-    public ResponseEntity<List<PostOutput>> getAllPosts(){
+    public Page<PostOutput> getAllPosts(Pageable pageable){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         user = userRepository.findById(user.getId()).orElseThrow(() -> new PageNotFoundException("Página não encontrada"));
-        List<Post> posts = postRepository.findAll();
-        return ResponseEntity.ok(posts.stream().map(PostOutput::toOutput).collect(Collectors.toList()));
+        Page<Post> postList = postRepository.findAll(pageable);
+        List<PostOutput> postListDto = postList.stream().map(PostOutput::toOutput).collect(Collectors.toList());
+        Page<PostOutput> postPaginated = new PageImpl<PostOutput>(postListDto,pageable,postListDto.size());
+        return postPaginated;
     }
 
 
