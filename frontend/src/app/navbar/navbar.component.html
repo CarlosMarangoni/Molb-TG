@@ -1,18 +1,11 @@
 <nav class="navbar shadow justify-content-between bg-secondary">
 
     <div>
-        <div class="navbar-brand brand-font mr-2" style="font-size: 3rem;"> Molsew
-        </div>
+        <a class="btn" [routerLink]="['/home']">
+            <div class="navbar-brand brand-font mr-2" style="font-size: 3rem;"> Molsew
+            </div>
+        </a>
 
-        <mat-form-field appearance="fill" style="width: 50%;height: 20px;">
-            <input matInput type="text" [(ngModel)]="value">
-            <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-              <mat-icon>close</mat-icon>
-            </button>
-        </mat-form-field>
-        <button type="submit" class="btn btn-secondary ml-2 mb-1">
-                <img class="" src="/assets/img/search.svg">
-            </button>
     </div>
 
     <div class="btn dropdown dropdown-toggle text-center">

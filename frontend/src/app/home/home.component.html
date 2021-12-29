@@ -11,12 +11,12 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownPosts">
                 <div class="form-check">
-                    <li><input class="form-check-input" type="radio" name="radioUsers" id="radioAllUsers" checked>
+                    <li><input class="form-check-input" type="radio" name="radioUsers" id="radioAllUsers" value="allUsers" checked>
                         <label class="dropdown-item form-check-label p-0" for="radioAllUsers">
                             Todos usuários                            
                         </label>
                     </li>
-                    <li><input class="form-check-input" type="radio" name="radioUsers" id="radioFollowedUsers">
+                    <li><input class="form-check-input" type="radio" name="radioUsers" value="followedUsers" id="radioFollowedUsers">
                         <label class="dropdown-item form-check-label p-0" for="radioFollowedUsers">
                             Usuários seguidos
                         </label>
@@ -29,13 +29,16 @@
 
     <div class="row">
         <div *ngFor="let post of posts | filter:searchText" class="col-md-4">
-            <div class="post my-3 p-4 bg-secondary rounded col-sm card hover-overlay">
-                <span class="text-left card-header"><img class="border border-primary rounded-circle" width="50px"
-                src="/assets/img/muie.jpg" alt="">{{post.user}}</span>
+            <div class="post my-3 p-4 bg-secondary rounded col-sm card">
+                <a class="btn btn-primary mb-2" [routerLink]="['/profile/',post.userId]">
+                    <span class="text-left"><img class="border border-primary rounded-circle" width="50px"
+                src="/assets/img/muie.jpg" alt="">{{post.user}}</span></a>
 
-
-                <img class="border rounded border-primary border-10" width="100%" src="/assets/img/tshirt.png" alt="">
+                <a class="btn" [routerLink]="['/posts/',post.id]">
+                    <img class="border rounded border-primary border-10" width="100%" src="/assets/img/tshirt.png" alt="">
+                </a>
                 <div class="text-center card-body"><b>{{post.description}}</b></div>
+                <button class="btn btn-primary">Comprar</button>
             </div>
         </div>
     </div>

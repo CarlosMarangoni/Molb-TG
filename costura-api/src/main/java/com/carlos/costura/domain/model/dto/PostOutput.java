@@ -15,7 +15,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class PostOutput {
 
+    private Long id;
+
     private String postImage;
+
+    private Long userId;
 
     private String user;
 
@@ -31,7 +35,9 @@ public class PostOutput {
 
     public static PostOutput toOutput(Post post){
         return new PostOutput(
+                post.getId(),
                 post.getPostImage(),
+                post.getUser().getId(),
                 post.getUser().getUser(),
                 post.getDescription(),
                 post.getCreatedAt(),

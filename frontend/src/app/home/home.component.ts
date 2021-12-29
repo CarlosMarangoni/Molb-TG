@@ -1,15 +1,6 @@
+import { Post } from './../../model/post-dto';
+import { User } from './../../model/user-dto';
 import { Component, OnInit } from '@angular/core';
-
-interface Food {
-  value: string;
-  viewValue: string;
-}
-
-interface Post {
-  postImage: string;
-  user: string;
-  description: string
-}
 
 
 @Component({
@@ -22,17 +13,25 @@ export class HomeComponent {
 
   searchText:any
 
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-  ];
   posts: Post[] = [
-    {postImage: 'ford', user: 'carlos_marangoni',description:'Camiseta facil de fazer'},
-    {postImage: 'ford', user: 'darlan_silva',description:'Regata branca'},
-    {postImage: 'ford', user: 'maria_silva',description:'Mascara preta'},
+    {id:1, postImage: 'ford', 
+    userId:1,
+    user: 'carlos_marangoni'     
+    ,description:'Camiseta facil de fazer'
+  },
+    {
+      id:2, 
+      postImage: 'ford', 
+      userId:1,
+      user:'carlos_marangoni',
+      description:'Regata branca'
+  },
+    {
+      id:3,
+      postImage: 'ford', 
+      userId:2,
+      user: 'darlan_silva',
+      description:'Mascara preta'
+    },
   ];
-  selectedFood = this.foods[2].value;
-
-
 }

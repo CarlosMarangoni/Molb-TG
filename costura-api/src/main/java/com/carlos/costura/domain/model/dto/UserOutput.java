@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserOutput {
 
+    private Long id;
+
     private String user;
 
     private String name;
@@ -25,6 +27,7 @@ public class UserOutput {
 
     public static UserOutput toOutput(User user){
         return new UserOutput(
+                user.getId(),
                 user.getUser(),
                 user.getName(),
                 user.getFollowing().stream().map(FollowerOutput::toOutput).collect(Collectors.toList()),

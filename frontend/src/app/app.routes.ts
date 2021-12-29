@@ -9,9 +9,9 @@ import { PostDetailComponent } from "./post-detail/post-detail.component"
 export const rootRouterConfig: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'profile', component: ProfileComponent },
-    { path: 'post-detail', component: PostDetailComponent },
-    { path: 'buy', component: BuyComponent },
+    { path: 'profile/:id', component: ProfileComponent },
+    { path: 'posts/:id', component: PostDetailComponent },
+    { path: 'posts/:id/comprar', component: BuyComponent },
     { path: 'login', component: LoginComponent },
     { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: 'register', component: RegisterComponent }
