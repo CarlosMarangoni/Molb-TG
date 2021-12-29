@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post,Long> {
 
+    List<Post> findAllByUser(User user);
+
 //    @Query("SELECT p FROM Post p WHERE :id MEMBER OF p.user.followers")
 //    List<Post> findAllByUserFollowed(@Param("id") User user);
 }

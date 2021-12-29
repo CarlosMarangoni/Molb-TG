@@ -52,6 +52,13 @@ public class PostsController {
         return ResponseEntity.ok(PostOutput.toOutput(post));
     }
 
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<PostOutput>> getPostByUser(@PathVariable Long id){
+        User user = userRepository.findById(id).orElseThrow(() -> new PageNotFoundException("Página não encontrada."));
+        List<Post> post = postRepository.findAllByUser(user);
+        return ResponseEntity.ok(post.stream().map(PostOutput::toOutput).collect(Collectors.toList()));
+    }
+
     @PostMapping
     public ResponseEntity<PostOutput> addPost(@RequestParam(name = "file",required = false) MultipartFile imageFile,
                                               @Valid @RequestPart("post") PostForm postForm, UriComponentsBuilder uriComponentsBuilder){
