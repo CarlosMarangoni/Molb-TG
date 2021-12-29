@@ -1,60 +1,43 @@
 <div class="container">
-    <div class="post my-3 p-4 bg-secondary rounded">
-        <span class="text-left"><img class="border border-primary rounded-circle" width="50px"
-                src="/assets/img/muie.jpg" alt="">mari_costura</span>
-
-
-        <img class="border rounded border-primary border-20" width="100%" src="/assets/img/tshirt.png" alt="">
-        <div class="text-center"><b>Camiseta regata fácil de fazer com pouco elátisco molde grátis</b></div>
-
-
-        <div class="d-flex justify-content-around">
-            <div class="btn">
-                <span>12
-                    <img width="60px" src="/assets/img/like-icon.svg" alt="">
-                </span>
-            </div>
-
-            <div class="btn">
-                <span>0
-                    <img width="60px" src="/assets/img/comment-icon.svg" alt="">
-                </span>
-            </div>
+    <div class="bg-primary row mt-4 rounded d-flex justify-content-between">
+        <div class="input-group col-md-4 m-2">
+            <input class="form-control py-2" type="search" [(ngModel)]="searchText" name="search">
+            <span class="input-group-append">
+            </span>
         </div>
-        <mat-form-field class="mt-3" appearance="outline" style="width: 100%">
-            <input matInput placeholder="Escreva um Comentário..." type="email">
-        </mat-form-field>
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle m-2" type="button" id="dropdownPosts" data-bs-toggle="dropdown" aria-expanded="false">
+            
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownPosts">
+                <div class="form-check">
+                    <li><input class="form-check-input" type="radio" name="radioUsers" id="radioAllUsers" checked>
+                        <label class="dropdown-item form-check-label p-0" for="radioAllUsers">
+                            Todos usuários                            
+                        </label>
+                    </li>
+                    <li><input class="form-check-input" type="radio" name="radioUsers" id="radioFollowedUsers">
+                        <label class="dropdown-item form-check-label p-0" for="radioFollowedUsers">
+                            Usuários seguidos
+                        </label>
+                    </li>
+                </div>
+            </ul>
+        </div>
+
     </div>
 
-    <!-- DIVISAO DE POST AQUI-->
+    <div class="row">
+        <div *ngFor="let post of posts | filter:searchText" class="col-md-4">
+            <div class="post my-3 p-4 bg-secondary rounded col-sm card hover-overlay">
+                <span class="text-left card-header"><img class="border border-primary rounded-circle" width="50px"
+                src="/assets/img/muie.jpg" alt="">{{post.user}}</span>
 
 
-
-
-    <div class="post my-3 p-4 bg-secondary rounded">
-        <span class="text-left"><img class="border border-primary rounded-circle" width="50px"
-                src="/assets/img/muie.jpg" alt="">mari_costura</span>
-
-
-        <img class="border rounded border-primary border-20" width="100%" src="/assets/img/tshirt.png" alt="">
-        <div class="text-center"><b>Camiseta regata fácil de fazer com pouco elátisco molde grátis</b></div>
-
-
-        <div class="d-flex justify-content-around">
-            <div class="btn">
-                <span>12
-                    <img width="60px" src="/assets/img/like-icon.svg" alt="">
-                </span>
-            </div>
-
-            <div class="btn">
-                <span>0
-                    <img width="60px" src="/assets/img/comment-icon.svg" alt="">
-                </span>
+                <img class="border rounded border-primary border-10" width="100%" src="/assets/img/tshirt.png" alt="">
+                <div class="text-center card-body"><b>{{post.description}}</b></div>
             </div>
         </div>
-        <mat-form-field class="mt-3" appearance="outline" style="width: 100%">
-            <input matInput placeholder="Escreva um Comentário..." type="email">
-        </mat-form-field>
     </div>
+
 </div>

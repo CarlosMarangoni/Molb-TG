@@ -99,3 +99,7 @@ body {
 .border-20 {
     border-width: 20px !important;
 }
+
+.hover-overlay:hover {
+    filter: saturate(2.1);
+}
