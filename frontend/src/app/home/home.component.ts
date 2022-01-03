@@ -29,6 +29,16 @@ export class HomeComponent implements OnInit{
     },
     error => console.log(error))
   }
+
+  onClick(activePage:number){
+    this.activePage=activePage;
+    this.postService.obterTodasPostagensPaginadas(this.activePage)
+    .subscribe(posts =>{
+      this.posts = posts;
+      console.log(posts)
+    },
+    error => console.log(error))
+  }
   
   
   

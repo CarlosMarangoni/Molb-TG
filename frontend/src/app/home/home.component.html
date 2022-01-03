@@ -30,14 +30,14 @@
     <div class="d-flex justify-content-center">
         <nav class="">
             <ul class="pagination m-0">
-                <li class="page-item" [ngClass]="{'disabled' : 'posts.first == true'}">
-                    <button class="page-link">Anterior</button>
+                <li class="page-item" [ngClass]="{'disabled' : posts.first == true}">
+                    <button class="page-link" (click)="onClick(activePage-1)">Anterior</button>
                 </li>
                 <li class="page-item disabled">
-                    <span class="page-link"></span>
+                    <span class="page-link">{{activePage + 1 }}</span>
                 </li>
-                <li class="page-item" [ngClass]="{'disabled' : 'posts.last == true'}">
-                    <button class="page-link">Próxima</button>
+                <li class="page-item" [ngClass]="{'disabled' : posts.last == true}">
+                    <button class="page-link" (click)="onClick(activePage+1)">Próxima</button>
                 </li>
             </ul>
         </nav>
