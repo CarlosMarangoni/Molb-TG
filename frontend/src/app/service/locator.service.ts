@@ -15,6 +15,7 @@ export class LocatorService {
     this.services.LiberarVeiculo = this.urlBase + "veiculos/${veiculoId}/liberar";
     this.services.Posts = this.urlBase + "posts";
     this.services.Post = this.urlBase + "posts/${postId}";
+    this.services.PostByUser = this.urlBase + "posts/user/${userId}";
     this.services.Comment = this.urlBase + "posts/${postId}/comment";
     this.services.Like = this.urlBase + "posts/${postId}/like";
     this.services.Login = this.urlBase + "login";

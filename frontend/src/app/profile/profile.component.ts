@@ -91,7 +91,9 @@ export class ProfileComponent implements OnInit {
     this.user = this.users.find(u => u.id === this.id)!;
     this.followers = this.user.followers.length;
     this.following = this.user.following.length;
-    
+    // this.postCount = this.posts.forEach(p=>{
+    //   if(p.userId == this.id)
+    // })
   }
 
   

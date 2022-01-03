@@ -27,8 +27,24 @@
 
     </div>
 
+    <div class="d-flex justify-content-center">
+        <nav class="">
+            <ul class="pagination m-0">
+                <li class="page-item" [ngClass]="{'disabled' : 'posts.first == true'}">
+                    <button class="page-link">Anterior</button>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link"></span>
+                </li>
+                <li class="page-item" [ngClass]="{'disabled' : 'posts.last == true'}">
+                    <button class="page-link">Próxima</button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
     <div class="row">
-        <div *ngFor="let post of posts | filter:searchText" class="col-md-4">
+        <div *ngFor="let post of posts.content | filter:searchText" class="col-md-4">
             <div class="post my-3 p-4 bg-secondary rounded col-sm card">
                 <a class="btn btn-primary mb-2" [routerLink]="['/profile/',post.userId]">
                     <span class="text-left"><img class="border border-primary rounded-circle" width="50px"

@@ -37,11 +37,15 @@ public class PostsController {
 
     @GetMapping
     public Page<PostOutput> getAllPosts(Pageable pageable){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        user = userRepository.findById(user.getId()).orElseThrow(() -> new PageNotFoundException("Página não encontrada"));
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        user = userRepository.findById(user.getId()).orElseThrow(() -> new PageNotFoundException("Página não encontrada"));
+
         Page<Post> postList = postRepository.findAll(pageable);
         List<PostOutput> postListDto = postList.stream().map(PostOutput::toOutput).collect(Collectors.toList());
-        Page<PostOutput> postPaginated = new PageImpl<PostOutput>(postListDto,pageable,postListDto.size());
+        int pageSize = pageable.getPageSize();
+        long pageOffset = pageable.getOffset();
+        long total = pageOffset + postListDto.size() + (postListDto.size() == pageSize ? pageSize : 0);
+        Page<PostOutput> postPaginated = new PageImpl<PostOutput>(postListDto,pageable,total);
         return postPaginated;
     }
 

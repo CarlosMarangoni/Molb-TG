@@ -1,3 +1,5 @@
+import { PageablePostDto } from './../../model/pageable-post-dto';
+import { PostService } from './../service/post.service';
 import { Post } from './../../model/post-dto';
 import { User } from './../../model/user-dto';
 import { Component, OnInit } from '@angular/core';
@@ -9,29 +11,26 @@ import { Component, OnInit } from '@angular/core';
   styles: [
   ]
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
 
-  searchText:any
+  searchText:any;
+  posts:PageablePostDto= new PageablePostDto();
+  activePage:number = 0
 
-  posts: Post[] = [
-    {id:1, postImage: 'ford', 
-    userId:1,
-    user: 'carlos_marangoni'     
-    ,description:'Camiseta facil de fazer'
-  },
-    {
-      id:2, 
-      postImage: 'ford', 
-      userId:1,
-      user:'carlos_marangoni',
-      description:'Regata branca'
-  },
-    {
-      id:3,
-      postImage: 'ford', 
-      userId:2,
-      user: 'darlan_silva',
-      description:'Mascara preta'
+  constructor(private postService:PostService){
+    this.postService=postService;
+  }
+  
+  ngOnInit(): void {
+    this.postService.obterTodasPostagensPaginadas(this.activePage)
+    .subscribe(posts =>{
+      this.posts = posts;
+      console.log(posts)
     },
-  ];
+    error => console.log(error))
+  }
+  
+  
+  
+  
 }
