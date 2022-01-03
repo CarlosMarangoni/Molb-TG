@@ -21,6 +21,8 @@ public class PostOutput {
 
     private Long userId;
 
+    private String profileImage;
+
     private String user;
 
     private String description;
@@ -38,6 +40,7 @@ public class PostOutput {
                 post.getId(),
                 post.getPostImage(),
                 post.getUser().getId(),
+                post.getUser().getProfileImage(),
                 post.getUser().getUser(),
                 post.getDescription(),
                 post.getCreatedAt(),

@@ -38,6 +38,9 @@ public class User implements UserDetails {
     private String name;
 
     @NotNull
+    private String description;
+
+    @NotNull
     private String user;
 
     @Email
@@ -70,9 +73,10 @@ public class User implements UserDetails {
 
     private String profileImage;
 
-    public User(String name, String user, String email, String password) {
+    public User(String name, String user,String description,String email, String password) {
         this.name = name;
         this.user = user;
+        this.description = description;
         this.email = email;
         this.password = password;
     }
@@ -85,6 +89,7 @@ public class User implements UserDetails {
         return new User(
                 loginForm.getName(),
                 loginForm.getUsername(),
+                loginForm.getDescription(),
                 loginForm.getEmail(),
                 loginForm.getPassword());
     }

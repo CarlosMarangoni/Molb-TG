@@ -21,9 +21,14 @@ public class UserService {
     private S3Service s3Service;
 
     @Transactional
-    public User save(LoginForm user){
+    public User save(LoginForm user,MultipartFile imageFile){
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         User modelUser = User.toModel(user);
+        if(imageFile != null){
+            modelUser.setProfileImage(uploadProfilePicture(imageFile).toString());
+        }else{
+            modelUser.setProfileImage("");
+        }
         String encodedPassword = encoder.encode(modelUser.getPassword());
         modelUser.setPassword(encodedPassword);
         return userRepository.save(modelUser);

@@ -21,6 +21,9 @@ public class LoginForm {
     @NotEmpty
     private String name;
 
+    @NotNull
+    private String description;
+
     @Email
     @NotNull
     private String email;
@@ -32,6 +35,7 @@ public class LoginForm {
         return new LoginForm(
                 user.getUser(),
                 user.getName(),
+                user.getDescription(),
                 user.getEmail(),
                 user.getPassword()
         );

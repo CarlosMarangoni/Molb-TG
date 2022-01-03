@@ -47,8 +47,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> addUser(@Valid @RequestBody LoginForm loginForm, UriComponentsBuilder uriComponentsBuilder){
-        User createdUser = userService.save(loginForm);
+    public ResponseEntity<User> addUser(@RequestParam(name = "file",required = false) MultipartFile imageFile,@Valid @RequestPart("user") LoginForm loginForm, UriComponentsBuilder uriComponentsBuilder){
+        User createdUser = userService.save(loginForm,imageFile);
         UriComponents uriComponents = uriComponentsBuilder.path("/users/{id}").buildAndExpand(createdUser.getId());
         var location = uriComponents.toUri();
         return ResponseEntity.created(location).body(createdUser);

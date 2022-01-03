@@ -5,13 +5,13 @@
     </div>
     <div class="d-flex justify-content-around">
         <div class="flex-shrink-1">
-            <div class="text-center font-weight-bold">{{user.name}}</div>
-            <img class="border border-primary rounded-circle" width="200px" src="/assets/img/muie.jpg" alt="">
+            <div class="text-center font-weight-bold">{{user.user}}</div>
+            <img class="border border-primary rounded-circle" width="200px" [src]="user.profileImage" alt="">
         </div>
         <div class="border-bottom border-primary" style="width: 75%;">
             <div class="d-flex justify-content-between border-bottom border-primary">
                 <div class="p-2">Publicações
-                    <div class="text-center">15</div>
+                    <div class="text-center">{{postCount}}</div>
                 </div>
                 <div class="p-2">Seguidores
                     <div class="text-center">
@@ -22,7 +22,7 @@
                     <div class="text-center">{{following}}</div>
                 </div>
             </div>
-            <div class="text-center mt-3">Costureira com vasta experiência em costura de roupa, 28 anos e com mais de 30 mil inscritos no Youtube.</div>
+            <div class="text-center mt-3">{{user.description}}</div>
         </div>
 
     </div>

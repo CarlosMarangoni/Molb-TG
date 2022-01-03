@@ -51,8 +51,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     MatIconModule,
     FormsModule,
     MatButtonModule,
-    HttpClientModule,
-    Ng2SearchPipeModule
+    HttpClientModule
   ],
   exports:[
  

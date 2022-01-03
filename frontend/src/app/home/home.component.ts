@@ -13,9 +13,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit{
 
-  searchText:any;
+  filtro:string=''
   posts:PageablePostDto= new PageablePostDto();
   activePage:number = 0
+  selectedSearch:any = 'userFilter'
 
   constructor(private postService:PostService){
     this.postService=postService;
@@ -39,8 +40,28 @@ export class HomeComponent implements OnInit{
     },
     error => console.log(error))
   }
-  
-  
-  
-  
+
+  obterPosts(){
+    if(this.posts.content.length === 0 || this.filtro.trim() === ''){
+      return this.posts.content;
+    }
+
+    if(this.selectedSearch == 'userFilter'){
+      return this.posts.content.filter((v) => {
+        if(v.user.toLowerCase().indexOf(this.filtro.toLowerCase()) >= 0){
+          return true;
+        }
+        return false;
+      })
+    }else {
+      return this.posts.content.filter((v) => {
+        if(v.description.toLowerCase().indexOf(this.filtro.toLowerCase()) >= 0){
+          return true;
+        }
+        return false;
+      })
+    }
+   
+  }
+    
 }

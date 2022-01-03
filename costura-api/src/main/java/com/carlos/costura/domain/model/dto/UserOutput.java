@@ -17,6 +17,10 @@ public class UserOutput {
 
     private String user;
 
+    private String description;
+
+    private String profileImage;
+
     private String name;
 
     private List<FollowerOutput> following;
@@ -29,6 +33,8 @@ public class UserOutput {
         return new UserOutput(
                 user.getId(),
                 user.getUser(),
+                user.getDescription(),
+                user.getProfileImage(),
                 user.getName(),
                 user.getFollowing().stream().map(FollowerOutput::toOutput).collect(Collectors.toList()),
                 user.getFollowers().stream().map(FollowerOutput::toOutput).collect(Collectors.toList()),
