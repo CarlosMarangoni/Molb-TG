@@ -103,3 +103,7 @@ body {
 .hover-overlay:hover {
     filter: saturate(2.1);
 }
+
+.zoom-hover:hover {
+    transform: scale(1.5);
+}

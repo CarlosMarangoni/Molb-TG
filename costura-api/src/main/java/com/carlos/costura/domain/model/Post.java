@@ -32,6 +32,9 @@ public class Post {
     private String postImage;
 
     @NotNull
+    private String title;
+
+    @NotNull
     private String description;
 
     private Integer likeAmount = 0;
@@ -52,13 +55,14 @@ public class Post {
     @OneToMany(mappedBy = "saleItemPK.post",cascade = CascadeType.ALL)
     private List<SaleItem> items = new ArrayList<>();
 
-    public Post(String description, List<SaleItem> items) {
+    public Post(String title,String description, List<SaleItem> items) {
         this.description = description;
         this.items = items;
     }
 
     public static Post toModel(PostForm postForm) {
         return new Post(
+                postForm.getTitle(),
                 postForm.getDescription(),
                 postForm.getItems().stream().map(SaleItem::toModel).collect(Collectors.toList()));
     }

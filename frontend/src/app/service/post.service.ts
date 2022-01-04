@@ -22,4 +22,8 @@ export class PostService {
    obterTodasPostagensPaginadas(activePage:number) : Observable<PageablePostDto>{
     return this.http.get<PageablePostDto>(`${this.locator.services.Posts}?page=${activePage}&size=9`)     
    }
+
+   obterPostsdeUsuario(userId:number):Observable<Post[]>{
+      return this.http.get<Post[]>(`${this.locator.services.Posts}/user/${userId}`)
+  }
 }

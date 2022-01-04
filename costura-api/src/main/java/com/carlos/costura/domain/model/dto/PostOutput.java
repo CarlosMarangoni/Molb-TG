@@ -25,6 +25,8 @@ public class PostOutput {
 
     private String user;
 
+    private String title;
+
     private String description;
 
     private OffsetDateTime createdAt;
@@ -42,6 +44,7 @@ public class PostOutput {
                 post.getUser().getId(),
                 post.getUser().getProfileImage(),
                 post.getUser().getUser(),
+                post.getTitle(),
                 post.getDescription(),
                 post.getCreatedAt(),
                 post.getLikes().stream().map(LikeOutput::toOutput).collect(Collectors.toList()),

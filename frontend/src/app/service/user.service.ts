@@ -14,4 +14,5 @@ export class UserService {
   obterUsuario(userId:number):Observable<User>{
     return this.http.get<User>(`${this.locator.services.Users}/${userId}`)
   }
+
 }
