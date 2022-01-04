@@ -1,7 +1,7 @@
 <div class="container">
     <div class="border-bottom border-primary pb-5">
-        <div class="text-center mt-5 mb-2" style="font-size: xx-large;">Camiseta Regata</div>
-        <div class="text-center"><img class="border border-primary border-5" width="300px" src="/assets/img/tshirt.png" alt=""></div>
+        <div class="text-center mt-5 mb-2" style="font-size: xx-large;">{{post.title}}</div>
+        <div class="text-center"><img class="border border-primary border-5" width="300px" [src]="post.postImage" alt=""></div>
     </div>
     <div class="text-center py-5 border-bottom border-primary">
         <b style="font-size: xx-large;">R$ 10,00</b><br>
@@ -14,18 +14,8 @@
         </div>
     </div>
     <div class="mt-5 mx-5 px-5">
-        <div class="border border-primary border-10 d-flex justify-content-around my-3 align-items-center">
-            <div class="text-center" style="width: 75%;">Baixar molde - Tamanho G - PDF</div>
-            <div class="text-right flex-shrink-1"><img src="/assets/img/eye.png" alt=""></div>
-        </div>
-        <!--Divisão de itens de molde -->
-        <div class="border border-primary border-10 d-flex justify-content-around mb-2 my-3 align-items-center">
-            <div class="text-center" style="width: 75%;">Baixar molde - Tamanho M - PDF</div>
-            <div class="text-right flex-shrink-1"><img src="/assets/img/eye.png" alt=""></div>
-        </div>
-        <!--Divisão de itens de molde -->
-        <div class="border border-primary border-10 d-flex justify-content-around mb-2 my-3 align-items-center">
-            <div class="text-center" style="width: 75%;">Baixar molde - Tamanho P - PDF</div>
+        <div class="border border-primary border-10 d-flex justify-content-around my-3 align-items-center" *ngFor="let item of post.items">
+            <div class="text-center" style="width: 75%;">{{item.description}}</div><span>{{item.price | currency:'BRL'}}</span>
             <div class="text-right flex-shrink-1"><img src="/assets/img/eye.png" alt=""></div>
         </div>
     </div>

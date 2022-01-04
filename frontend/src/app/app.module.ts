@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID,NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router'
 import { rootRouterConfig } from './app.routes';
@@ -12,6 +12,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { PostDetailComponent } from './post-detail/post-detail.component';
 import { BuyComponent } from './buy/buy.component';
 import { LoginComponent } from './login/login.component';
+import ptBr from '@angular/common/locales/pt';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,8 +25,9 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { RegisterComponent } from './register/register.component';
 import { LoginService } from './service/login.service';
 import { HttpClientModule } from '@angular/common/http';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { registerLocaleData } from '@angular/common';
 
+registerLocaleData(ptBr);
 
 @NgModule({
   declarations: [
@@ -56,7 +58,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
   exports:[
  
   ],
-  providers: [LoginService],
+  providers: [LoginService,{ provide: LOCALE_ID, useValue: 'pt' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

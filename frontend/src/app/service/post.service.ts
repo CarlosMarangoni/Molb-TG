@@ -15,6 +15,11 @@ export class PostService {
 
    }
 
+   obterPostagem(postId:number) : Observable<Post>{
+    return this.http.get<Post>(`${this.locator.services.Posts}/${postId}`)
+   }
+
+
    obterTodasPostagens() : Observable<PageablePostDto>{
     return this.http.get<PageablePostDto>(this.locator.services.Posts)     
    }
