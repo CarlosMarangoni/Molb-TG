@@ -26,6 +26,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginService } from './service/login.service';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
+import { NgRatingBarModule } from 'ng-rating-bar';
 
 registerLocaleData(ptBr);
 
@@ -53,7 +54,8 @@ registerLocaleData(ptBr);
     MatIconModule,
     FormsModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    NgRatingBarModule
   ],
   exports:[
  

@@ -4,13 +4,9 @@
         <div class="text-center"><img class="border border-primary border-5" width="300px" [src]="post.postImage" alt=""></div>
     </div>
     <div class="text-center py-5 border-bottom border-primary">
-        <b style="font-size: xx-large;">R$ 10,00</b><br>
-        <div>
-            <img src="/assets/img/star-filled.png" width="40px" alt="">
-            <img src="/assets/img/star-filled.png" width="40px" alt="">
-            <img src="/assets/img/star-filled.png" width="40px" alt="">
-            <img src="/assets/img/star-filled.png" width="40px" alt="">
-            <img src="/assets/img/star.png" width="40px" alt="">
+        <b style="font-size: large;">{{post.description}}</b><br>
+        <div class="mt-2">
+            <ng-rating-bar [value]="post.stars" [ratingCount]="5" [disabled]=true colorActive="#ec9d95" [styles]="{fontSize: '40px'}"></ng-rating-bar>
         </div>
     </div>
     <div class="mt-5 mx-5 px-5">
@@ -19,41 +15,23 @@
             <div class="text-right flex-shrink-1"><img src="/assets/img/eye.png" alt=""></div>
         </div>
     </div>
-    <div class="m-4 px-5">
+    <div class="m-4 px-5" *ngFor="let comment of post.comments">
         <div class="text-center border border-secondary border-10 rounded">
             <b style="font-size: xx-large;">Comentários</b>
         </div>
         <div class="border border-secondary border-5 d-flex justify-content-around align-items-center rounded">
             <div class="text-center flex-shrink-1 rounded mr-2"><img src="/assets/img/profile.png" width="30px" alt="">
             </div>
-            <div> carlos_marangoni</div>
+            <div> {{comment.user}}</div>
             <div class="text-right" style="width: 90%;">
                 <div>
-                    <img src="/assets/img/star-filled.png" width="30px" alt="">
-                    <img src="/assets/img/star-filled.png" width="30px" alt="">
-                    <img src="/assets/img/star-filled.png" width="30px" alt="">
-                    <img src="/assets/img/star-filled.png" width="30px" alt="">
-                    <img src="/assets/img/star.png" width="30px" alt="">
+                    <ng-rating-bar [value]="comment.stars" [ratingCount]="5" [disabled]=true colorActive="#ec9d95"></ng-rating-bar>
                 </div>
             </div>
         </div>
-        <div class="border border-secondary text-center mb-3 rounded">Amei!!</div>
-        <!--Divisão comentários-->
-        <div class="border border-secondary border-5 d-flex justify-content-around align-items-center rounded">
-            <div class="text-center flex-shrink-1 rounded mr-2"><img src="/assets/img/profile.png" width="30px" alt="">
-            </div>
-            <div> jaíne_dias</div>
-            <div class="text-right" style="width: 90%;">
-                <div>
-                    <img src="/assets/img/star-filled.png" width="30px" alt="">
-                    <img src="/assets/img/star-filled.png" width="30px" alt="">
-                    <img src="/assets/img/star-filled.png" width="30px" alt="">
-                    <img src="/assets/img/star-filled.png" width="30px" alt="">
-                    <img src="/assets/img/star.png" width="30px" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="border border-secondary text-center mb-3 rounded">Molde excelente! Corresponde exatamente a foto.</div>
+        <div class="border border-secondary text-center mb-3 rounded">{{comment.description}}</div>
+
+
     </div>
     <div class="text-center">
         <button class="btn btn-primary btn-lg">Comprar agora</button>
