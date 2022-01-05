@@ -19,6 +19,8 @@ public class PostOutput {
 
     private String postImage;
 
+    private Double averageStars;
+
     private Long userId;
 
     private String profileImage;
@@ -41,6 +43,7 @@ public class PostOutput {
         return new PostOutput(
                 post.getId(),
                 post.getPostImage(),
+                post.getAverageStars(),
                 post.getUser().getId(),
                 post.getUser().getProfileImage(),
                 post.getUser().getUser(),

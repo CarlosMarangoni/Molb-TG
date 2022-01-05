@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommentOutput {
 
+    private String profileImage;
+
     private String user;
 
     private String description;
@@ -17,7 +19,7 @@ public class CommentOutput {
     private Integer stars;
 
     public static CommentOutput toOutput(Comment comment){
-        return new CommentOutput(comment.getUser().getUser(),comment.getDescription(), comment.getStars());
+        return new CommentOutput(comment.getUser().getProfileImage(),comment.getUser().getUser(),comment.getDescription(), comment.getStars());
     }
 
 }

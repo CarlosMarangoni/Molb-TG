@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit{
       })
     }else {
       return this.posts.content.filter((v) => {
-        if(v.description.toLowerCase().indexOf(this.filtro.toLowerCase()) >= 0){
+        if(v.title.toLowerCase().indexOf(this.filtro.toLowerCase()) >= 0){
           return true;
         }
         return false;
