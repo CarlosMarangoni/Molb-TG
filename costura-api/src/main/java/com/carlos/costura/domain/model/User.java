@@ -1,7 +1,7 @@
 package com.carlos.costura.domain.model;
 
 import com.carlos.costura.domain.exception.AuthorizationException;
-import com.carlos.costura.domain.model.dto.LoginForm;
+import com.carlos.costura.domain.model.dto.RegistrationForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,10 +15,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 @Data
@@ -69,7 +66,7 @@ public class User implements UserDetails {
     private OffsetDateTime createdAt;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Authorities> authorities = new ArrayList<>();
+    private Set<Role> roles = new HashSet<>();
 
     private String profileImage;
 
@@ -85,18 +82,17 @@ public class User implements UserDetails {
         this.id= id;
     }
 
-    public static User toModel(LoginForm loginForm){
+    public static User toModel(RegistrationForm registrationForm){
         return new User(
-                loginForm.getName(),
-                loginForm.getUsername(),
-                loginForm.getDescription(),
-                loginForm.getEmail(),
-                loginForm.getPassword());
+                registrationForm.getName(),
+                registrationForm.getUsername(),
+                registrationForm.getDescription(),
+                registrationForm.getEmail(),
+                registrationForm.getPassword());
     }
 
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
+        return this.roles;
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.carlos.costura.api.controller;
 
 import com.carlos.costura.domain.exception.PageNotFoundException;
 import com.carlos.costura.domain.model.User;
-import com.carlos.costura.domain.model.dto.LoginForm;
+import com.carlos.costura.domain.model.dto.RegistrationForm;
 import com.carlos.costura.domain.model.dto.UserOutput;
 import com.carlos.costura.domain.repository.UserRepository;
 import com.carlos.costura.domain.service.UserService;
@@ -27,11 +27,6 @@ public class UserController {
 
     private UserService userService;
 
-    @GetMapping("/login")
-    public String login(){
-        return "Login realizado com sucesso.";
-    }
-
     @GetMapping("/users")
     public ResponseEntity<List<UserOutput>> getUsers(){
         List<User> users = userRepository.findAll();
@@ -47,8 +42,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> addUser(@RequestParam(name = "file",required = false) MultipartFile imageFile,@Valid @RequestPart("user") LoginForm loginForm, UriComponentsBuilder uriComponentsBuilder){
-        User createdUser = userService.save(loginForm,imageFile);
+    public ResponseEntity<User> addUser(@RequestParam(name = "file",required = false) MultipartFile imageFile, @Valid @RequestPart("user") RegistrationForm registrationForm, UriComponentsBuilder uriComponentsBuilder){
+        User createdUser = userService.save(registrationForm,imageFile);
         UriComponents uriComponents = uriComponentsBuilder.path("/users/{id}").buildAndExpand(createdUser.getId());
         var location = uriComponents.toUri();
         return ResponseEntity.created(location).body(createdUser);
