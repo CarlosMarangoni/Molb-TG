@@ -1,13 +1,10 @@
 package com.carlos.costura.api.controller;
 
-import com.carlos.costura.domain.model.Role;
 import com.carlos.costura.domain.model.User;
 import com.carlos.costura.domain.model.dto.JwtResponse;
 import com.carlos.costura.domain.model.dto.LoginForm;
 import com.carlos.costura.domain.model.dto.RegistrationForm;
 import com.carlos.costura.domain.model.dto.ResponseMessage;
-import com.carlos.costura.domain.model.enumeration.RoleName;
-import com.carlos.costura.domain.repository.RoleRepository;
 import com.carlos.costura.domain.repository.UserRepository;
 import com.carlos.costura.domain.security.jwt.JwtProvider;
 import com.carlos.costura.domain.service.UserService;
@@ -19,13 +16,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController

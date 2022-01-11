@@ -13,10 +13,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit{
 
-  filtro:string=''
+  filtro:string='';
   posts:PageablePostDto= new PageablePostDto();
-  activePage:number = 0
-  selectedSearch:any = 'userFilter'
+  activePage:number = 0;
+  selectedSearch:any = 'userFilter';
+
+
 
   constructor(private postService:PostService){
     this.postService=postService;
@@ -63,5 +65,6 @@ export class HomeComponent implements OnInit{
     }
    
   }
+  
     
 }

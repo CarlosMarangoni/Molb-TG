@@ -3,7 +3,9 @@ INSERT INTO users values(2, '2021-08-30 13:59:35.453600','Revendedor de modelage
 INSERT INTO users values(3, '2021-08-29 13:59:35.453600','Costureira com canal no youtube com mais de 1 milhão de inscritos.','maria@email.com','Maria Silva','$2a$10$Z3.Vg4ERBJQIIVoHolb34OM90CFfKKBTcLrP6pTcuEEA/Fo6vr0Ha','https://spring-amazon-storage-molsew.s3.sa-east-1.amazonaws.com/mari_costura.jpg','mari_costura');
 INSERT INTO roles values(1,'ROLE_USER');
 INSERT INTO roles values(2,'ROLE_ADMIN');
-INSERT INTO users_roles values(1,1);
+INSERT INTO users_roles values(1,2);
+INSERT INTO users_roles values(2,1);
+INSERT INTO users_roles values(3,1);
 INSERT INTO post values(1,4,1,'2021-08-31 13:59:35.453600','Postagem de teste',1,'https://spring-amazon-storage-molsew.s3.sa-east-1.amazonaws.com/calca1.png','Calça simples',1);
 INSERT INTO sale_item values(1,'Molde sutiã P',25.2,1);
 INSERT INTO sale_item values(2,'Molde sutiã M',30,1);
