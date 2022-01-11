@@ -39,13 +39,13 @@ export class LoginComponent implements OnInit {
     this.authService.attemptAuth(this.loginInfo).subscribe(
       data => {
         this.tokenStorage.saveToken(data.token);
-        this.tokenStorage.saveUsername(data.username);
+        this.tokenStorage.saveUsername(data.user);
         this.tokenStorage.saveAuthorities(data.authorities);
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getAuthorities();
-        this.reloadPage();
+        this.redirectPage();
       },
       error => {
         console.log(error);
@@ -54,8 +54,8 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-  reloadPage() {
-    window.location.reload();
+  redirectPage() {
+    window.location.href='/home'
   }
   
 

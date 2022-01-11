@@ -1,10 +1,7 @@
 package com.carlos.costura.api.controller;
 
 import com.carlos.costura.domain.model.User;
-import com.carlos.costura.domain.model.dto.JwtResponse;
-import com.carlos.costura.domain.model.dto.LoginForm;
-import com.carlos.costura.domain.model.dto.RegistrationForm;
-import com.carlos.costura.domain.model.dto.ResponseMessage;
+import com.carlos.costura.domain.model.dto.*;
 import com.carlos.costura.domain.repository.UserRepository;
 import com.carlos.costura.domain.security.jwt.JwtProvider;
 import com.carlos.costura.domain.service.UserService;
@@ -47,9 +44,9 @@ public class AuthRestAPIs {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtProvider.generateJwtToken(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        User userDetails = (User)authentication.getPrincipal();
 
-        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getAuthorities(), UserSummary.toOutput(userDetails)));
     }
 
     @PostMapping("/signup")

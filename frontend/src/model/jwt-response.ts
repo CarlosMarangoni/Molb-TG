@@ -1,7 +1,8 @@
+import { User } from './user-dto';
 export class JwtResponse{
     token:string = "";
     type:string = "";
-    username:string = "";
     authorities: string[] = [];
+    user:User = new User();
 
 }

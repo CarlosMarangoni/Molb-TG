@@ -17,12 +17,13 @@ export class NavbarComponent {
     this.info = {
       token: this.token.getToken(),
       username: this.token.getUsername(),
+      profilePic: this.token.getProfilePic(),
       authorities: this.token.getAuthorities()
     };
   }
 
   logout() {
     this.token.signOut();
-    window.location.reload();
+    window.location.href = '/login'
   }
 }

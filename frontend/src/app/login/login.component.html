@@ -3,8 +3,8 @@
         <img src="/assets/img/logo2.svg" width="40%" alt="">
     </div>
 
-    <div *ngIf="isLoggedIn; else loggedOut">
-        Logged in as {{roles}}.
+    <div class="text-center" *ngIf="isLoggedIn; else loggedOut">
+        Logado como {{roles}}.
     </div>
 
     <ng-template #loggedOut>

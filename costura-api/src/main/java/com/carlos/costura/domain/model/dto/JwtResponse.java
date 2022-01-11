@@ -14,12 +14,12 @@ public class JwtResponse {
 
     private String token;
     private String type = "Bearer";
-    private String username;
     private Collection<? extends GrantedAuthority> authorities;
+    private UserSummary user;
 
-    public JwtResponse(String accessToken, String username, Collection<? extends GrantedAuthority> authorities) {
+    public JwtResponse(String accessToken, Collection<? extends GrantedAuthority> authorities,UserSummary user) {
         this.token = accessToken;
-        this.username = username;
         this.authorities = authorities;
+        this.user = user;
     }
 }
