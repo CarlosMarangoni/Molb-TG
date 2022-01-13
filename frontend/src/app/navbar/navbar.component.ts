@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent {
   value:string = '';
+  roles: string[] = [];
   info:any;
+  authority: string = "";
 
   constructor(private token: TokenStorageService){
 
@@ -19,7 +21,21 @@ export class NavbarComponent {
       username: this.token.getUsername(),
       profilePic: this.token.getProfilePic(),
       authorities: this.token.getAuthorities()
-    };
+    }
+    if (this.token.getToken()) {
+      this.roles = this.token.getAuthorities();
+      this.roles.every(role => {
+        if (role === 'ROLE_ADMIN') {
+          this.authority = 'admin';
+          return false;
+        } else if (role === 'ROLE_CREATOR') {
+          this.authority = 'creator';
+          return false;
+        }
+        this.authority = 'user';
+        return true;
+      });
+    }
   }
 
   logout() {

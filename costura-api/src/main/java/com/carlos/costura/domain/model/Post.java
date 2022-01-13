@@ -56,6 +56,7 @@ public class Post {
     private List<SaleItem> items = new ArrayList<>();
 
     public Post(String title,String description, List<SaleItem> items) {
+        this.title = title;
         this.description = description;
         this.items = items;
     }

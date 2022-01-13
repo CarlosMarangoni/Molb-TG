@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
 const PROFILEPIC_KEY = 'AuthUserProfilePic'
+const USERID_KEY = 'AuthUserId'
 const AUTHORITIES_KEY = 'AuthAuthorities';
 
 @Injectable({
@@ -32,6 +33,8 @@ export class TokenStorageService {
     window.sessionStorage.removeItem(PROFILEPIC_KEY);
     window.sessionStorage.setItem(USERNAME_KEY, username.user);
     window.sessionStorage.setItem(PROFILEPIC_KEY, username.profileImage);
+    window.sessionStorage.setItem(USERID_KEY, username.id.toString());
+    window.sessionStorage.setItem(USERID_KEY, username.id.toString());
   }
 
   public getUsername(): string {
@@ -40,6 +43,9 @@ export class TokenStorageService {
 
   public getProfilePic(): string {
     return sessionStorage.getItem(PROFILEPIC_KEY)!;
+  }
+  public getUserId(): string {
+    return sessionStorage.getItem(USERID_KEY)!;
   }
 
 

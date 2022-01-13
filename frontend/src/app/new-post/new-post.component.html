@@ -1,0 +1,56 @@
+<div class="container bg-secondary">
+    <form>
+        <div class="text-center p-4">
+            <img *ngIf="uploaded === false" src="/assets/img/no-image.png" width="30%" alt="">
+        </div>
+        <div class="text-center">
+            <input type="file" accept="image/png,image/jpeg">
+        </div>
+
+        <div class="text-center">
+            <mat-form-field appearance="outline" style="min-width: 40%">
+                <mat-label>Título</mat-label>
+                <input matInput placeholder="Digite o título da postagem" type="text">
+            </mat-form-field>
+        </div>
+
+        <div class="text-center">
+            <mat-form-field appearance="outline" style="min-width: 40%">
+                <mat-label>Descrição</mat-label>
+                <input matInput placeholder="Digite a descrição do post" type="text">
+            </mat-form-field>
+        </div>
+
+        <div class="row m-3">
+            <div class="col-3"></div>
+            <div class="col-3">
+                <label class="label-modal">Descrição</label>
+                <input type="text" />
+            </div>
+            <div class="col-3">
+                <label class="label-modal">Preço</label>
+                <input type="currency" />
+            </div>
+            <div class="col-1">
+                <a>X</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-7"></div>
+            <div class="col-5">
+                <button class="btn btn-primary">Adicionar modelagem</button>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="text-center p-3">
+            <button class="btn btn-primary btn-lg" style="width: 30%;" type="submit">Postar modelagem</button><br>
+        </div>
+        <div style="height: 250px;">
+
+        </div>
+    </form>
+</div>

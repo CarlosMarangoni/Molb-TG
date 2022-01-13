@@ -1,3 +1,4 @@
+import { NewPostComponent } from './new-post/new-post.component';
 import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
@@ -11,6 +12,7 @@ export const rootRouterConfig: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'profile/:id', component: ProfileComponent },
     { path: 'posts/:id', component: PostDetailComponent },
+    { path: 'new-post', component: NewPostComponent    },
     { path: 'posts/:id/comprar', component: BuyComponent },
     { path: 'login', component: LoginComponent },
     { path: 'forgot-password', component: ForgotPasswordComponent },

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-public class PostForm {
+public class    PostForm {
 
     @NotEmpty
     private String title;

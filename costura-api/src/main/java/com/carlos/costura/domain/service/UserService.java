@@ -39,22 +39,28 @@ public class UserService {
         modelUser.setPassword(encoder.encode(modelUser.getPassword()));
         Set<String> strRoles = user.getRoles();
         Set<Role> roles = new HashSet<>();
+        if (!strRoles.isEmpty()) {
 
-        strRoles.forEach(role -> {
-            switch (role) {
-                case "admin":
-                    Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-                            .orElseThrow(() -> new RuntimeException("Falha! -> Causa: Permissão não encontrada."));
-                    roles.add(adminRole);
 
-                    break;
-                default:
-                    Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                            .orElseThrow(() -> new RuntimeException("Falha! -> Cause: Permissão não encontrada."));
-                    roles.add(userRole);
-            }
-        });
+            strRoles.forEach(role -> {
+                switch (role) {
+                    case "admin":
+                        Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Falha! -> Causa: Permissão não encontrada."));
+                        roles.add(adminRole);
 
+                        break;
+                    default:
+                        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+                                .orElseThrow(() -> new RuntimeException("Falha! -> Causa: Permissão não encontrada."));
+                        roles.add(userRole);
+                }
+            });
+        }else {
+            Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Falha! -> Causa: Permissão não encontrada."));
+            roles.add(userRole);
+        }
         modelUser.setRoles(roles);
 
         return userRepository.save(modelUser);

@@ -21,12 +21,15 @@ export class AppComponent implements OnInit {
         if (role === 'ROLE_ADMIN') {
           this.authority = 'admin';
           return false;
-        } else{
+        } else if (role === 'ROLE_CREATOR') {
+          this.authority = 'creator';
+          return false;
+        }
         this.authority = 'user';
         return true;
-      }
       });
     }
   }
+  
 
 }

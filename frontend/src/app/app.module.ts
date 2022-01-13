@@ -26,6 +26,7 @@ import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import { NgRatingBarModule } from 'ng-rating-bar';
+import { NewPostComponent } from './new-post/new-post.component';
 
 registerLocaleData(ptBr);
 
@@ -40,7 +41,8 @@ registerLocaleData(ptBr);
     BuyComponent,
     LoginComponent,
     ForgotPasswordComponent,
-    RegisterComponent
+    RegisterComponent,
+    NewPostComponent
   ],
   imports: [
     BrowserModule,

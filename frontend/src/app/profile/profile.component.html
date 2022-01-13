@@ -26,6 +26,11 @@
         </div>
 
     </div>
+
+    <div class="d-flex justify-content-end" *ngIf="owner === true">
+        <div class="btn btn-primary btn-sm m-3" [routerLink]="['/new-post']">+</div>
+    </div>
+
     <div *ngFor="let post of posts" class="border-bottom border-primary mt-5 mx-5">
         <div class="d-flex justify-content-around">
             <div class="btn flex-shrink-1 mb-3 btn" [routerLink]="['/posts/',post.id]"><img class="zoom-hover" [src]="post.postImage" width="300px" style="max-height: 300px;" alt=""></div>
