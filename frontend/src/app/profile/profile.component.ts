@@ -3,8 +3,9 @@ import { PostService } from './../service/post.service';
 import { UserService } from './../service/user.service';
 import { Post } from './../../model/post-dto';
 import { User } from './../../model/user-dto';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class ProfileComponent implements OnInit {
   
 
   constructor(private route: ActivatedRoute,private userService:UserService,
-    private postService:PostService,private token:TokenStorageService) {
+    private postService:PostService,private token:TokenStorageService,private modalService: NgbModal) {
     this.route=route;
     this.userService = userService;
    }
@@ -66,9 +67,11 @@ export class ProfileComponent implements OnInit {
   }
 
   }
-    // this.postCount = this.posts.forEach(p=>{
-    //   if(p.userId == this.id)
-    // })
+
+  open(content:any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+  }
+
   }
 
   

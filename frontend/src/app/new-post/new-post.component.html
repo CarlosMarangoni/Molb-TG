@@ -1,53 +1,57 @@
 <div class="container bg-secondary">
-    <form>
+
+    <form name="form" enctype="multipart/form-data" (ngSubmit)="onSubmit()" method="post">
         <div class="text-center p-4">
-            <img *ngIf="uploaded === false" src="/assets/img/no-image.png" width="30%" alt="">
+            <img *ngIf="uploaded === false;else postImage" src="/assets/img/no-image.png" width="30%" alt="">
+            <ng-template #postImage>
+                <div class="btn">teste</div>
+            </ng-template>
         </div>
-        <div class="text-center">
-            <input type="file" accept="image/png,image/jpeg">
+        <div class="d-flex justify-content-center">
+            <div class="custom-file" style="max-width: 50%;">
+                <input type="file" id="customFile" accept="image/png,image/jpeg" (change)="onChange($event)">
+                <label class="custom-file-label" for="customFile" id="customFileLabel">Selecionar Arquivo</label>
+            </div>
         </div>
 
-        <div class="text-center">
+        <div class="text-center mt-2">
             <mat-form-field appearance="outline" style="min-width: 40%">
                 <mat-label>Título</mat-label>
-                <input matInput placeholder="Digite o título da postagem" type="text">
+                <input name='title' id='title' [(ngModel)]="form.title" matInput placeholder="Digite o título da postagem" type="text">
             </mat-form-field>
         </div>
 
         <div class="text-center">
             <mat-form-field appearance="outline" style="min-width: 40%">
                 <mat-label>Descrição</mat-label>
-                <input matInput placeholder="Digite a descrição do post" type="text">
+                <textarea matInput name='description' id='description' [(ngModel)]="form.description"></textarea>
             </mat-form-field>
         </div>
 
-        <div class="row m-3">
+        <div class="row m-3" *ngFor="let item of modelagens;  let i = index">
             <div class="col-3"></div>
             <div class="col-3">
                 <label class="label-modal">Descrição</label>
-                <input type="text" />
+                <input type="text" [(ngModel)]="item.description" name="description" />
             </div>
             <div class="col-3">
                 <label class="label-modal">Preço</label>
-                <input type="currency" />
+                <input type="currency" [(ngModel)]="item.price" name="price" />
             </div>
-            <div class="col-1">
-                <a>X</a>
-            </div>
+            <button class="col-1" type="button" class="close" aria-label="Close" (click)="removerItem(i)">
+                <span aria-hidden="true">&times;</span>
+              </button>
         </div>
         <div class="row">
             <div class="col-7"></div>
             <div class="col-5">
-                <button class="btn btn-primary">Adicionar modelagem</button>
+                <button class="btn btn-primary" (click)="adicionarModelagem()">Adicionar modelagem</button>
             </div>
         </div>
 
 
-
-
-
         <div class="text-center p-3">
-            <button class="btn btn-primary btn-lg" style="width: 30%;" type="submit">Postar modelagem</button><br>
+            <input class='btn btn-primary btn-lg' style="width: 30%;" type='submit' name='Postar' value='Postar Modelagem'><br>
         </div>
         <div style="height: 250px;">
 
