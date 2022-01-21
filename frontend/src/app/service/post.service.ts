@@ -50,8 +50,22 @@ export class PostService {
   cadastrarPost(postForm:PostForm){
     const headers =   new HttpHeaders({
       "Authorization": `Bearer ${this.token.getToken()}`
+    });
+    
+    const formData = new FormData();
+    const data = new Blob([JSON.stringify({
+      userId:postForm.userId,
+      description:postForm.description,
+      title:postForm.title,
+      items:postForm.items
+    })],{
+      type: 'application/json'
     })
-    return this.http.post<PostForm>(`${this.locator.services.Posts}`,postForm,{headers})
+    formData.append('post',data)
+
+    const request = new HttpRequest('POST',this.locator.services.Posts, formData,{headers})
+
+    return this.http.request(request);
   }
 
   cadastrarPostComArquivo(postForm:PostForm,file:File){
@@ -69,8 +83,6 @@ export class PostService {
     })
     formData.append('file',file,file.name)
     formData.append('post',data)
-
-    console.log(JSON.stringify({postForm}));
 
     const request = new HttpRequest('POST',this.locator.services.Posts, formData,{headers})
 

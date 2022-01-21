@@ -16,6 +16,7 @@ export class NewPostComponent implements OnInit {
   private postForm: PostForm = new PostForm(0, "", "", []);
   form: any = {};
   public file: File | undefined;
+  public uploadedImageUrl:String = "/assets/img/no-image.png";
 
   constructor(
     private tokenStorage: TokenStorageService,
@@ -33,17 +34,30 @@ export class NewPostComponent implements OnInit {
       a.description = this.modelagens[i].description;
       this.postForm.items.push(a);
     }
+    if (this.file) {
+      this.postForm.userId = Number(this.tokenStorage.getUserId());
+      this.postForm.title = this.form.title;
+      this.postForm.description = this.form.description;
 
-    this.postForm.userId = Number(this.tokenStorage.getUserId());
-    this.postForm.title = this.form.title;
-    this.postForm.description = this.form.description;
-
-    this.postService.cadastrarPostComArquivo(this.postForm,this.file!).subscribe(
-      (a) => {
-        console.log(a);
-      },
-      (error) => console.log(error)
-    ); //LEMBRAR DE ZERAR ARRAY APÓS ENVIO DO FORM
+      this.postService
+        .cadastrarPostComArquivo(this.postForm, this.file!)
+        .subscribe(
+          (a) => {
+            console.log(a);
+          },
+          (error) => console.log(error)
+        ); //LEMBRAR DE ZERAR ARRAY APÓS ENVIO DO FORM
+    } else {
+      this.postForm.userId = Number(this.tokenStorage.getUserId());
+      this.postForm.title = this.form.title;
+      this.postForm.description = this.form.description;
+      this.postService.cadastrarPost(this.postForm).subscribe(
+        (a) => {
+          console.log(a);
+        },
+        (error) => console.log(error)
+      );
+    }
   }
 
   adicionarModelagem() {
@@ -58,6 +72,11 @@ export class NewPostComponent implements OnInit {
     const selectedFile = <FileList>event.srcElement.files;
     const fileLabel = document.getElementById("customFileLabel");
     if (!fileLabel) return;
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.uploadedImageUrl=reader.result!.toString();
+    });
+    reader.readAsDataURL(selectedFile[0]);
     fileLabel.innerHTML = selectedFile[0].name;
     this.file = selectedFile[0];
   }
