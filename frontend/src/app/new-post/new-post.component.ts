@@ -3,7 +3,6 @@ import { PostForm } from "./../../model/post-form";
 import { PostItem } from "./../../model/postItem-dto";
 import { Component, OnInit } from "@angular/core";
 import { TokenStorageService } from "../service/token-storage.service";
-import { FormBuilder } from "@angular/forms";
 
 @Component({
   selector: "app-new-post",
@@ -17,6 +16,8 @@ export class NewPostComponent implements OnInit {
   form: any = {};
   public file: File | undefined;
   public uploadedImageUrl:String = "/assets/img/no-image.png";
+  addPostFailed = false;
+  errorMessage = '';
 
   constructor(
     private tokenStorage: TokenStorageService,

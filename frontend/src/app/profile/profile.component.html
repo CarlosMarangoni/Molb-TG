@@ -28,7 +28,7 @@
     </div>
 
     <div class="d-flex justify-content-end" *ngIf="owner === true">
-        <div class="btn btn-primary btn-sm m-3" [routerLink]="['/new-post']">+</div>
+        <div class="btn btn-primary btn-sm m-3" [routerLink]="['/new-post']">Adicionar postagem +</div>
     </div>
 
     <div *ngFor="let post of posts" class="border-bottom border-primary mt-5 mx-5">
@@ -41,7 +41,6 @@
             </div>
         </div>
         <div class="text-right mb-2">
-            <span class="mr-2"><b>R$10,00</b></span>
             <img class="mr-2" width="30px" src="/assets/img/lock-fill.svg">
             <button class="btn btn-primary btn-sm" [routerLink]="['/posts/',post.id]">
                     <img class="" src="/assets/img/arrow-right.svg">

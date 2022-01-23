@@ -1,6 +1,6 @@
 <div class="container bg-secondary">
 
-    <form name="form" enctype="multipart/form-data" (ngSubmit)="onSubmit()" method="post">
+    <form name="form" enctype="multipart/form-data" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate method="post">
         <div class="text-center p-4">
             <img *ngIf="uploaded === false;else postImage" [src]="uploadedImageUrl" style="max-width: 300px;max-height: 300px;" alt="">
             <ng-template #postImage>
@@ -13,28 +13,49 @@
                 <label class="custom-file-label" for="customFile" id="customFileLabel">Selecionar Arquivo</label>
             </div>
         </div>
+        <div class="m-3 text-center">
+            <div class="text-danger" *ngIf="f.submitted && title.invalid">
+                <div *ngIf="title.errors?.required">Título é obrigatório</div>
+            </div>
+            <div class="text-danger" *ngIf="f.submitted && description.invalid">
+                <div *ngIf="description.errors?.required">Descrição é obrigatória</div>
+            </div>
+        </div>
 
         <div class="text-center mt-2">
             <mat-form-field appearance="outline" style="min-width: 40%">
                 <mat-label>Título</mat-label>
-                <input name='title' id='title' [(ngModel)]="form.title" matInput placeholder="Digite o título da postagem" type="text">
+                <input name='title' id='title' [(ngModel)]="form.title" matInput placeholder="Digite o título da postagem" type="text" #title="ngModel" required>
             </mat-form-field>
         </div>
 
         <div class="text-center border-bottom border-primary">
             <mat-form-field appearance="outline" style="min-width: 40%">
                 <mat-label>Descrição</mat-label>
-                <textarea matInput name='description' id='description' [(ngModel)]="form.description" placeholder="Digite a descrição da postagem"></textarea>
+                <textarea matInput name='description' id='description' [(ngModel)]="form.description" placeholder="Digite a descrição da postagem" #description="ngModel" required></textarea>
             </mat-form-field>
         </div>
         <div class="row d-flex justify-content-center m-2">
             <h1>Modelagens</h1>
         </div>
-        <div class="form-group row m-3" *ngFor="let item of modelagens;  let i = index">
-            <div class="col-3"></div>
+
+        <div class="m-3 text-center">
+            <div class="text-danger" *ngIf="f.submitted && modelagens.length == 0">
+                <div>A postagem deve ter no mínimo 1 item.</div>
+            </div>
+        </div>
+
+        <div class="form-group row m-3 text-left" *ngFor="let item of modelagens;  let i = index">
+
+            <div class="m-3 col-3 mt-4 pt-1">
+                <div class="text-danger" *ngIf="f.submitted && modelagens[i].description.length == 0">
+                    <div>Descrição do item {{i + 1}} não deve estar vazia</div>
+                </div>
+            </div>
+
             <div class="col-3">
                 <label class="label-modal">Descrição</label>
-                <input class="form-control" type="text" [(ngModel)]="item.description" name="description" />
+                <input class="form-control" type="text" [(ngModel)]="item.description" name="itemDescription{{i}}" id="itemDescription{{i}}" #itemDescription{{i}}="ngModel" required/>
             </div>
             <div class="col-3">
                 <label class="label-modal">Preço</label>
@@ -48,7 +69,7 @@
         <div class="row">
             <div class="col-7"></div>
             <div class="col-5">
-                <button class="btn btn-primary" (click)="adicionarModelagem()">Adicionar modelagem</button>
+                <div class="btn btn-primary" (click)="adicionarModelagem()">Adicionar modelagem</div>
             </div>
         </div>
 
