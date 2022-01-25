@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit{
   activePage:number = 0;
   selectedIndex: number = 0;
   selectedSearch:any = 'userFilter';
+  categories:string[] = [];
 
 
 
@@ -32,6 +33,7 @@ export class HomeComponent implements OnInit{
       console.log(posts)
     },
     error => console.log(error))
+    this.obterCategorias();
   }
 
   onClick(activePage:number){
@@ -67,8 +69,29 @@ export class HomeComponent implements OnInit{
    
   }
 
+  obterCategorias(){
+    this.postService.obterTodasCategorias().subscribe(categories =>{
+      this.categories = categories;
+      this.categories.unshift("TODOS");
+      console.log(categories)
+    },error => console.log(error))
+  }
+
   setIndex(index: number) {
     this.selectedIndex = index;
+    if(index!=0){
+      this.postService.obterPostsPorCategoria(this.categories[index].toLowerCase()).subscribe(posts =>{
+        this.posts = posts;
+        console.log(posts)
+      },error => console.log(error))
+    }else{
+      this.postService.obterTodasPostagensPaginadas(this.activePage)
+    .subscribe(posts =>{
+      this.posts = posts;
+      console.log(posts)
+    },
+    error => console.log(error))
+    }
  }
   
     

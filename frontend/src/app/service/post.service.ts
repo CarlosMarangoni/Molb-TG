@@ -47,6 +47,21 @@ export class PostService {
       return this.http.get<Post[]>(`${this.locator.services.Posts}/user/${userId}`,{headers})
   }
 
+  obterPostsPorCategoria(categoria:string):Observable<PageablePostDto>{
+    const headers =   new HttpHeaders({
+      "Authorization": `Bearer ${this.token.getToken()}`
+    })
+      return this.http.get<PageablePostDto>(`${this.locator.services.Posts}/categories/${categoria}`,{headers})
+  }
+
+
+  obterTodasCategorias():Observable<string[]>{
+    const headers =   new HttpHeaders({
+      "Authorization": `Bearer ${this.token.getToken()}`
+    })
+      return this.http.get<string[]>(`${this.locator.services.Posts}/categories`,{headers})
+  }
+
   cadastrarPost(postForm:PostForm){
     const headers =   new HttpHeaders({
       "Authorization": `Bearer ${this.token.getToken()}`

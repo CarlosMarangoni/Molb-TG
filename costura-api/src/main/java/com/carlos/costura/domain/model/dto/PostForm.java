@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-public class    PostForm {
+public class PostForm {
 
     @NotEmpty
     private String title;
@@ -24,12 +24,16 @@ public class    PostForm {
     private Long userId;
 
     @NotEmpty
+    private String category;
+
+    @NotEmpty
     private List<SaleItemForm> items = new ArrayList<>();
 
-    public PostForm(String title,String description,Long userId,List<SaleItemForm> items) {
+    public PostForm(String title,String description,String category,Long userId,List<SaleItemForm> items) {
         this.description = description;
         this.title = title;
         this.userId = userId;
+        this.category = category;
         this.items = items;
     }
 
@@ -37,6 +41,7 @@ public class    PostForm {
         return new PostForm(
                 post.getTitle(),
                 post.getDescription(),
+                post.getCategory().name(),
                 post.getUser().getId(),
                 post.getItems().stream().map(SaleItemForm::toForm).collect(Collectors.toList()));
     }

@@ -36,6 +36,23 @@ body {
     font-family: 'Italianno', cursive;
 }
 
+.list-group-mine .list-group-item {
+    background-color: var(--color-secondary);
+    border-top: 1px solid white;
+    border-left-color: #fff;
+    border-right-color: #fff;
+}
+
+.list-group-mine .list-group-item:hover {
+    background-color: white;
+    color: var(--color-primary);
+}
+
+.active {
+    color: red !important;
+    border: #ec9d95;
+}
+
 .text-primary {
     color: var(--color-primary) !important;
 }

@@ -26,6 +26,8 @@ public class PostSummary {
 
     private Integer commentAmount;
 
+    private String category;
+
     public static PostSummary toSummary(Post post){
         return new PostSummary(
                 post.getPostImage(),
@@ -33,7 +35,8 @@ public class PostSummary {
                 post.getDescription(),
                 post.getCreatedAt(),
                 post.getLikeAmount(),
-                post.getCommentAmount()
+                post.getCommentAmount(),
+                post.getCategory().name()
         );
     }
 }

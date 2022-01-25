@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Entity
@@ -56,11 +57,13 @@ public class Post {
     @OneToMany(mappedBy = "saleItemPK.post",cascade = CascadeType.ALL)
     private List<SaleItem> items = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
     private Category category;
 
-    public Post(String title,String description, List<SaleItem> items) {
+    public Post(String title,String description, Category category,List<SaleItem> items) {
         this.title = title;
         this.description = description;
+        this.category = category;
         this.items = items;
     }
 
@@ -68,6 +71,7 @@ public class Post {
         return new Post(
                 postForm.getTitle(),
                 postForm.getDescription(),
+                Category.convertFromString(postForm.getCategory().toLowerCase(Locale.ROOT)),
                 postForm.getItems().stream().map(SaleItem::toModel).collect(Collectors.toList()));
     }
 

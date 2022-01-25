@@ -6,6 +6,7 @@ import com.carlos.costura.domain.model.*;
 import com.carlos.costura.domain.model.dto.CommentForm;
 import com.carlos.costura.domain.model.dto.PostForm;
 import com.carlos.costura.domain.model.dto.SaleItemForm;
+import com.carlos.costura.domain.model.enumeration.Category;
 import com.carlos.costura.domain.model.pk.SaleItemPK;
 import com.carlos.costura.domain.repository.*;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -37,6 +40,8 @@ public class  PostService {
         AtomicInteger atomicSum = new AtomicInteger(0);
         if(User.isAuthenticated()){
             User user = userRepository.findById(postForm.getUserId()).orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+
+
             Post postModel = Post.toModel(postForm);
             if(imageFile != null){
                 postModel.setPostImage(uploadPostPicture(imageFile).toString());

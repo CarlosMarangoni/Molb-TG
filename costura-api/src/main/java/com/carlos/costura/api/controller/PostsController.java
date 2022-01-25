@@ -3,6 +3,7 @@ package com.carlos.costura.api.controller;
 import com.carlos.costura.domain.exception.PageNotFoundException;
 import com.carlos.costura.domain.model.*;
 import com.carlos.costura.domain.model.dto.*;
+import com.carlos.costura.domain.model.enumeration.Category;
 import com.carlos.costura.domain.repository.PostRepository;
 import com.carlos.costura.domain.repository.UserRepository;
 import com.carlos.costura.domain.service.PostService;
@@ -20,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,6 +49,23 @@ public class PostsController {
         long total = pageOffset + postListDto.size() + (postListDto.size() == pageSize ? pageSize : 0);
         Page<PostOutput> postPaginated = new PageImpl<PostOutput>(postListDto,pageable,total);
         return postPaginated;
+    }
+
+    @GetMapping("/categories/{category}")
+    public Page<PostOutput> getAllPostsByCategory(@PathVariable String category,Pageable pageable){
+        Category categoryEnum = Category.convertFromString(category);
+        List<Post> postList = postRepository.findAllByCategory(categoryEnum);
+        List<PostOutput> postListDto = postList.stream().map(PostOutput::toOutput).collect(Collectors.toList());
+        int pageSize = pageable.getPageSize();
+        long pageOffset = pageable.getOffset();
+        long total = pageOffset + postListDto.size() + (postListDto.size() == pageSize ? pageSize : 0);
+        Page<PostOutput> postPaginated = new PageImpl<PostOutput>(postListDto,pageable,total);
+        return postPaginated;
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<List<Category>> getAllCategories(){
+        return ResponseEntity.ok(Arrays.asList(Category.values()));
     }
 
 

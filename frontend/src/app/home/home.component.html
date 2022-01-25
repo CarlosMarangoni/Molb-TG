@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
-        <div class="col-4 bg-primary mt-4">
-            <ul class="list-group mt-5">
-                <!-- <li class="list-group-item" *ngFor="let category of categories; let i = index" [class.active]="selectedIndex === i" (click)="setIndex(i)">Todos</li>-->
+        <div class="col-4 bg-primary mt-4" style="height: 1500px">
+            <ul class="list-group list-group-mine mt-5">
+                <li class="list-group-item" *ngFor="let category of categories; let i = index" [class.active]="selectedIndex === i" (click)="setIndex(i)">{{category}}</li>
             </ul>
         </div>
 
