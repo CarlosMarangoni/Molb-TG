@@ -1,7 +1,13 @@
 <div class="container bg-secondary">
 
-    <form name="form" enctype="multipart/form-data" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate method="post">
+    <form name="form" enctype="multipart/form-data" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate method="post">
         <div class="text-center p-4">
+            <div *ngIf="addPostSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Sucesso!</strong> Post realizado com sucesso.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <img *ngIf="uploaded === false;else postImage" [src]="uploadedImageUrl" style="max-width: 300px;max-height: 300px;" alt="">
             <ng-template #postImage>
                 <div class="btn">teste</div>
@@ -51,6 +57,9 @@
                 <div class="text-danger" *ngIf="f.submitted && modelagens[i].description.length == 0">
                     <div>Descrição do item {{i + 1}} não deve estar vazia</div>
                 </div>
+                <div class="text-danger" *ngIf="f.submitted && !modelagens[i].price">
+                    <div>Preço do item {{i + 1}} não deve estar vazio</div>
+                </div>
             </div>
 
             <div class="col-3">
@@ -59,7 +68,7 @@
             </div>
             <div class="col-3">
                 <label class="label-modal">Preço</label>
-                <input class="form-control" currencyMask [(ngModel)]="item.price" name="price" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
+                <input class="form-control" currencyMask [(ngModel)]="item.price" name="price" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required/>
 
             </div>
             <button class="col-1" type="button" class="close" aria-label="Close" (click)="removerItem(i)">

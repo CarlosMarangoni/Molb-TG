@@ -1,6 +1,7 @@
 package com.carlos.costura.domain.model;
 
 import com.carlos.costura.domain.model.dto.PostForm;
+import com.carlos.costura.domain.model.enumeration.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -54,6 +55,8 @@ public class Post {
 
     @OneToMany(mappedBy = "saleItemPK.post",cascade = CascadeType.ALL)
     private List<SaleItem> items = new ArrayList<>();
+
+    private Category category;
 
     public Post(String title,String description, List<SaleItem> items) {
         this.title = title;

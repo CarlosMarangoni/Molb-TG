@@ -28,9 +28,9 @@
                 <mat-form-field appearance="fill" style="min-width: 40%">
                     <mat-label>Digite sua senha</mat-label>
                     <input matInput [type]="hide ? 'password' : 'text'" name='password' id='password' [(ngModel)]="form.password" #password="ngModel" required minlength="4">
-                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
+                    <div class="btn" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </div>
                 </mat-form-field>
             </div>
 

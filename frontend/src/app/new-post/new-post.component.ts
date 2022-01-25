@@ -3,6 +3,7 @@ import { PostForm } from "./../../model/post-form";
 import { PostItem } from "./../../model/postItem-dto";
 import { Component, OnInit } from "@angular/core";
 import { TokenStorageService } from "../service/token-storage.service";
+import { NgForm } from "@angular/forms";
 
 @Component({
   selector: "app-new-post",
@@ -16,8 +17,7 @@ export class NewPostComponent implements OnInit {
   form: any = {};
   public file: File | undefined;
   public uploadedImageUrl:String = "/assets/img/no-image.png";
-  addPostFailed = false;
-  errorMessage = '';
+  addPostSuccess:boolean = false;
 
   constructor(
     private tokenStorage: TokenStorageService,
@@ -28,7 +28,7 @@ export class NewPostComponent implements OnInit {
     this.modelagens = [new PostItem()];
   }
 
-  onSubmit() {
+  onSubmit(f: NgForm) {
     for (let i = 0; i < this.modelagens.length; i++) {
       let a = new PostItem();
       a.price = this.modelagens[i].price;
@@ -59,6 +59,8 @@ export class NewPostComponent implements OnInit {
         (error) => console.log(error)
       );
     }
+    this.addPostSuccess = true;
+    f.resetForm()
   }
 
   adicionarModelagem() {

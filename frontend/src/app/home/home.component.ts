@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit{
   filtro:string='';
   posts:PageablePostDto= new PageablePostDto();
   activePage:number = 0;
+  selectedIndex: number = 0;
   selectedSearch:any = 'userFilter';
 
 
@@ -65,6 +66,10 @@ export class HomeComponent implements OnInit{
     }
    
   }
+
+  setIndex(index: number) {
+    this.selectedIndex = index;
+ }
   
     
 }
