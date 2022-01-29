@@ -100,7 +100,7 @@ public class PostsController {
 
     @PostMapping("/{postId}/comment")
     public ResponseEntity<CommentOutput> addComment(@PathVariable Long postId,
-                                                    @RequestBody CommentForm commentForm, UriComponentsBuilder uriComponentsBuilder){
+                                                    @RequestBody @Valid CommentForm commentForm, UriComponentsBuilder uriComponentsBuilder){
         Comment savedComment = postService.addComment(commentForm,postId);
         UriComponents uriComponents = uriComponentsBuilder.path("/posts/{postId}/comment/{id}").buildAndExpand(savedComment.getPost().getId(),savedComment.getId());
         var location = uriComponents.toUri();

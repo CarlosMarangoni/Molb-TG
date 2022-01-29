@@ -13,10 +13,11 @@ import { NgForm } from "@angular/forms";
 export class NewPostComponent implements OnInit {
   public uploaded: boolean = false;
   public modelagens: Array<PostItem> = [];
-  private postForm: PostForm = new PostForm(0, "", "", []);
+  private postForm: PostForm = new PostForm(0, "","", "", []);
   form: any = {};
   public file: File | undefined;
   public uploadedImageUrl:String = "/assets/img/no-image.png";
+  public categories:string[] = [];
   addPostSuccess:boolean = false;
 
   constructor(
@@ -25,10 +26,12 @@ export class NewPostComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.modelagens = [new PostItem()];
+    this.modelagens = [new PostItem("",1)];
+    this.obterCategorias();
   }
 
   onSubmit(f: NgForm) {
+    console.log(this.form.category)
     for (let i = 0; i < this.modelagens.length; i++) {
       let a = new PostItem();
       a.price = this.modelagens[i].price;
@@ -39,6 +42,7 @@ export class NewPostComponent implements OnInit {
       this.postForm.userId = Number(this.tokenStorage.getUserId());
       this.postForm.title = this.form.title;
       this.postForm.description = this.form.description;
+      this.postForm.category = this.form.category;
 
       this.postService
         .cadastrarPostComArquivo(this.postForm, this.file!)
@@ -52,6 +56,7 @@ export class NewPostComponent implements OnInit {
       this.postForm.userId = Number(this.tokenStorage.getUserId());
       this.postForm.title = this.form.title;
       this.postForm.description = this.form.description;
+      this.postForm.category = this.form.category;
       this.postService.cadastrarPost(this.postForm).subscribe(
         (a) => {
           console.log(a);
@@ -64,7 +69,7 @@ export class NewPostComponent implements OnInit {
   }
 
   adicionarModelagem() {
-    this.modelagens.push(new PostItem());
+    this.modelagens.push(new PostItem("",0));
   }
 
   removerItem(i: number) {
@@ -82,5 +87,15 @@ export class NewPostComponent implements OnInit {
     reader.readAsDataURL(selectedFile[0]);
     fileLabel.innerHTML = selectedFile[0].name;
     this.file = selectedFile[0];
+  }
+
+  obterCategorias(){
+    this.postService.obterTodasCategorias().subscribe(categories =>{
+      this.categories = categories;
+    },error => console.log(error))
+  }
+
+  eventSelection(event:any){
+    this.form.category = (<HTMLInputElement>event).value
   }
 }

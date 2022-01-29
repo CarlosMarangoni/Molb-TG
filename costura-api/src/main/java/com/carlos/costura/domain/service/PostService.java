@@ -48,6 +48,7 @@ public class  PostService {
             }else{
                 postModel.setPostImage("");
             }
+            postModel.setAverageStars(0.0);
             postModel.setUser(user);
             postModel.getItems().forEach(c ->{
                 c.getSaleItemPK().setPost(postModel);
@@ -80,6 +81,18 @@ public class  PostService {
         commentModel.setUser(user);
         commentedPost.plusOneComment();
 
+        Boolean hasCommented = commentedPost.getComments().stream().anyMatch(comment -> {
+            return comment.getUser().getId().equals(commentModel.getUser().getId());
+        });
+
+        if(!hasCommented && !commentedPost.getUser().getId().equals(commentModel.getUser().getId())){
+            if(commentedPost.getComments().size() == 0){
+                commentedPost.setAverageStars(commentModel.getStars().doubleValue());
+            }else{
+                commentedPost.setAverageStars((commentedPost.getAverageStars() + commentForm.getStars())/2);
+            }
+
+        }
         return commentRepository.save(commentModel);
     }
 

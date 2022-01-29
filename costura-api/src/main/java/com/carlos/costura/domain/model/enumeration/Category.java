@@ -19,7 +19,7 @@ public enum Category {
 
     private final String category;
 
-    private Category(String category) {
+    Category(String category) {
         this.category = category;
         Holder.CATEGORY_MAP.put(category, this);
     }

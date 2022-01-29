@@ -26,6 +26,9 @@
             <div class="text-danger" *ngIf="f.submitted && description.invalid">
                 <div *ngIf="description.errors?.required">Descrição é obrigatória</div>
             </div>
+            <div class="text-danger" *ngIf="f.submitted && category.invalid">
+                <div *ngIf="category.errors?.required">Categoria é obrigatória</div>
+            </div>
         </div>
 
         <div class="text-center mt-2">
@@ -33,7 +36,19 @@
                 <mat-label>Título</mat-label>
                 <input name='title' id='title' [(ngModel)]="form.title" matInput placeholder="Digite o título da postagem" type="text" #title="ngModel" required>
             </mat-form-field>
+            <span class="ml-3">
+            <mat-form-field appearance="fill">
+                <mat-label>Categoria</mat-label>
+                <mat-select [(ngModel)]="form.category" name="category" (selectionChange)="eventSelection($event)" #category="ngModel" required>
+                    <mat-option *ngFor="let category of categories" [value]="category">
+                        {{category}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </span>
         </div>
+
+
 
         <div class="text-center border-bottom border-primary">
             <mat-form-field appearance="outline" style="min-width: 40%">
