@@ -41,24 +41,10 @@ public class UserController {
 
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<User> addUser(@RequestParam(name = "file",required = false) MultipartFile imageFile, @Valid @RequestPart("user") RegistrationForm registrationForm, UriComponentsBuilder uriComponentsBuilder){
-        User createdUser = userService.save(registrationForm,imageFile);
-        UriComponents uriComponents = uriComponentsBuilder.path("/users/{id}").buildAndExpand(createdUser.getId());
-        var location = uriComponents.toUri();
-        return ResponseEntity.created(location).body(createdUser);
-
-    }
-
-    @PostMapping("/users/picture")
-    public ResponseEntity<Void> uploadPicture(@RequestParam(name = "file") MultipartFile file){
-        User loggedUser = User.isAuthenticatedReturnUser();
-        loggedUser = userRepository.findById(loggedUser.getId()).get();
-        URI uri = userService.uploadProfilePicture(file);
-        loggedUser.setProfileImage(uri.toString());
-        userRepository.save(loggedUser);
-
-        return ResponseEntity.created(uri).build();
+    @PutMapping("/users/{id}")
+    public ResponseEntity<UserOutput> updateUserDesc(@PathVariable Long id,@RequestBody String description){
+        User user = userService.updateUserDesc(id,description);
+        return ResponseEntity.ok().body(UserOutput.toOutput(user));
 
     }
 

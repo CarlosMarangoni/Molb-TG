@@ -61,10 +61,7 @@ public class AuthRestAPIs {
         User user = userService.save(signUpRequest,imageFile);
 //        User user = new User(signUpRequest.getName(),signUpRequest.getUsername(), signUpRequest.getDescription(),signUpRequest.getEmail(),
 //                encoder.encode(signUpRequest.getPassword()));
-
-
-
-
         return new ResponseEntity<>(new ResponseMessage("Usuário registrado com sucesso!"), HttpStatus.OK);
     }
+
 }

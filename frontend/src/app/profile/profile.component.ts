@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
   authority: string = "";
   roles: string[] = [];
   public owner: boolean = false;
+  public canEditDesc: boolean = false;
   
 
   constructor(private route: ActivatedRoute,private userService:UserService,
@@ -40,7 +41,6 @@ export class ProfileComponent implements OnInit {
     this.followers = this.user.followers.length;
     this.following = this.user.following.length;
     this.postCount = this.user.posts.length;
-    console.log(user)
     this.postService.obterPostsdeUsuario(this.id).subscribe(post =>{
       this.posts = post
     },
@@ -68,8 +68,12 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  open(content:any) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+  saveEditDesc(){
+    const description = this.user.description
+    this.userService.atualizarDescricao(this.id,description).subscribe(user =>{
+      console.log(user)
+    })
+    this.canEditDesc = false;
   }
 
   }

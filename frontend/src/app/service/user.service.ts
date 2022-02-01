@@ -19,4 +19,11 @@ export class UserService {
     return this.http.get<User>(`${this.locator.services.Users}/${userId}`,{headers})
   }
 
+  atualizarDescricao(userId:number,description:String):Observable<User>{
+    const headers =   new HttpHeaders({
+      "Authorization": `Bearer ${this.token.getToken()}`
+    })
+    return this.http.put<User>(`${this.locator.services.Users}/${userId}`,description,{headers})
+  }
+
 }

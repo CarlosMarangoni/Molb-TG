@@ -22,12 +22,23 @@
                     <div class="text-center">{{following}}</div>
                 </div>
             </div>
-            <div class="text-center mt-3">{{user.description}}</div>
+            <div class="d-flex justify-content-between">
+
+                <div class="text-center mt-3" *ngIf="canEditDesc === false" style="width: 700px;">{{user.description}}</div>
+                <div class="text-center mt-3" *ngIf="canEditDesc" style="width: 700px;">
+                    <textarea class="form-control" type="text" [(ngModel)]="user.description" width="100%"></textarea>
+                </div>
+                <div *ngIf="canEditDesc == false && owner"><i class="btn bi bi-pen-fill" (click)="canEditDesc = true"></i></div>
+                <div *ngIf="canEditDesc"><i class="btn bi bi-save" (click)="saveEditDesc()"></i></div>
+
+            </div>
+
         </div>
+
 
     </div>
 
-    <div class="d-flex justify-content-end" *ngIf="owner === true">
+    <div class="d-flex justify-content-end" *ngIf="owner">
         <div class="btn btn-primary btn-sm m-3" [routerLink]="['/new-post']">Adicionar postagem +</div>
     </div>
 
@@ -48,19 +59,3 @@
         </div>
     </div>
 </div>
-
-
-<ng-template #content let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-    </div>
-</ng-template>
