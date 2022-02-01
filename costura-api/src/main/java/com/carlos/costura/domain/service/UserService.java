@@ -9,6 +9,7 @@ import com.carlos.costura.domain.model.enumeration.RoleName;
 import com.carlos.costura.domain.repository.RoleRepository;
 import com.carlos.costura.domain.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

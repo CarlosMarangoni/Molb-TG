@@ -72,9 +72,6 @@
                 <div class="text-danger" *ngIf="f.submitted && modelagens[i].description.length == 0">
                     <div>Descrição do item {{i + 1}} não deve estar vazia</div>
                 </div>
-                <div class="text-danger" *ngIf="f.submitted && !modelagens[i].price">
-                    <div>Preço do item {{i + 1}} não deve estar vazio</div>
-                </div>
             </div>
 
             <div class="col-3">
@@ -83,7 +80,7 @@
             </div>
             <div class="col-3">
                 <label class="label-modal">Preço</label>
-                <input class="form-control" currencyMask [(ngModel)]="item.price" name="price" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" required/>
+                <input class="form-control" currencyMask [(ngModel)]="item.price" name="price" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
 
             </div>
             <button class="col-1" type="button" class="close" aria-label="Close" (click)="removerItem(i)">

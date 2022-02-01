@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
 
   public id: number = 0;
   public user:User = new User();
+  public loggedUser:User = new User();
   public followers:number = 0;
   public following:number = 0;
   public postCount:number = 0;
@@ -26,6 +27,7 @@ export class ProfileComponent implements OnInit {
   roles: string[] = [];
   public owner: boolean = false;
   public canEditDesc: boolean = false;
+  public userFollows:boolean = false;
   
 
   constructor(private route: ActivatedRoute,private userService:UserService,
@@ -48,6 +50,11 @@ export class ProfileComponent implements OnInit {
     },
     error => console.log(error));
    
+    this.userService.obterUsuario(Number(this.token.getUserId())).subscribe(user =>{
+      this.userFollows = user.following.filter(f =>f.user === this.user.user).length > 0 
+    },error => console.log(error))   
+    
+
     if (this.token.getToken()) {
       this.roles = this.token.getAuthorities();
       this.roles.every(role => {
@@ -71,9 +78,19 @@ export class ProfileComponent implements OnInit {
   saveEditDesc(){
     const description = this.user.description
     this.userService.atualizarDescricao(this.id,description).subscribe(user =>{
-      console.log(user)
+      this.user.description = user.description
     })
     this.canEditDesc = false;
+  }
+
+  followUser(){
+    this.userService.seguirUsuario(this.id).subscribe(user =>{
+      if(this.userFollows){
+        this.userFollows = false;
+      }else{
+        this.userFollows = true;
+      }
+    });
   }
 
   }

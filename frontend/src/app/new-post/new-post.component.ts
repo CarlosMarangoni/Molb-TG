@@ -26,7 +26,7 @@ export class NewPostComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.modelagens = [new PostItem("",1)];
+    this.modelagens = [new PostItem()];
     this.obterCategorias();
   }
 
@@ -69,7 +69,7 @@ export class NewPostComponent implements OnInit {
   }
 
   adicionarModelagem() {
-    this.modelagens.push(new PostItem("",0));
+    this.modelagens.push(new PostItem());
   }
 
   removerItem(i: number) {
