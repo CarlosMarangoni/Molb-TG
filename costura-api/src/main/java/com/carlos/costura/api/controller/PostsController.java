@@ -99,12 +99,12 @@ public class PostsController {
 
 
     @PostMapping("/{postId}/comment")
-    public ResponseEntity<CommentOutput> addComment(@PathVariable Long postId,
+    public ResponseEntity<PostOutput> addComment(@PathVariable Long postId,
                                                     @RequestBody @Valid CommentForm commentForm, UriComponentsBuilder uriComponentsBuilder){
-        Comment savedComment = postService.addComment(commentForm,postId);
-        UriComponents uriComponents = uriComponentsBuilder.path("/posts/{postId}/comment/{id}").buildAndExpand(savedComment.getPost().getId(),savedComment.getId());
+        Post commentedPost = postService.addComment(commentForm,postId);
+        UriComponents uriComponents = uriComponentsBuilder.path("/posts/{postId}").buildAndExpand(commentedPost.getId());
         var location = uriComponents.toUri();
-        return ResponseEntity.created(location).body(CommentOutput.toOutput(savedComment));
+        return ResponseEntity.created(location).body(PostOutput.toOutput(commentedPost));
     }
 
     @PostMapping("/{postId}/like")

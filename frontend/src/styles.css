@@ -124,3 +124,7 @@ body {
 .zoom-hover:hover {
     transform: scale(1.5);
 }
+
+.disabled {
+    pointer-events: none;
+}

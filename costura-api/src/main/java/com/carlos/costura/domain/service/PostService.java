@@ -73,7 +73,7 @@ public class  PostService {
 
     }
 
-    public Comment addComment(CommentForm commentForm, Long postId) {
+    public Post addComment(CommentForm commentForm, Long postId) {
         User user = User.isAuthenticatedReturnUser();
         Comment commentModel = Comment.toModel(commentForm);
         Post commentedPost = postRepository.findById(postId).get();
@@ -93,7 +93,9 @@ public class  PostService {
             }
 
         }
-        return commentRepository.save(commentModel);
+        Comment comment = commentRepository.save(commentModel);
+        commentedPost.getComments().add(comment);
+        return commentedPost;
     }
 
     public URI uploadPostPicture(MultipartFile multipartFile)

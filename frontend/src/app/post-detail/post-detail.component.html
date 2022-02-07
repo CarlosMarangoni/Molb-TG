@@ -15,10 +15,10 @@
             <div class="text-right flex-shrink-1"><img src="/assets/img/eye.png" alt=""></div>
         </div>
     </div>
-    <div class="m-4 px-5" *ngFor="let comment of post.comments">
-        <div class="text-center border border-secondary border-10 rounded">
-            <b style="font-size: xx-large;">Comentários</b>
-        </div>
+    <div class="text-center border border-secondary border-10 rounded mb-0">
+        <b style="font-size: xx-large;">Comentários</b>
+    </div>
+    <div class="m-4 px-5 border-primary" *ngFor="let comment of post.comments">
         <div class="border border-secondary border-5 d-flex justify-content-around align-items-center rounded">
             <div class="text-center flex-shrink-1 rounded mr-2"><img [src]="comment.profileImage" width="30px" alt="">
             </div>
@@ -29,11 +29,30 @@
                 </div>
             </div>
         </div>
+
         <div class="border border-secondary text-center mb-3 rounded">{{comment.description}}</div>
 
 
     </div>
-    <div class="text-center">
-        <button class="btn btn-primary btn-lg">Comprar agora</button>
+    <div class="text-center border-left border-bottom border-right   border-secondary border-10 rounded m-auto p-0" *ngIf="post.comments.length == 0">
+        Nenhum comentário encontrado.
+
+    </div>
+    <div *ngIf="owner == false">
+        <form action="" method="post" (ngSubmit)="onSubmit(f)" #f="ngForm">
+            <div class="d-flex justify-content-between">
+                <textarea class="form-control" placeholder="Escreva um comentário..." [(ngModel)]="comment" name="comment" id="comment"></textarea>
+                <div class="m-auto text-center" style="width: 25%">
+                    <ng-rating-bar name="stars" id="stars" [value]="stars" [ratingCount]="5" colorActive="#ec9d95" (valueChange)="onValueChange($event)" [styles]="{fontSize: '20px'}"></ng-rating-bar>
+                </div>
+                <button class="btn btn-primary" type="submit" [ngClass]="{disabled: comment.length == 0}">
+                        Publicar
+                    </button>
+
+            </div>
+        </form>
+        <div class="text-center">
+            <button class="mt-1 btn btn-primary btn-lg">Comprar agora</button>
+        </div>
     </div>
 </div>

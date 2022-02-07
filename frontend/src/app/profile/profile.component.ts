@@ -87,11 +87,13 @@ export class ProfileComponent implements OnInit {
     this.userService.seguirUsuario(this.id).subscribe(user =>{
       if(this.userFollows){
         this.userFollows = false;
+        this.followers--
       }else{
         this.userFollows = true;
+        this.followers++
       }
     });
-  }
+  }  
 
   }
 

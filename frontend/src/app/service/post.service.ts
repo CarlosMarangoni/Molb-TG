@@ -1,3 +1,4 @@
+import { CommentForm } from './../../model/comment-form';
 import { PostForm } from './../../model/post-form';
 import { PageablePostDto } from './../../model/pageable-post-dto';
 import { TokenStorageService } from './../service/token-storage.service';
@@ -105,5 +106,13 @@ export class PostService {
 
     return this.http.request(request);
 
+  }
+
+  comentarPostagem(postId:number,commentForm:CommentForm):Observable<Post>{
+    const headers =   new HttpHeaders({
+      "Authorization": `Bearer ${this.token.getToken()}`
+    });
+    
+    return this.http.post<Post>(`${this.locator.services.Posts}/${postId}/comment`,commentForm,{headers})
   }
 }
