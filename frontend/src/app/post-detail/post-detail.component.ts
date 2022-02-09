@@ -19,6 +19,7 @@ export class PostDetailComponent implements OnInit {
   public comment:any = "";
   public stars:number = 1;
   public owner: boolean = false;
+  public message:string = '';
 
   constructor(private postService:PostService,private route: ActivatedRoute,private token:TokenStorageService) { 
     this.postService = postService;
@@ -45,7 +46,7 @@ export class PostDetailComponent implements OnInit {
   this.postService.comentarPostagem(this.id,commentForm).subscribe(p =>{
     this.post= p;
   },
-  error => console.log(error));
+  error => this.message = error.error.message)
 
   this.comment = '';
    

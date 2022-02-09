@@ -117,4 +117,14 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, error, new HttpHeaders(), HttpStatus.FORBIDDEN, request);
     }
 
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<Object> handleConflictException(AuthorizationException ex, WebRequest request) {
+        Error error = new Error();
+        error.setMessage(ex.getMessage());
+        error.setTimestamp(OffsetDateTime.now());
+        error.setPath(((ServletWebRequest)request).getRequest().getRequestURI().toString());
+        error.setStatus(HttpStatus.CONFLICT.value());
+        return handleExceptionInternal(ex, error, new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
+
 }

@@ -39,6 +39,7 @@
 
     </div>
     <div *ngIf="owner == false">
+        <div class="alert alert-danger" *ngIf="message.length>0">{{message}}</div>
         <form action="" method="post" (ngSubmit)="onSubmit(f)" #f="ngForm">
             <div class="d-flex justify-content-between">
                 <textarea class="form-control" placeholder="Escreva um comentário..." [(ngModel)]="comment" name="comment" id="comment"></textarea>

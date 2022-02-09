@@ -1,6 +1,7 @@
 package com.carlos.costura.domain.service;
 
 import com.carlos.costura.domain.exception.AuthorizationException;
+import com.carlos.costura.domain.exception.ConflictException;
 import com.carlos.costura.domain.exception.PageNotFoundException;
 import com.carlos.costura.domain.model.*;
 import com.carlos.costura.domain.model.dto.CommentForm;
@@ -85,13 +86,15 @@ public class  PostService {
             return comment.getUser().getId().equals(commentModel.getUser().getId());
         });
 
-        if(!hasCommented && !commentedPost.getUser().getId().equals(commentModel.getUser().getId())){
+        if(!hasCommented && !commentedPost.getUser().getId().equals(commentModel.getUser().getId())){ //User não comentou e não é o dono
             if(commentedPost.getComments().size() == 0){
                 commentedPost.setAverageStars(commentModel.getStars().doubleValue());
             }else{
                 commentedPost.setAverageStars((commentedPost.getAverageStars() + commentForm.getStars())/2);
             }
 
+        }else{
+            throw new ConflictException("Não é possível adicionar mais comentários.");
         }
         Comment comment = commentRepository.save(commentModel);
         commentedPost.getComments().add(comment);
