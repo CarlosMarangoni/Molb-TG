@@ -1,5 +1,5 @@
 <div class="container bg-secondary">
-    <form name="form" enctype="multipart/form-data" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate method="post">
+    <form name="form" enctype="multipart/form-data" (ngSubmit)="f.form.valid && onSubmit(f,modal)" #f="ngForm" novalidate method="post">
         <div class="text-center pt-3">
             <img *ngIf="uploaded === false;" [src]="uploadedImageUrl" style="max-width: 300px;max-height: 300px;" alt="">
         </div>
@@ -84,10 +84,10 @@
 
         </div>
     </form>
-    <ng-template #content let-modal>
+    <ng-template #modal let-modal>
         <div class="modal-header">
             <h4 class="modal-title" id="modal-basic-title">
-                Geeks of Geeks
+                Cadastro de usuários
             </h4>
             <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       
@@ -96,31 +96,16 @@
                 </span>
             </button>
         </div>
-        <div class="modal-body">
-            <form>
-                <div class="form-group">
-                    <label for="dateOfBirth">
-                        Date of birth
-                    </label>
-                    <div class="input-group">
-                        <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
-
-                        <div class="input-group-append">
-                            <button class="btn 
-                                btn-outline-secondary calendar" (click)="dp.toggle()" type="button">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+        <div class="modal-body d-flex justify-content-center">
+            <h4>Usuário cadastrado com sucesso!</h4>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
-                Save
+        <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cross click')">
+                Cancelar
+            </button>
+            <button type="button" class="btn btn-success" (click)="modal.close('Save click')">
+                OK
             </button>
         </div>
     </ng-template>
-    <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
-    Popup using Angular and Bootstrap
-</button>
 </div>

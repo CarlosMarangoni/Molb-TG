@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { UserForm } from './../../model/user-form';
 import { UserService } from './../service/user.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {NgbModal,ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -10,6 +10,7 @@ import {NgbModal,ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   styles: [
   ]
 })
+
 export class RegisterComponent implements OnInit {
   hide=true;
   public uploadedImageUrl:String = "/assets/img/no-image.png";
@@ -40,7 +41,7 @@ export class RegisterComponent implements OnInit {
     this.file = selectedFile[0];
   }
 
-  onSubmit(f:any){
+  onSubmit(f:any,content:any){
     this.userForm.email= this.form.email;
     this.userForm.description= this.form.description;
     this.userForm.username= this.form.username;
@@ -62,31 +63,13 @@ export class RegisterComponent implements OnInit {
       }
       f.resetForm();
       this.addUserSuccess = true;
-      this.router.navigateByUrl('/login')
+      this.modalService.open(content,
+        {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+           this.router.navigateByUrl('/login');
+         });
     }
 
     //this.userService.cadastrarUsuario()
   }
-
-  open(content:any) {
-    this.modalService.open(content,
-   {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = 
-         `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-  
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
   
 }
