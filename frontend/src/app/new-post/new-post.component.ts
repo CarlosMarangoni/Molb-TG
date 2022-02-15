@@ -31,7 +31,7 @@ export class NewPostComponent implements OnInit {
   }
 
   onSubmit(f: NgForm) {
-    console.log(this.form.category)
+  
     for (let i = 0; i < this.modelagens.length; i++) {
       let a = new PostItem();
       a.price = this.modelagens[i].price;

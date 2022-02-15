@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -32,6 +33,6 @@ public class RegistrationForm {
     @NotEmpty
     private String password;
 
-    private Set<String> roles;
+    private Set<String> roles = new HashSet<>();
 
 }

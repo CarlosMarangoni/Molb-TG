@@ -40,11 +40,10 @@ public class UserService {
             modelUser.setProfileImage("");
         }
         modelUser.setPassword(encoder.encode(modelUser.getPassword()));
-        Set<String> strRoles = user.getRoles();
+        Set<String> strRoles = new HashSet<>();
+        strRoles = user.getRoles();
         Set<Role> roles = new HashSet<>();
         if (!strRoles.isEmpty()) {
-
-
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
@@ -52,6 +51,12 @@ public class UserService {
                                 .orElseThrow(() -> new RuntimeException("Falha! -> Causa: Permissão não encontrada."));
                         roles.add(adminRole);
 
+                        break;
+
+                    case "creator":
+                        Role creatorRole = roleRepository.findByName(RoleName.ROLE_CREATOR)
+                                .orElseThrow(() -> new RuntimeException("Falha! -> Causa: Permissão não encontrada."));
+                        roles.add(creatorRole);
                         break;
                     default:
                         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)

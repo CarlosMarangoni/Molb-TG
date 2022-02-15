@@ -1,41 +1,80 @@
 <div class="container bg-secondary">
-    <form>
-        <div class="text-center p-4">
-            <img src="/assets/img/profile.png" width="30%" alt="">
+    <form name="form" enctype="multipart/form-data" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate method="post">
+        <div class="text-center pt-3">
+            <img *ngIf="uploaded === false;" [src]="uploadedImageUrl" style="max-width: 300px;max-height: 300px;" alt="">
         </div>
-        <div class="text-center">
-            <input type="file">
+        <div class="d-flex justify-content-center mt-1">
+            <div class="custom-file" style="max-width: 50%;">
+                <input type="file" id="customFile" accept="image/png,image/jpeg" (change)="onChange($event)">
+                <label class="custom-file-label" for="customFile" id="customFileLabel">Selecionar Arquivo</label>
+            </div>
         </div>
 
-        <div class="text-center">
+        <div class="m-3 text-center">
+            <div class="text-danger" *ngIf="f.submitted && name.invalid">
+                <div *ngIf="name.errors?.required">Nome é obrigatório</div>
+            </div>
+            <div class="text-danger" *ngIf="f.submitted && description.invalid">
+                <div *ngIf="description.errors?.required">Descrição é obrigatória</div>
+            </div>
+            <div class="text-danger" *ngIf="f.submitted && username.invalid">
+                <div *ngIf="username.errors?.required">Usuário é obrigatório</div>
+            </div>
+            <div class="text-danger" *ngIf="f.submitted && email.invalid">
+                <div *ngIf="email.errors?.required">E-mail é obrigatório</div>
+            </div>
+            <div class="text-danger" *ngIf="f.submitted && password.invalid">
+                <div *ngIf="password.errors?.required">Senha é obrigatória</div>
+            </div>
+            <div class="text-danger" *ngIf="f.submitted && confirmPassword.invalid">
+                <div *ngIf="confirmPassword.errors?.required">A confirmação da senha é obrigatória</div>
+            </div>
+        </div>
+
+        <div class="text-center mt-1">
+            <mat-form-field appearance="outline" style="min-width: 40%">
+                <mat-label>Nome Completo</mat-label>
+                <input matInput placeholder="Digite seu nome completo" type="text" name="name" id="name" [(ngModel)]="form.name" required #name="ngModel">
+            </mat-form-field>
+        </div>
+
+        <div class="text-center mt-1">
+            <mat-form-field appearance="outline" style="min-width: 40%">
+                <mat-label>Descrição</mat-label>
+                <textarea matInput placeholder="Descrição do seu perfil" type="text" name="description" id="description" [(ngModel)]="form.description" required #description="ngModel"> </textarea>
+            </mat-form-field>
+        </div>
+
+        <div class="text-center mt-1">
             <mat-form-field appearance="outline" style="min-width: 40%">
                 <mat-label>Usuário</mat-label>
-                <input matInput placeholder="Digite seu usuário" type="text">
+                <input matInput placeholder="Digite seu usuário" type="text" name="username" id="username" [(ngModel)]="form.username" required #username="ngModel">
             </mat-form-field>
         </div>
 
         <div class="text-center">
             <mat-form-field appearance="outline" style="min-width: 40%">
                 <mat-label>E-mail</mat-label>
-                <input matInput placeholder="Digite seu e-mail" type="email">
+                <input matInput placeholder="Digite seu e-mail" type="email" name="email" id="email" [(ngModel)]="form.email" required #email="ngModel">
             </mat-form-field>
         </div>
+        <div class="alert alert-warning" *ngIf="message.length>0">{{message}}</div>
         <div class="text-center">
             <mat-form-field appearance="fill" style="min-width: 40%">
                 <mat-label>Digite sua senha</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
+                <input name="password" id="password" matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="form.password" required #password="ngModel">
+                <div mat-icon-button matSuffix (click)="hide = !hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </div>
             </mat-form-field>
         </div>
         <div class="text-center">
             <mat-form-field appearance="fill" style="min-width: 40%">
                 <mat-label>Confirmar senha</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
+                <input name="confirmPassword" id="confirmPassword" matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="form.confirmPassword" required #confirmPassword="ngModel">
+                <div mat-icon-button matSuffix (click)="hide = !hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </div>
             </mat-form-field>
         </div>
         <div class="text-center p-3">
@@ -45,4 +84,43 @@
 
         </div>
     </form>
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">
+                Geeks of Geeks
+            </h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      
+                <span aria-hidden="true">
+                    ×
+                </span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="dateOfBirth">
+                        Date of birth
+                    </label>
+                    <div class="input-group">
+                        <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+
+                        <div class="input-group-append">
+                            <button class="btn 
+                                btn-outline-secondary calendar" (click)="dp.toggle()" type="button">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
+                Save
+            </button>
+        </div>
+    </ng-template>
+    <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+    Popup using Angular and Bootstrap
+</button>
 </div>

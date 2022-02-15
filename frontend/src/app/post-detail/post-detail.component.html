@@ -8,6 +8,9 @@
         <div class="mt-2">
             <ng-rating-bar [value]="post.averageStars" [ratingCount]="5" [disabled]=true colorActive="#ec9d95" [styles]="{fontSize: '40px'}"></ng-rating-bar>
         </div>
+        <div class="mt-1">
+            <button class="mt-1 btn btn-primary btn-lg">Comprar agora</button>
+        </div>
     </div>
     <div class="mt-5 mx-5 px-5">
         <div class="border border-primary border-10 d-flex justify-content-around my-3 align-items-center" *ngFor="let item of post.items">
@@ -52,8 +55,5 @@
 
             </div>
         </form>
-        <div class="text-center">
-            <button class="mt-1 btn btn-primary btn-lg">Comprar agora</button>
-        </div>
     </div>
 </div>
