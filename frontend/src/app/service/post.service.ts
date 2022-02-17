@@ -63,7 +63,7 @@ export class PostService {
       return this.http.get<string[]>(`${this.locator.services.Posts}/categories`,{headers})
   }
 
-  cadastrarPost(postForm:PostForm){
+  cadastrarPost(postForm:PostForm,moldes:File[]){
     const headers =   new HttpHeaders({
       "Authorization": `Bearer ${this.token.getToken()}`
     });
@@ -79,13 +79,16 @@ export class PostService {
       type: 'application/json'
     })
     formData.append('post',data)
+    moldes.forEach(m =>{
+      formData.append('moldes',m)
+    })
 
     const request = new HttpRequest('POST',this.locator.services.Posts, formData,{headers})
 
     return this.http.request(request);
   }
 
-  cadastrarPostComArquivo(postForm:PostForm,file:File){
+  cadastrarPostComArquivo(postForm:PostForm,file:File,moldes:File[]){
     const headers =   new HttpHeaders({
       "Authorization": `Bearer ${this.token.getToken()}`
     })
@@ -101,6 +104,9 @@ export class PostService {
     })
     formData.append('file',file,file.name)
     formData.append('post',data)
+    moldes.forEach(m =>{
+      formData.append('moldes',m)
+    })
 
     const request = new HttpRequest('POST',this.locator.services.Posts, formData,{headers})
 

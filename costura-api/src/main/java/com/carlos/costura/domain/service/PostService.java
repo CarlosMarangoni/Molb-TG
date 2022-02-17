@@ -7,7 +7,6 @@ import com.carlos.costura.domain.model.*;
 import com.carlos.costura.domain.model.dto.CommentForm;
 import com.carlos.costura.domain.model.dto.PostForm;
 import com.carlos.costura.domain.model.dto.SaleItemForm;
-import com.carlos.costura.domain.model.enumeration.Category;
 import com.carlos.costura.domain.model.pk.SaleItemPK;
 import com.carlos.costura.domain.repository.*;
 import lombok.AllArgsConstructor;
@@ -16,9 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
@@ -37,13 +35,18 @@ public class  PostService {
 
     private S3Service s3Service;
 
-    public Post save(PostForm postForm,MultipartFile imageFile) {
+    public Post save(PostForm postForm,MultipartFile imageFile,List<MultipartFile> moldes) {
         AtomicInteger atomicSum = new AtomicInteger(0);
+        List<String> fileUrls = new ArrayList<>();
         if(User.isAuthenticated()){
             User user = userRepository.findById(postForm.getUserId()).orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
-
-
             Post postModel = Post.toModel(postForm);
+
+            for (MultipartFile file : moldes) {
+                String url = uploadMoldeFile(file);
+                fileUrls.add(url);
+            }
+
             if(imageFile != null){
                 postModel.setPostImage(uploadPostPicture(imageFile).toString());
             }else{
@@ -51,9 +54,12 @@ public class  PostService {
             }
             postModel.setAverageStars(0.0);
             postModel.setUser(user);
+            AtomicInteger i = new AtomicInteger(0   );
             postModel.getItems().forEach(c ->{
+                c.setMoldeUrl(fileUrls.get(i.get()));
                 c.getSaleItemPK().setPost(postModel);
                 c.getSaleItemPK().setItem(atomicSum.incrementAndGet());
+                i.getAndIncrement();
             });
 
             return postRepository.save(postModel);
@@ -105,6 +111,12 @@ public class  PostService {
     {
         return s3Service.uploadFile(multipartFile);
     }
+
+    public String uploadMoldeFile(MultipartFile multipartFile)
+    {
+        return s3Service.uploadFile(multipartFile).toString();
+    }
+
 
     public Purchase buy(Long postId) {
         Post postToBuy = postRepository.findById(postId).get();

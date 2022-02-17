@@ -1,19 +1,10 @@
 <div class="container bg-secondary">
 
-    <form name="form" enctype="multipart/form-data" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate method="post">
+    <form name="form" enctype="multipart/form-data" (ngSubmit)="f.form.valid && onSubmit(f,modal)" #f="ngForm" novalidate method="post">
         <div class="text-center p-4">
-            <div *ngIf="addPostSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Sucesso!</strong> Post realizado com sucesso.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
             <div class="d-flex justify-content-center">
                 <div>
-                    <img *ngIf="uploaded === false;else postImage" [src]="uploadedImageUrl" style="max-width: 300px;max-height: 300px;" alt="">
-                    <ng-template #postImage>
-                        <div class="btn">teste</div>
-                    </ng-template>
+                    <img *ngIf="uploaded === false;" [src]="uploadedImageUrl" style="max-width: 300px;max-height: 300px;" alt="">
                 </div>
             </div>
         </div>
@@ -72,19 +63,23 @@
 
         <div class="form-group row m-3 text-left" *ngFor="let item of modelagens;  let i = index">
 
-            <div class="m-3 col-3 mt-4 pt-1">
-                <div class="text-danger" *ngIf="f.submitted && modelagens[i].description.length == 0">
+            <div class="col-2">
+                <div class="text-danger position-absolute" *ngIf="f.submitted && modelagens[i].description.length == 0" style="bottom: 0;">
                     <div>Descrição do item {{i + 1}} não deve estar vazia</div>
                 </div>
             </div>
 
+            <div class="col-3 mt-4">
+                <input type="file" id="moldeFile{{i}}" accept="image/png,image/jpeg,application/pdf" style="display: none;" (change)="onFileAdd($event,i)" required/>
+                <label class="mt-2 custom-file-label" for="moldeFile{{i}}" id="moldeFileLabel{{i}}" style="height: 80%;">Selecionar Arquivo</label>
+            </div>
             <div class="col-3">
                 <label class="label-modal">Descrição</label>
                 <input class="form-control" type="text" [(ngModel)]="item.description" name="itemDescription{{i}}" id="itemDescription{{i}}" #itemDescription{{i}}="ngModel" required/>
             </div>
             <div class="col-3">
                 <label class="label-modal">Preço</label>
-                <input class="form-control" currencyMask [(ngModel)]="item.price" name="price" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
+                <input class="form-control" currencyMask [(ngModel)]="item.price" name="price{{i}}" id="price{{i}}" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
 
             </div>
             <button class="col-1" type="button" class="close" aria-label="Close" (click)="removerItem(i)">
@@ -100,10 +95,35 @@
 
 
         <div class="text-center p-3">
-            <input class='btn btn-primary btn-lg' style="width: 30%;" type='submit' name='Postar' value='Postar Modelagem'><br>
+            <input class='btn btn-primary btn-lg' style="width: 30%;" type='submit' name='Postar' [disabled]="!isFileValid()" value='Postar Modelagem'><br>
         </div>
         <div style="height: 250px;">
 
         </div>
     </form>
 </div>
+
+<ng-template #modal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            Postagens
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+  
+            <span aria-hidden="true">
+                ×
+            </span>
+        </button>
+    </div>
+    <div class="modal-body d-flex justify-content-center">
+        <h4>Post realizado com sucesso!</h4>
+    </div>
+    <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cross click')">
+            Cancelar
+        </button>
+        <button type="button" class="btn btn-success" (click)="modal.close('Save click')">
+            OK
+        </button>
+    </div>
+</ng-template>

@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
@@ -22,6 +23,8 @@ public class SaleItem {
 
     @EmbeddedId
     private SaleItemPK saleItemPK = new SaleItemPK();
+
+    private String moldeUrl;
 
     private String description;
 

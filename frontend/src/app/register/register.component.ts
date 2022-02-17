@@ -20,7 +20,6 @@ export class RegisterComponent implements OnInit {
   public uploaded = false;
   public message:string = "";
   public addUserSuccess:boolean = false;
-  closeResult = '';
 
   constructor(private userService:UserService,private router:Router,private modalService: NgbModal) { }
 

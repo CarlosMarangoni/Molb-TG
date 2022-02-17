@@ -84,8 +84,8 @@ public class PostsController {
 
     @PostMapping
     public ResponseEntity<PostOutput> addPost(@RequestParam(name = "file",required = false) MultipartFile imageFile,
-                                              @Valid @RequestPart("post") PostForm postForm, UriComponentsBuilder uriComponentsBuilder){
-        Post savedPost = postService.save(postForm,imageFile);
+                                              @Valid @RequestPart("post") PostForm postForm,@RequestParam(name = "moldes",required = true)List<MultipartFile> moldes,UriComponentsBuilder uriComponentsBuilder){
+        Post savedPost = postService.save(postForm,imageFile,moldes);
         UriComponents uriComponents = uriComponentsBuilder.path("/posts/{id}").buildAndExpand(savedPost.getId());
         var location = uriComponents.toUri();
         return ResponseEntity.created(location).body(PostOutput.toOutput(savedPost));

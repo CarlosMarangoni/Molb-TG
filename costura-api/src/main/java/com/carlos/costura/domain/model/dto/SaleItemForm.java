@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class SaleItemForm {
 
+
     @NotEmpty
     private String description;
 
