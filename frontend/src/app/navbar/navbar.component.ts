@@ -20,7 +20,8 @@ export class NavbarComponent {
       token: this.token.getToken(),
       username: this.token.getUsername(),
       profilePic: this.token.getProfilePic(),
-      authorities: this.token.getAuthorities()
+      authorities: this.token.getAuthorities(),
+      id: this.token.getUserId()
     }
     if (this.token.getToken()) {
       this.roles = this.token.getAuthorities();

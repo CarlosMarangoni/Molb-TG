@@ -1,28 +1,47 @@
 <nav class="navbar shadow justify-content-between bg-secondary">
 
-    <div>
+    <div class="ml-5">
         <a class="btn" [routerLink]="['/home']">
-            <div class="navbar-brand brand-font mr-2" style="font-size: 3rem;"> Molsew
+            <div class="navbar-brand brand-font"> Molsew
             </div>
         </a>
         <span class="btn btn-primary" *ngIf="authority === 'admin'">Cadastrar</span>
     </div>
 
-    <div class="btn dropdown text-center">
-        <div *ngIf="info.token; else loggedOut">
+    <div class="d-flex justify-content-between mr-5">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <img [src]="info.profilePic" style="width: 100%;border-radius: 50%;" alt="">
+            <span class="dropdown-toggle"></span>
+            
+      </button>
+    </div>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item [routerLink]="['/profile/',this.info.id]">
+          <mat-icon>person</mat-icon>
+          <span>Perfil</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Configurações</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+    </mat-menu>
 
-            <p>
-                <strong>Username:</strong> {{info.username}}<br/>
-                <strong>Roles:</strong> {{info.authorities}}<br />
-                <img [src]="info.profilePic" width="30px" alt="">
-            </p>
+
+    <!-- <div class="btn dropdown text-center">
+        <div *ngIf="info.token; else loggedOut">
             <button class="btn btn-primary" (click)="logout()">Logout</button>
+
+
         </div>
 
         <ng-template #loggedOut>
             <a class="btn btn-primary" [routerLink]="['/login']"> Fazer login</a>
         </ng-template>
 
-    </div>
+    </div> -->
 
 </nav>

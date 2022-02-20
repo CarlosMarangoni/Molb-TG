@@ -28,6 +28,7 @@ import { registerLocaleData } from '@angular/common';
 import { NgRatingBarModule } from 'ng-rating-bar';
 import { NewPostComponent } from './new-post/new-post.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { MatMenuModule } from '@angular/material/menu'
 
 registerLocaleData(ptBr);
 
@@ -58,7 +59,8 @@ registerLocaleData(ptBr);
     MatButtonModule,
     HttpClientModule,
     NgRatingBarModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    MatMenuModule
   ],
   exports:[
  

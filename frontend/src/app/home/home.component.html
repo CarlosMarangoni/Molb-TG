@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="row">
-        <div class="col-4 bg-primary mt-4" style="height: 1500px">
+    <div class="row" style="display: flex;flex-wrap: wrap">
+        <div class="col-4 bg-primary mt-4">
             <ul class="list-group list-group-mine mt-5">
                 <li class="list-group-item" *ngFor="let category of categories; let i = index" [class.active]="selectedIndex === i" (click)="setIndex(i)">{{category}}</li>
             </ul>
@@ -72,13 +72,12 @@
 
             <div class="row">
                 <div *ngFor="let post of obterPosts()" class="col-md-4 my-1">
-                    <div class="post p-4 bg-secondary rounded col-sm card">
+                    <div class="post p-4 bg-secondary rounded col-sm card" style="height: 100%;">
                         <a class="btn btn-primary mb-2" [routerLink]="['/profile/',post.userId]">
-                            <span class="text-left"><img class="border border-primary rounded-circle" width="50px"
-                [src]='post.profileImage' alt="">{{post.user}}</span></a>
+                            <span class="text-left"><img class="border border-primary rounded-circle" width="50px"[src]='post.profileImage' alt="">{{post.user}}</span></a>
 
                         <a class="btn" [routerLink]="['/posts/',post.id]">
-                            <img *ngIf="post.postImage != ''; else noImage" class="border rounded border-primary border-10" style="max-height: 200px; max-width: 100%;" [src]='post.postImage' alt="">
+                            <img *ngIf="post.postImage != ''; else noImage" class="border rounded border-primary border-10" style="height: 150px; max-width: 100%;" [src]='post.postImage' alt="">
                             <ng-template #noImage>
                                 <img class="border rounded border-primary border-10" style="max-height: 200px;" src='/assets/img/no-image.png' alt="" style="max-height: 200px; max-width: 100%;">
                             </ng-template>

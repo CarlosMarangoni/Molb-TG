@@ -44,7 +44,12 @@
 
     <div *ngFor="let post of posts" class="border-bottom border-primary mt-5 mx-5">
         <div class="d-flex justify-content-around">
-            <div class="btn flex-shrink-1 mb-3 btn" [routerLink]="['/posts/',post.id]"><img class="zoom-hover" [src]="post.postImage" width="300px" style="max-height: 300px;" alt=""></div>
+            <div class="btn flex-shrink-1 mb-3 btn" [routerLink]="['/posts/',post.id]">
+                <img *ngIf="post.postImage != ''; else noImage" class="zoom-hover" [src]="post.postImage" width="300px" style="max-height: 300px;" alt="">
+                <ng-template #noImage>
+                    <img src='/assets/img/no-image.png' width="300px" style="max-height: 300px;" alt="">
+                </ng-template>
+            </div>
             <div class="text-center row" style="width: 75%;">
                 <div class="text-center col-9" style="font-size: x-large;"><b>{{post.title}}</b></div>
                 <div class="text-center col-9">{{post.description}}</div>

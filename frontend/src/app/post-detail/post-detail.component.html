@@ -1,7 +1,12 @@
 <div class="container">
     <div class="border-bottom border-primary pb-5">
         <div class="text-center mt-5 mb-2" style="font-size: xx-large;">{{post.title}}</div>
-        <div class="text-center"><img class="border border-primary border-5" width="300px" [src]="post.postImage" alt=""></div>
+        <div class="text-center">
+            <img *ngIf="post.postImage != ''; else noImage" class="border border-primary border-5" width="300px" [src]="post.postImage" alt="">
+            <ng-template #noImage>
+                <img class="border border-primary border-5" src='/assets/img/no-image.png' alt="">
+            </ng-template>
+        </div>
     </div>
     <div class="text-center py-5 border-bottom border-primary">
         <b style="font-size: large;">{{post.description}}</b><br>
