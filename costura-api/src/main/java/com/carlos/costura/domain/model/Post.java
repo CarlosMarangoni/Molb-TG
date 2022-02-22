@@ -6,11 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,13 +52,13 @@ public class Post {
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "saleItemPK.post",cascade = CascadeType.ALL)
-    private List<SaleItem> items = new ArrayList<>();
+    @OneToMany(mappedBy = "postItemPK.post",cascade = CascadeType.ALL)
+    private List<PostItem> items = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    public Post(String title,String description, Category category,List<SaleItem> items) {
+    public Post(String title,String description, Category category,List<PostItem> items) {
         this.title = title;
         this.description = description;
         this.category = category;
@@ -72,7 +70,7 @@ public class Post {
                 postForm.getTitle(),
                 postForm.getDescription(),
                 Category.convertFromString(postForm.getCategory().toLowerCase(Locale.ROOT)),
-                postForm.getItems().stream().map(SaleItem::toModel).collect(Collectors.toList()));
+                postForm.getItems().stream().map(PostItem::toModel).collect(Collectors.toList()));
     }
 
     public void plusOneComment() {

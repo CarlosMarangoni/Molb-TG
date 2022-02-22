@@ -1,3 +1,4 @@
+import { LoginComponent } from './../login/login.component';
 import { TokenStorageService } from './../service/token-storage.service';
 import { Component, OnInit } from '@angular/core';
 

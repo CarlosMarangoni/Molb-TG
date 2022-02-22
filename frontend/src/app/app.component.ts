@@ -1,3 +1,4 @@
+import { LoginComponent } from './login/login.component';
 import { TokenStorageService } from './service/token-storage.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,7 +11,8 @@ export class AppComponent implements OnInit {
   title = 'Molsew';
   roles: string[] = [];
   authority: string = "";
-  
+  mostrarMenu:boolean = false;
+
   constructor(private tokenStorage: TokenStorageService) { }
   
   
@@ -29,8 +31,8 @@ export class AppComponent implements OnInit {
         return true;
       });
     }
-
-  }
+    
+      }
   
 
 }

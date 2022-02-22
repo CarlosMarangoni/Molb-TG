@@ -1,5 +1,6 @@
 package com.carlos.costura.domain.model;
 
+import com.carlos.costura.domain.model.dto.CartForm;
 import com.carlos.costura.domain.model.enumeration.PaymentMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -10,12 +11,14 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "purchases")
+@Table(name = "Purchases")
 public class Purchase {
 
     @Id
@@ -26,10 +29,8 @@ public class Purchase {
     @JsonIgnore
     private User user;
 
-    @ManyToOne
-    private Post post;
-
-    private BigDecimal value;
+    @OneToMany
+    private List<PostItem> items = new ArrayList<>();
 
     @CreationTimestamp
     private OffsetDateTime date;
@@ -37,4 +38,14 @@ public class Purchase {
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
+    private BigDecimal total;
+
+    public Purchase(List<PostItem> postItemsList){
+        this.items = postItemsList;
+    }
+
+    public static Purchase toModel(CartForm cartForm) {
+        return new Purchase(
+        );
+    }
 }

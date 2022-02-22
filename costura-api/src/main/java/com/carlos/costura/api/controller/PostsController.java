@@ -13,14 +13,12 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,9 +37,6 @@ public class PostsController {
 
     @GetMapping
     public Page<PostOutput> getAllPosts(Pageable pageable){
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        user = userRepository.findById(user.getId()).orElseThrow(() -> new PageNotFoundException("Página não encontrada"));
-
         Page<Post> postList = postRepository.findAll(pageable);
         List<PostOutput> postListDto = postList.stream().map(PostOutput::toOutput).collect(Collectors.toList());
         int pageSize = pageable.getPageSize();
@@ -92,8 +87,8 @@ public class PostsController {
     }
 
     @PostMapping("/{postId}/item")
-    public ResponseEntity<PostOutput> addItem(@RequestBody SaleItemForm saleItemForm, @PathVariable Long postId){
-        Post post = postService.addItem(saleItemForm,postId);
+    public ResponseEntity<PostOutput> addItem(@RequestBody PostItemForm postItemForm, @PathVariable Long postId){
+        Post post = postService.addItem(postItemForm,postId);
         return ResponseEntity.status(HttpStatus.CREATED).body(PostOutput.toOutput(post));
     }
 
@@ -123,12 +118,5 @@ public class PostsController {
     public ResponseEntity<?> deleteItem(@PathVariable Long postId,@PathVariable Integer itemId){
         postService.deleteItem(postId,itemId);
         return ResponseEntity.noContent().build();
-    }
-
-    @PostMapping("/{postId}/buy")
-    public ResponseEntity<Purchase> buyPost(@PathVariable Long postId){
-        Purchase purchase = postService.buy(postId);
-
-        return null;
     }
 }

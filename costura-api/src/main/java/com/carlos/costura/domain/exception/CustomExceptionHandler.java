@@ -118,7 +118,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(ConflictException.class)
-    public ResponseEntity<Object> handleConflictException(AuthorizationException ex, WebRequest request) {
+    public ResponseEntity<Object> handleConflictException(ConflictException ex, WebRequest request) {
         Error error = new Error();
         error.setMessage(ex.getMessage());
         error.setTimestamp(OffsetDateTime.now());

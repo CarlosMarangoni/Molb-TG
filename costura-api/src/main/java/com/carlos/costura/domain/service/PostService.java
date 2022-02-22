@@ -6,11 +6,10 @@ import com.carlos.costura.domain.exception.PageNotFoundException;
 import com.carlos.costura.domain.model.*;
 import com.carlos.costura.domain.model.dto.CommentForm;
 import com.carlos.costura.domain.model.dto.PostForm;
-import com.carlos.costura.domain.model.dto.SaleItemForm;
-import com.carlos.costura.domain.model.pk.SaleItemPK;
+import com.carlos.costura.domain.model.dto.PostItemForm;
+import com.carlos.costura.domain.model.pk.PostItemPK;
 import com.carlos.costura.domain.repository.*;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,7 +30,7 @@ public class  PostService {
 
     private UserRepository userRepository;
 
-    private SaleItemRepository saleItemRepository;
+    private PostItemRepository postItemRepository;
 
     private S3Service s3Service;
 
@@ -57,8 +56,8 @@ public class  PostService {
             AtomicInteger i = new AtomicInteger(0   );
             postModel.getItems().forEach(c ->{
                 c.setMoldeUrl(fileUrls.get(i.get()));
-                c.getSaleItemPK().setPost(postModel);
-                c.getSaleItemPK().setItem(atomicSum.incrementAndGet());
+                c.getPostItemPK().setPost(postModel);
+                c.getPostItemPK().setItem(atomicSum.incrementAndGet());
                 i.getAndIncrement();
             });
 
@@ -117,29 +116,19 @@ public class  PostService {
         return s3Service.uploadFile(multipartFile).toString();
     }
 
-
-    public Purchase buy(Long postId) {
-        Post postToBuy = postRepository.findById(postId).get();
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (user == null){
-            throw new AuthorizationException("Acesso negado.");
-        }
-        return null;
-    }
-
     public void delete(Long postId) {
         postRepository.deleteById(postId);
     }
 
-    public Post addItem(SaleItemForm saleItemForm, Long postId) {
-        SaleItem saleItem = SaleItem.toModel(saleItemForm);
+    public Post addItem(PostItemForm postItemForm, Long postId) {
+        PostItem postItem = PostItem.toModel(postItemForm);
         User loggedUser = User.isAuthenticatedReturnUser();
         Post post = postRepository.findById(postId).orElseThrow(() -> new PageNotFoundException("Post não encontrado."));
         if(loggedUser.getId().equals(post.getUser().getId())){
-           List<SaleItem> items = post.getItems();
-           saleItem.getSaleItemPK().setPost(post);
-           saleItem.getSaleItemPK().setItem(items.size()+1);
-           items.add(saleItem);
+           List<PostItem> items = post.getItems();
+           postItem.getPostItemPK().setPost(post);
+           postItem.getPostItemPK().setItem(items.size()+1);
+           items.add(postItem);
            post.setItems(items);
         }else{
             throw new AuthorizationException("Acesso negado.");
@@ -151,9 +140,9 @@ public class  PostService {
     public void deleteItem(Long postId, Integer itemId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new PageNotFoundException("Post não encontrado."));
         User loggedUser = User.isAuthenticatedReturnUser();
-        List<SaleItem> items = post.getItems();
+        List<PostItem> items = post.getItems();
         if(loggedUser.getId().equals(post.getUser().getId())) {
-            saleItemRepository.deleteById(SaleItemPK.builder()
+            postItemRepository.deleteById(PostItemPK.builder()
                             .item(itemId)
                             .post(post)
                     .build());

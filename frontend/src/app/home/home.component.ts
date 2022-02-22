@@ -1,7 +1,6 @@
+import { TokenStorageService } from './../service/token-storage.service';
 import { PageablePostDto } from './../../model/pageable-post-dto';
 import { PostService } from './../service/post.service';
-import { Post } from './../../model/post-dto';
-import { User } from './../../model/user-dto';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -18,19 +17,32 @@ export class HomeComponent implements OnInit{
   activePage:number = 0;
   selectedIndex: number = 0;
   selectedSearch:any = 'userFilter';
-  categories:string[] = [];
+  categories:string[] = []; 
+  roles: string[] = []; 
+  authority: string = "";
 
-
-
-  constructor(private postService:PostService){
+  constructor(private postService:PostService,private token: TokenStorageService){
     this.postService=postService;
   }
   
   ngOnInit(): void {
+    if (this.token.getToken()) {
+      this.roles = this.token.getAuthorities();
+      this.roles.every(role => {
+        if (role === 'ROLE_ADMIN') {
+          this.authority = 'admin';
+          return false;
+        } else if (role === 'ROLE_CREATOR') {
+          this.authority = 'creator';
+          return false;
+        }
+        this.authority = 'user';
+        return true;
+      });
+    }
     this.postService.obterTodasPostagensPaginadas(this.activePage)
     .subscribe(posts =>{
       this.posts = posts;
-      console.log(posts)
     },
     error => console.log(error))
     this.obterCategorias();
@@ -73,7 +85,6 @@ export class HomeComponent implements OnInit{
     this.postService.obterTodasCategorias().subscribe(categories =>{
       this.categories = categories;
       this.categories.unshift("TODOS");
-      console.log(categories)
     },error => console.log(error))
   }
 

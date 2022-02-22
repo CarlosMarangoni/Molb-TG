@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +38,7 @@ public class PostOutput {
 
     private List<CommentOutput> comments;
 
-    private List<SaleItemForm> items;
+    private List<PostItemForm> items;
 
     public static PostOutput toOutput(Post post){
         return new PostOutput(
@@ -55,7 +54,7 @@ public class PostOutput {
                 post.getCategory().name(),
                 post.getLikes().stream().map(LikeOutput::toOutput).collect(Collectors.toList()),
                 post.getComments().stream().map(CommentOutput::toOutput).collect(Collectors.toList()),
-                post.getItems().stream().map(SaleItemForm::toForm).collect(Collectors.toList()));
+                post.getItems().stream().map(PostItemForm::toForm).collect(Collectors.toList()));
     }
 
 }

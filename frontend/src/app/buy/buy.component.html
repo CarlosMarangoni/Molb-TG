@@ -1,16 +1,15 @@
 <div class="container">
     <div class="border-bottom border-primary pb-5">
-        <div class="text-center mt-5 mb-2" style="font-size: xx-large;">Camiseta Regata</div>
-        <div class="text-center"><img class="border border-primary border-5" width="300px" src="/assets/img/muie.jpg" alt=""></div>
+        <div class="text-center my-4 mb-2" style="font-size: xx-large;">{{post.title}}</div>
+        <div class="text-center"><img class="border border-primary border-5" width="300px" [src]="post.postImage" alt=""></div>
+        <div class="text-center mt-2">
+            <ng-rating-bar [value]="post.averageStars" [ratingCount]="5" [disabled]=true colorActive="#ec9d95" [styles]="{fontSize: '40px'}"></ng-rating-bar>
+        </div>
     </div>
-    <div class="text-center py-5 border-bottom border-primary">
-        <b style="font-size: xx-large;">R$ 10,00</b><br>
-        <div>
-            <img src="/assets/img/star-filled.png" width="40px" alt="">
-            <img src="/assets/img/star-filled.png" width="40px" alt="">
-            <img src="/assets/img/star-filled.png" width="40px" alt="">
-            <img src="/assets/img/star-filled.png" width="40px" alt="">
-            <img src="/assets/img/star.png" width="40px" alt="">
+    <div class="mt-5 mx-5 px-5">
+        <div class="border border-primary border-10 d-flex justify-content-around my-3 align-items-center" *ngFor="let item of post.items">
+            <div class="text-center" style="width: 75%;">{{item.description}}</div><span>{{item.price | currency:'BRL'}}</span>
+            <div class="text-right flex-shrink-1"><img src="/assets/img/eye.png" alt=""></div>
         </div>
     </div>
     <div class="m-4 px-5">

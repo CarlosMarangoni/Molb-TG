@@ -1,15 +1,23 @@
-<nav class="navbar shadow justify-content-between bg-secondary">
+<nav class="navbar shadow justify-content-between bg-secondary p-0">
 
     <div class="ml-5">
         <a class="btn" [routerLink]="['/home']">
             <div class="navbar-brand brand-font"> Molsew
             </div>
         </a>
-        <span class="btn btn-primary" *ngIf="authority === 'admin'">Cadastrar</span>
     </div>
-
-    <div class="d-flex justify-content-between mr-5">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
+    <div class="d-flex justify-content-between" style="width: 60rem;">
+        <div class="mr-4">
+            <div class="btn btn-primary">Início</div>
+            <div class="btn btn-primary" *ngIf="authority === 'admin'">Usuários</div>
+        </div>
+        <div class="ml-4 d-flex justify-content-between">
+            <div class="btn btn-primary"><span class="px-2">Sobre nós</span></div>
+            <div class="btn btn-primary"><span class="px-2">Seja um vendedor</span></div>
+        </div>
+    </div>
+    <div class="mr-5">
+        <button *ngIf="info.token;else loggedOut" mat-icon-button [matMenuTriggerFor]="menu">
             <img [src]="info.profilePic" style="width: 100%;border-radius: 50%;" alt="">
             <span class="dropdown-toggle"></span>
             
@@ -30,18 +38,11 @@
         </button>
     </mat-menu>
 
-
-    <!-- <div class="btn dropdown text-center">
-        <div *ngIf="info.token; else loggedOut">
-            <button class="btn btn-primary" (click)="logout()">Logout</button>
-
-
+    <ng-template #loggedOut>
+        <div>
+            <span>Bem vindo :) </span><br/>
+            <a class="" [routerLink]="['/login']">Entre ou cadastre-se</a>
         </div>
-
-        <ng-template #loggedOut>
-            <a class="btn btn-primary" [routerLink]="['/login']"> Fazer login</a>
-        </ng-template>
-
-    </div> -->
+    </ng-template>
 
 </nav>

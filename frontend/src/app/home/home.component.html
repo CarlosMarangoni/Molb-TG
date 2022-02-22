@@ -32,7 +32,7 @@
                 </div>
 
 
-                <div class="dropdown">
+                <!--<div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle m-2" type="button" id="dropdownPosts" data-bs-toggle="dropdown" aria-expanded="false">
             
             </button>
@@ -50,7 +50,7 @@
                             </li>
                         </div>
                     </ul>
-                </div>
+                </div>-->
 
             </div>
             <!-- PAGINAÇÃO -->
@@ -68,7 +68,9 @@
                     </li>
                 </ul>
             </div>
-
+            <div *ngIf="authority === 'creator'" class="d-flex justify-content-end">
+                <div class="btn btn-primary" [routerLink]="['/new-post']">+</div>
+            </div>
 
             <div class="row">
                 <div *ngFor="let post of obterPosts()" class="col-md-4 my-1">

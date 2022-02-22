@@ -1,15 +1,16 @@
 package com.carlos.costura.domain.service;
 
 import com.carlos.costura.domain.exception.AuthorizationException;
+import com.carlos.costura.domain.exception.ConflictException;
 import com.carlos.costura.domain.exception.PageNotFoundException;
+import com.carlos.costura.domain.model.PostItem;
+import com.carlos.costura.domain.model.Purchase;
 import com.carlos.costura.domain.model.Role;
 import com.carlos.costura.domain.model.User;
 import com.carlos.costura.domain.model.dto.RegistrationForm;
 import com.carlos.costura.domain.model.enumeration.RoleName;
-import com.carlos.costura.domain.repository.RoleRepository;
-import com.carlos.costura.domain.repository.UserRepository;
+import com.carlos.costura.domain.repository.*;
 import lombok.AllArgsConstructor;
-import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -28,15 +31,19 @@ public class UserService {
 
     private RoleRepository roleRepository;
 
+    private PostItemRepository postItemRepository;
+
     private S3Service s3Service;
 
+    private CartRepository cartRepository;
+
     @Transactional
-    public User save(RegistrationForm user, MultipartFile imageFile){
+    public User save(RegistrationForm user, MultipartFile imageFile) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         User modelUser = User.toModel(user);
-        if(imageFile != null){
+        if (imageFile != null) {
             modelUser.setProfileImage(uploadProfilePicture(imageFile).toString());
-        }else{
+        } else {
             modelUser.setProfileImage("");
         }
         modelUser.setPassword(encoder.encode(modelUser.getPassword()));
@@ -64,7 +71,7 @@ public class UserService {
                         roles.add(userRole);
                 }
             });
-        }else {
+        } else {
             Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Falha! -> Causa: Permissão não encontrada."));
             roles.add(userRole);
@@ -79,10 +86,10 @@ public class UserService {
         User followedUser = userRepository.findById(id).orElseThrow(() -> new PageNotFoundException("Usuário não encontrado."));
         loggedUser = userRepository.findById(loggedUser.getId()).orElseThrow(() -> new PageNotFoundException("Usuário não encontrado."));
 
-        if(loggedUser.getFollowing().stream().anyMatch(n -> n.getId() == followedUser.getId())){
+        if (loggedUser.getFollowing().stream().anyMatch(n -> n.getId() == followedUser.getId())) {
             loggedUser.getFollowing().remove(followedUser);
             followedUser.getFollowers().remove(loggedUser);
-        }else{
+        } else {
             loggedUser.getFollowing().add(followedUser);
             followedUser.getFollowers().add(loggedUser);
         }
@@ -90,20 +97,43 @@ public class UserService {
 
     }
 
-    public URI uploadProfilePicture(MultipartFile multipartFile)
-    {
+    public URI uploadProfilePicture(MultipartFile multipartFile) {
         return s3Service.uploadFile(multipartFile);
     }
 
-    public User updateUserDesc(Long id,String description) {
+    public User updateUserDesc(Long id, String description) {
         User user = userRepository.findById(id).orElseThrow(() -> new PageNotFoundException("Página não encontrada."));
         User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(loggedUser.getId().equals(user.getId())){
+        if (loggedUser.getId().equals(user.getId())) {
             user.setDescription(description);
-        }else{
+        } else {
             throw new AuthorizationException("Acesso negado.");
         }
 
         return userRepository.save(user);
     }
-}
+
+    public boolean buy(Purchase purchase, User loggedUser) {
+        loggedUser = userRepository.findById(loggedUser.getId()).get();
+        List<Purchase> purchaseList = loggedUser.getPurchaseList();
+        List<PostItem> boughtItems = new ArrayList<>();
+        List<PostItem> itemsToBuy;
+
+        for (Purchase p : purchaseList) {
+            for (PostItem i : p.getItems()) {
+                boughtItems.add(i);
+            }
+        }
+        itemsToBuy = purchase.getItems();
+
+        for (PostItem i : itemsToBuy) {
+            if (boughtItems.contains(i)) {
+                i = postItemRepository.findById(i.getPostItemPK()).get();
+                throw new ConflictException("Você já comprou o item " + i.getDescription() + " da postagem: " + i.getPostItemPK().getPost().getId());
+            }
+        }
+        cartRepository.save(purchase);
+            return true;
+        }
+    }
+

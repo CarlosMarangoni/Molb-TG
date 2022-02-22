@@ -27,9 +27,9 @@ public class PostForm {
     private String category;
 
     @NotEmpty
-    private List<SaleItemForm> items = new ArrayList<>();
+    private List<PostItemForm> items = new ArrayList<>();
 
-    public PostForm(String title,String description,String category,Long userId,List<SaleItemForm> items) {
+    public PostForm(String title,String description,String category,Long userId,List<PostItemForm> items) {
         this.description = description;
         this.title = title;
         this.userId = userId;
@@ -43,7 +43,7 @@ public class PostForm {
                 post.getDescription(),
                 post.getCategory().name(),
                 post.getUser().getId(),
-                post.getItems().stream().map(SaleItemForm::toForm).collect(Collectors.toList()));
+                post.getItems().stream().map(PostItemForm::toForm).collect(Collectors.toList()));
     }
 
 }
