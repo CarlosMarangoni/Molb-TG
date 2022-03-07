@@ -34,7 +34,7 @@ public class PostOutput {
 
     private String category;
 
-    private List<LikeOutput> likes;
+//    private List<LikeOutput> likes;
 
     private List<CommentOutput> comments;
 
@@ -52,7 +52,7 @@ public class PostOutput {
                 post.getDescription(),
                 post.getCreatedAt(),
                 post.getCategory().name(),
-                post.getLikes().stream().map(LikeOutput::toOutput).collect(Collectors.toList()),
+//                post.getLikes().stream().map(LikeOutput::toOutput).collect(Collectors.toList()),
                 post.getComments().stream().map(CommentOutput::toOutput).collect(Collectors.toList()),
                 post.getItems().stream().map(PostItemForm::toForm).collect(Collectors.toList()));
     }

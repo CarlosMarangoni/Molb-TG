@@ -1,5 +1,6 @@
 package com.carlos.costura.domain.service;
 
+import com.carlos.costura.domain.exception.ConflictException;
 import com.carlos.costura.domain.exception.PageNotFoundException;
 import com.carlos.costura.domain.model.Purchase;
 import com.carlos.costura.domain.model.Post;
@@ -35,7 +36,7 @@ public class CartService {
     @Autowired
     private PostItemRepository postItemRepository;
 
-    public void  save(CartForm cartForm) {
+    public boolean  save(CartForm cartForm) {
         User user = User.isAuthenticatedReturnUser();
         List<PostItem> postItemList = new ArrayList<>();
         BigDecimal valorTotal = BigDecimal.ZERO;
@@ -43,6 +44,10 @@ public class CartService {
         purchase.setUser(user);
         for (CartItem i : cartForm.getItems()) {
             Post post = postRepository.findById(i.getPostId()).orElseThrow(() -> new PageNotFoundException("Post não encontrado."));
+            if(post.getUser().getId().equals(user.getId())){
+                throw new ConflictException("Você é o dono do post "+ post.getId() + ", então não pode comprá-lo.");
+            }
+
             boolean exists = postItemRepository.existsByPostItemPK(new PostItemPK(post,i.getItem()));
             if (exists){
                 var postItem = PostItem.builder().postItemPK(new PostItemPK(post,i.getItem())).build();
@@ -59,7 +64,7 @@ public class CartService {
         purchase.setItems(postItemList);
         purchase.setTotal(valorTotal);
         purchase.setPaymentMethod(PaymentMethod.PAYPAL);
-        userService.buy(purchase,user);
+        return userService.buy(purchase,user);
 
 
     }

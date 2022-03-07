@@ -102,10 +102,10 @@ public class PostsController {
         return ResponseEntity.created(location).body(PostOutput.toOutput(commentedPost));
     }
 
-    @PostMapping("/{postId}/like")
-    public void addLike(@PathVariable Long postId){
-        postService.addLike(postId);
-    }
+//    @PostMapping("/{postId}/like")
+//    public void addLike(@PathVariable Long postId){
+//        postService.addLike(postId);
+//    }
 
 
     @DeleteMapping("/{postId}")

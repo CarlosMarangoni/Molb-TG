@@ -22,8 +22,6 @@ public class PostSummary {
 
     private OffsetDateTime createdAt;
 
-    private Integer likeAmount;
-
     private Integer commentAmount;
 
     private String category;
@@ -34,7 +32,6 @@ public class PostSummary {
                 post.getUser().getUser(),
                 post.getDescription(),
                 post.getCreatedAt(),
-                post.getLikeAmount(),
                 post.getCommentAmount(),
                 post.getCategory().name()
         );

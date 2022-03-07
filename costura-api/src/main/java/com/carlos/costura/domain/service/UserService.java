@@ -3,11 +3,9 @@ package com.carlos.costura.domain.service;
 import com.carlos.costura.domain.exception.AuthorizationException;
 import com.carlos.costura.domain.exception.ConflictException;
 import com.carlos.costura.domain.exception.PageNotFoundException;
-import com.carlos.costura.domain.model.PostItem;
-import com.carlos.costura.domain.model.Purchase;
-import com.carlos.costura.domain.model.Role;
-import com.carlos.costura.domain.model.User;
+import com.carlos.costura.domain.model.*;
 import com.carlos.costura.domain.model.dto.RegistrationForm;
+import com.carlos.costura.domain.model.enumeration.PaymentMethod;
 import com.carlos.costura.domain.model.enumeration.RoleName;
 import com.carlos.costura.domain.repository.*;
 import lombok.AllArgsConstructor;
@@ -36,6 +34,8 @@ public class UserService {
     private S3Service s3Service;
 
     private CartRepository cartRepository;
+
+    private SaleRepository saleRepository;
 
     @Transactional
     public User save(RegistrationForm user, MultipartFile imageFile) {
@@ -117,7 +117,7 @@ public class UserService {
         loggedUser = userRepository.findById(loggedUser.getId()).get();
         List<Purchase> purchaseList = loggedUser.getPurchaseList();
         List<PostItem> boughtItems = new ArrayList<>();
-        List<PostItem> itemsToBuy;
+        List<PostItem> itemsToBuy = new ArrayList<>();
 
         for (Purchase p : purchaseList) {
             for (PostItem i : p.getItems()) {
@@ -132,8 +132,19 @@ public class UserService {
                 throw new ConflictException("Você já comprou o item " + i.getDescription() + " da postagem: " + i.getPostItemPK().getPost().getId());
             }
         }
+        purchase.getItems().forEach(i -> {
+            PostItem item = postItemRepository.findById(i.getPostItemPK()).get();
+            Sale venda = new Sale(i.getPostItemPK().getPost().getUser(),item,item.getPrice(), PaymentMethod.PAYPAL);
+            saleRepository.save(venda);
+        });
         cartRepository.save(purchase);
-            return true;
+//        saleRepository.save(sale);
+        this.registerSale(purchase.getItems());
+        
+        return true;
         }
+
+    private void registerSale(List<PostItem> items) {
     }
+}
 

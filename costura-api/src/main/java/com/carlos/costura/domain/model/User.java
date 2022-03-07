@@ -91,6 +91,14 @@ public class User implements UserDetails {
                 registrationForm.getPassword());
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles;
     }

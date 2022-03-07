@@ -37,17 +37,12 @@ public class Post {
     @NotNull
     private String description;
 
-    private Integer likeAmount = 0;
-
     private Integer commentAmount = 0;
 
     private Double averageStars;
 
     @CreationTimestamp
     private OffsetDateTime createdAt;
-
-    @OneToMany(mappedBy = "likesPK.post",cascade = CascadeType.ALL)
-    private List<Like> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
@@ -75,9 +70,5 @@ public class Post {
 
     public void plusOneComment() {
         this.commentAmount+=1;
-    }
-
-    public void plusOneLike() {
-        this.likeAmount+=1;
     }
 }
