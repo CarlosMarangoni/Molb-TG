@@ -19,8 +19,26 @@
     </div>
     <div class="mt-5 mx-5 px-5">
         <div class="border border-primary border-10 d-flex justify-content-around my-3 align-items-center" *ngFor="let item of post.items">
-            <div class="text-center" style="width: 75%;">{{item.description}}</div><span>{{item.price | currency:'BRL'}}</span>
-            <div class="text-right flex-shrink-1"><img src="/assets/img/eye.png" alt=""></div>
+            <div class="text-center" style="width: 75%;">{{item.description}}</div><span *ngIf="item.price >0 ;else free">{{item.price | currency:'BRL'}}</span>
+            <div class="text-right flex-shrink-1" *ngIf="!hasBought || item.price > 0 && !owner ;else download">
+
+                <div>
+                    <div class="btn btn-sm btn-primary">
+                        <mat-icon>add_shopping_cart</mat-icon>
+                    </div>
+                    <div class="btn">
+                        <mat-icon>remove_red_eye</mat-icon>
+                    </div>
+                </div>
+            </div>
+            <ng-template #free>
+                <span>Grátis</span>
+            </ng-template>
+            <ng-template #download>
+                <div class="btn btn-sm btn-primary">
+                    <mat-icon>vertical_align_bottom</mat-icon>
+                </div>
+            </ng-template>
         </div>
     </div>
     <div class="text-center border border-secondary border-10 rounded mb-0">

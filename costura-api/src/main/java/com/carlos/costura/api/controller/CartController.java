@@ -1,10 +1,13 @@
 package com.carlos.costura.api.controller;
 
 import com.carlos.costura.domain.model.Purchase;
+import com.carlos.costura.domain.model.Sale;
 import com.carlos.costura.domain.model.User;
 import com.carlos.costura.domain.model.dto.CartForm;
 import com.carlos.costura.domain.model.dto.PurchaseOutput;
+import com.carlos.costura.domain.model.dto.SaleOutput;
 import com.carlos.costura.domain.repository.CartRepository;
+import com.carlos.costura.domain.repository.SaleRepository;
 import com.carlos.costura.domain.service.CartService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,8 @@ public class CartController {
 
     private CartRepository cartRepository;
 
+    private SaleRepository saleRepository;
+
     @PostMapping("/buy")
     public ResponseEntity<?> buy(@RequestBody CartForm cartForm){
         boolean saved = cartService.save(cartForm);
@@ -32,6 +37,13 @@ public class CartController {
         User user = User.isAuthenticatedReturnUser();
         List<Purchase> purchasesList = cartRepository.findAllByUser(user.getId());
         return ResponseEntity.ok(purchasesList.stream().map(PurchaseOutput::toOutput));
+    }
+
+    @GetMapping("/sales")
+    public ResponseEntity<?> getSales(){
+        User user = User.isAuthenticatedReturnUser();
+        List<Sale> saleList = saleRepository.findAllByUser(user.getId());
+        return ResponseEntity.ok(saleList.stream().map(SaleOutput::toOutput));
     }
 
 }

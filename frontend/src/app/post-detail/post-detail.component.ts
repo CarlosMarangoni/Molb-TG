@@ -20,6 +20,7 @@ export class PostDetailComponent implements OnInit {
   public stars:number = 1;
   public owner: boolean = false;
   public message:string = '';
+  public hasBought = true;
 
   constructor(private postService:PostService,private route: ActivatedRoute,private token:TokenStorageService) { 
     this.postService = postService;
