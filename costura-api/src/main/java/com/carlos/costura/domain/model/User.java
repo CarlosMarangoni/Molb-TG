@@ -53,11 +53,11 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Sale> saleList = new ArrayList<>();
 
-    @ManyToMany
-    private List<User> followers = new LinkedList<>();
+    @OneToMany(mappedBy="followersPK.to")
+    private List<Followers> followers;
 
-    @ManyToMany
-    private List<User> following = new LinkedList<>();
+    @OneToMany(mappedBy="followersPK.from")
+    private List<Followers> following;
 
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
@@ -89,6 +89,10 @@ public class User implements UserDetails {
                 registrationForm.getDescription(),
                 registrationForm.getEmail(),
                 registrationForm.getPassword());
+    }
+
+    public static User of(Long userId) {
+        return new User(userId);
     }
 
     @Override

@@ -36,8 +36,8 @@ public class UserOutput {
                 user.getDescription(),
                 user.getProfileImage(),
                 user.getName(),
-                user.getFollowing().stream().map(FollowerOutput::toOutput).collect(Collectors.toList()),
-                user.getFollowers().stream().map(FollowerOutput::toOutput).collect(Collectors.toList()),
+                user.getFollowing().stream().map(f->FollowerOutput.toOutput(f.getFollowersPK().getTo())).collect(Collectors.toList()),
+                user.getFollowers().stream().map(f->FollowerOutput.toOutput(f.getFollowersPK().getFrom())).collect(Collectors.toList()),
                 user.getPosts().stream().map(PostSummary::toSummary).collect(Collectors.toList()));
     }
 }

@@ -48,5 +48,4 @@ INSERT INTO post_item values(1,'Molde vestido P','https://spring-amazon-storage-
 INSERT INTO post_item values(2,'Molde vestido M','https://spring-amazon-storage-molsew.s3.sa-east-1.amazonaws.com/vestido2.jpg',30,13);
 INSERT INTO users_followers values (1,3);
 INSERT INTO users_followers values (2,3);
-INSERT INTO users_following values (3,1);
-INSERT INTO users_following values (3,2);
+INSERT INTO users_followers values (3,1);

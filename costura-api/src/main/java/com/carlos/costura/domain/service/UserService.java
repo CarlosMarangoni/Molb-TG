@@ -7,6 +7,7 @@ import com.carlos.costura.domain.model.*;
 import com.carlos.costura.domain.model.dto.RegistrationForm;
 import com.carlos.costura.domain.model.enumeration.PaymentMethod;
 import com.carlos.costura.domain.model.enumeration.RoleName;
+import com.carlos.costura.domain.model.pk.FollowersPK;
 import com.carlos.costura.domain.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +15,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.net.URI;
 import java.util.ArrayList;
@@ -36,6 +41,8 @@ public class UserService {
     private CartRepository cartRepository;
 
     private SaleRepository saleRepository;
+
+    private FollowersRepository followersRepository;
 
     @Transactional
     public User save(RegistrationForm user, MultipartFile imageFile) {
@@ -86,14 +93,12 @@ public class UserService {
         User followedUser = userRepository.findById(id).orElseThrow(() -> new PageNotFoundException("Usuário não encontrado."));
         loggedUser = userRepository.findById(loggedUser.getId()).orElseThrow(() -> new PageNotFoundException("Usuário não encontrado."));
 
-        if (loggedUser.getFollowing().stream().anyMatch(n -> n.getId() == followedUser.getId())) {
-            loggedUser.getFollowing().remove(followedUser);
-            followedUser.getFollowers().remove(loggedUser);
+        List<Followers> followers = loggedUser.getFollowers();
+        if (loggedUser.getFollowing().stream().anyMatch(n -> n.getFollowersPK().getTo().getId() == followedUser.getId())) {
+            followersRepository.deleteById(new FollowersPK(loggedUser,followedUser));
         } else {
-            loggedUser.getFollowing().add(followedUser);
-            followedUser.getFollowers().add(loggedUser);
+            followersRepository.save(new Followers(new FollowersPK(loggedUser,followedUser)));
         }
-        userRepository.save(followedUser);
 
     }
 
