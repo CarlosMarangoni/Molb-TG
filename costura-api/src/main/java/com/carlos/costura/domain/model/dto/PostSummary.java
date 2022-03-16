@@ -33,7 +33,7 @@ public class PostSummary {
                 post.getDescription(),
                 post.getCreatedAt(),
                 post.getCommentAmount(),
-                post.getCategory().name()
+                post.getCategory().getName()
         );
     }
 }

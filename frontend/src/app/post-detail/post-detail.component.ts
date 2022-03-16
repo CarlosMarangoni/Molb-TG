@@ -1,3 +1,4 @@
+import { MessengerService } from './../service/messenger.service';
 import { TokenStorageService } from './../service/token-storage.service';
 import { NgForm } from '@angular/forms';
 import { CommentForm } from './../../model/comment-form';
@@ -20,9 +21,11 @@ export class PostDetailComponent implements OnInit {
   public stars:number = 1;
   public owner: boolean = false;
   public message:string = '';
-  public hasBought = true;
+  public hasBought = false;
+  public roles: string[] = [];
+  public authority: string = "";
 
-  constructor(private postService:PostService,private route: ActivatedRoute,private token:TokenStorageService) { 
+  constructor(private postService:PostService,private route: ActivatedRoute,private token:TokenStorageService,private msg:MessengerService) { 
     this.postService = postService;
   }
 
@@ -38,7 +41,20 @@ export class PostDetailComponent implements OnInit {
     },
     error => console.log(error));
     
-
+    if (this.token.getToken()) {
+      this.roles = this.token.getAuthorities();
+      this.roles.every(role => {
+        if (role === 'ROLE_ADMIN') {
+          this.authority = 'admin';
+          return false;
+        } else if (role === 'ROLE_CREATOR') {
+          this.authority = 'creator';
+          return false;
+        }
+        this.authority = 'user';
+        return true;
+      });
+    }
 }
 
   
@@ -55,6 +71,10 @@ export class PostDetailComponent implements OnInit {
 
   onValueChange($event: number) {
     this.stars = $event
+  }
+
+  addToCart(postItem:any){
+    this.msg.sendMsg(postItem)
   }
 
 }

@@ -1,3 +1,5 @@
+import { MessengerService } from './../service/messenger.service';
+import { PostItem } from './../../model/postItem-dto';
 import { TokenStorageService } from './../service/token-storage.service';
 import { Post } from './../../model/post-dto';
 import { PostService } from './../service/post.service';
@@ -15,20 +17,21 @@ export class BuyComponent implements OnInit {
   public post:Post = new Post();
   public id:number = 0;
   public owner:boolean = false;
+  public cartList:Array<PostItem> = [];
 
-  constructor(private route: ActivatedRoute,private postService:PostService,private token:TokenStorageService) { }
+  constructor(private route: ActivatedRoute,private postService:PostService,private token:TokenStorageService,private msg:MessengerService) { }
 
   ngOnInit(): void {
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
-    this.postService.obterPostagem(this.id).subscribe(p => {
-      this.post = p;
-      if (p.userId === Number(this.token.getUserId())){
-        this.owner = true; 
-        
-      }
-      console.log(p)
+    
+    this.msg.getMsg().subscribe(item => {
+      this.cartList=item
+      
     },
-    error => console.log(error));
+    error => console.log(error))
+  
+  console.log(this.cartList)
   }
+
+
 
 }

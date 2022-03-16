@@ -128,3 +128,10 @@ body {
 .disabled {
     pointer-events: none;
 }
+
+.cart-items {
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 50%;
+    padding: 4px 10px;
+}

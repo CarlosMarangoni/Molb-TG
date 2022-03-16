@@ -13,7 +13,7 @@ export const rootRouterConfig: Routes = [
     { path: 'profile/:id', component: ProfileComponent },
     { path: 'posts/:id', component: PostDetailComponent },
     { path: 'new-post', component: NewPostComponent    },
-    { path: 'posts/:id/comprar', component: BuyComponent },
+    { path: 'cart', component: BuyComponent },
     { path: 'login', component: LoginComponent },
     { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: 'register', component: RegisterComponent }

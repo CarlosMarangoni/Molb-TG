@@ -51,8 +51,7 @@ public class PostOutput {
                 post.getTitle(),
                 post.getDescription(),
                 post.getCreatedAt(),
-                post.getCategory().name(),
-//                post.getLikes().stream().map(LikeOutput::toOutput).collect(Collectors.toList()),
+                post.getCategory().getName(),
                 post.getComments().stream().map(CommentOutput::toOutput).collect(Collectors.toList()),
                 post.getItems().stream().map(PostItemForm::toForm).collect(Collectors.toList()));
     }

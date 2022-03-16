@@ -13,17 +13,14 @@
         <div class="mt-2">
             <ng-rating-bar [value]="post.averageStars" [ratingCount]="5" [disabled]=true colorActive="#ec9d95" [styles]="{fontSize: '40px'}"></ng-rating-bar>
         </div>
-        <div class="mt-1">
-            <button class="mt-1 btn btn-primary btn-lg">Comprar agora</button>
-        </div>
     </div>
     <div class="mt-5 mx-5 px-5">
         <div class="border border-primary border-10 d-flex justify-content-around my-3 align-items-center" *ngFor="let item of post.items">
             <div class="text-center" style="width: 75%;">{{item.description}}</div><span *ngIf="item.price >0 ;else free">{{item.price | currency:'BRL'}}</span>
-            <div class="text-right flex-shrink-1" *ngIf="!hasBought || item.price > 0 && !owner ;else download">
+            <div class="text-right flex-shrink-1" *ngIf="!hasBought && item.price > 0 && !owner && authority !== 'admin';else download">
 
                 <div>
-                    <div class="btn btn-sm btn-primary">
+                    <div class="btn btn-sm btn-primary" (click)="addToCart(item)">
                         <mat-icon>add_shopping_cart</mat-icon>
                     </div>
                     <div class="btn">

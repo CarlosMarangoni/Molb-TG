@@ -1,9 +1,10 @@
 package com.carlos.costura.api.controller;
 
+import com.carlos.costura.domain.exception.ConflictException;
 import com.carlos.costura.domain.exception.PageNotFoundException;
 import com.carlos.costura.domain.model.*;
 import com.carlos.costura.domain.model.dto.*;
-import com.carlos.costura.domain.model.enumeration.Category;
+import com.carlos.costura.domain.repository.CategoryRepository;
 import com.carlos.costura.domain.repository.PostRepository;
 import com.carlos.costura.domain.repository.UserRepository;
 import com.carlos.costura.domain.service.PostService;
@@ -21,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @RestController
@@ -34,6 +36,7 @@ public class PostsController {
 
     private UserRepository userRepository;
 
+    private CategoryRepository categoryRepository;
 
     @GetMapping
     public Page<PostOutput> getAllPosts(Pageable pageable){
@@ -46,10 +49,10 @@ public class PostsController {
         return postPaginated;
     }
 
-    @GetMapping("/categories/{category}")
+    @GetMapping("/categories/name/{category}")
     public Page<PostOutput> getAllPostsByCategory(@PathVariable String category,Pageable pageable){
-        Category categoryEnum = Category.convertFromString(category);
-        List<Post> postList = postRepository.findAllByCategory(categoryEnum);
+        Category foundCategory = categoryRepository.findByName(category).orElseThrow(() -> new PageNotFoundException("Categoria não encontrada."));
+        List<Post> postList = postRepository.findAllByCategory(foundCategory);
         List<PostOutput> postListDto = postList.stream().map(PostOutput::toOutput).collect(Collectors.toList());
         int pageSize = pageable.getPageSize();
         long pageOffset = pageable.getOffset();
@@ -60,7 +63,25 @@ public class PostsController {
 
     @GetMapping("/categories")
     public ResponseEntity<List<Category>> getAllCategories(){
-        return ResponseEntity.ok(Arrays.asList(Category.values()));
+        return ResponseEntity.ok(categoryRepository.findAll());
+    }
+
+    @GetMapping("/categories/{categoryId}")
+    public ResponseEntity<Category> getAllCategories(@PathVariable Long categoryId){
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new PageNotFoundException("Categoria não encontrada."));
+        return ResponseEntity.ok(category);
+    }
+
+    @PostMapping("/categories")
+    public ResponseEntity<Category> addCategory(@RequestBody Category category,UriComponentsBuilder uriComponentsBuilder){
+       if (categoryRepository.findByName(category.getName()).isPresent()){
+           throw new ConflictException("Categoria já existe.");
+       }
+       category.setName(category.getName().toUpperCase(Locale.ROOT));
+        Category savedCategory = categoryRepository.save(category);
+        UriComponents uriComponents = uriComponentsBuilder.path("/categories/{id}").buildAndExpand(savedCategory.getId());
+        var location = uriComponents.toUri();
+        return ResponseEntity.created(location).body(savedCategory);
     }
 
 

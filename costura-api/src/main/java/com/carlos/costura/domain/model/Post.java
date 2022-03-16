@@ -1,7 +1,6 @@
 package com.carlos.costura.domain.model;
 
 import com.carlos.costura.domain.model.dto.PostForm;
-import com.carlos.costura.domain.model.enumeration.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -50,7 +49,7 @@ public class Post {
     @OneToMany(mappedBy = "postItemPK.post",cascade = CascadeType.ALL)
     private List<PostItem> items = new ArrayList<>();
 
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
     private Category category;
 
     public Post(String title,String description, Category category,List<PostItem> items) {
@@ -64,7 +63,7 @@ public class Post {
         return new Post(
                 postForm.getTitle(),
                 postForm.getDescription(),
-                Category.convertFromString(postForm.getCategory().toLowerCase(Locale.ROOT)),
+                Category.of(postForm.getCategory()),
                 postForm.getItems().stream().map(PostItem::toModel).collect(Collectors.toList()));
     }
 

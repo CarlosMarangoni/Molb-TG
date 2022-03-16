@@ -26,8 +26,6 @@ public class  PostService {
 
     private CommentRepository commentRepository;
 
-//    private LikeRepository likeRepository;
-
     private UserRepository userRepository;
 
     private PostItemRepository postItemRepository;

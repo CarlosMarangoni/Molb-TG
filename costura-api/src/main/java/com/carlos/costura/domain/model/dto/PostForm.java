@@ -41,7 +41,7 @@ public class PostForm {
         return new PostForm(
                 post.getTitle(),
                 post.getDescription(),
-                post.getCategory().name(),
+                post.getCategory().getName(),
                 post.getUser().getId(),
                 post.getItems().stream().map(PostItemForm::toForm).collect(Collectors.toList()));
     }

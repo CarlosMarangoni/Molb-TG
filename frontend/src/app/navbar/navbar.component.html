@@ -16,6 +16,10 @@
             <div class="btn btn-primary"><span class="px-2">Seja um vendedor</span></div>
         </div>
     </div>
+    <div class="btn" [routerLink]="['/cart']">
+        <mat-icon>shopping_cart</mat-icon>
+        <span class="cart-items">2</span>
+    </div>
     <div class="mr-5">
         <button *ngIf="info.token;else loggedOut" mat-icon-button [matMenuTriggerFor]="menu">
             <img [src]="info.profilePic" style="width: 100%;border-radius: 50%;" alt="">
