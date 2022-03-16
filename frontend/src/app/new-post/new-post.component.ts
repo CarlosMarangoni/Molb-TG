@@ -1,3 +1,4 @@
+import { Categoria } from './../../model/category-dto';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PostService } from "./../service/post.service";
@@ -21,7 +22,7 @@ export class NewPostComponent implements OnInit {
   public moldesFiles:Array<File> = [];
   public fileTest:File | undefined;
   public uploadedImageUrl:String = "/assets/img/no-image.png";
-  public categories:string[] = [];
+  public categories:Categoria[] = [];
   fileValid: Array<boolean> = [false];
 
   constructor(

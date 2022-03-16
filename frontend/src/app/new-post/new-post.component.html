@@ -36,7 +36,7 @@
                 <mat-label>Categoria</mat-label>
                 <mat-select [(ngModel)]="form.category" name="category" (selectionChange)="eventSelection($event)" #category="ngModel" required>
                     <mat-option *ngFor="let category of categories" [value]="category">
-                        {{category}}
+                        {{category.name}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>

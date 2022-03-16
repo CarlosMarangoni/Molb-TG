@@ -19,11 +19,11 @@ public class Category {
 
     private String name;
 
-    public Category(String name) {
-        this.name = name;
+    public Category(Long id) {
+        this.id = id;
     }
 
-    public static Category of(String category) {
-        return new Category(category);
+    public static Category of(Long categoryId) {
+        return new Category(categoryId);
     }
 }

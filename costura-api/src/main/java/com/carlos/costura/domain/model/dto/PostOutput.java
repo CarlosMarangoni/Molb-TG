@@ -34,8 +34,6 @@ public class PostOutput {
 
     private String category;
 
-//    private List<LikeOutput> likes;
-
     private List<CommentOutput> comments;
 
     private List<PostItemForm> items;

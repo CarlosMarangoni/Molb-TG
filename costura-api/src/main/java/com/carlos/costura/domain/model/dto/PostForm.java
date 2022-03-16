@@ -23,17 +23,17 @@ public class PostForm {
     @NotNull
     private Long userId;
 
-    @NotEmpty
-    private String category;
+    @NotNull
+    private Long categoryId;
 
     @NotEmpty
     private List<PostItemForm> items = new ArrayList<>();
 
-    public PostForm(String title,String description,String category,Long userId,List<PostItemForm> items) {
+    public PostForm(String title,String description,Long categoryId,Long userId,List<PostItemForm> items) {
         this.description = description;
         this.title = title;
         this.userId = userId;
-        this.category = category;
+        this.categoryId = categoryId;
         this.items = items;
     }
 
@@ -41,7 +41,7 @@ public class PostForm {
         return new PostForm(
                 post.getTitle(),
                 post.getDescription(),
-                post.getCategory().getName(),
+                post.getCategory().getId(),
                 post.getUser().getId(),
                 post.getItems().stream().map(PostItemForm::toForm).collect(Collectors.toList()));
     }

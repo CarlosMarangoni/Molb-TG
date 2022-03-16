@@ -12,6 +12,7 @@ import com.carlos.costura.domain.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.webjars.NotFoundException;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public class  PostService {
 
     private PostItemRepository postItemRepository;
 
+    private CategoryRepository categoryRepository;
+
     private S3Service s3Service;
 
     public Post save(PostForm postForm,MultipartFile imageFile,List<MultipartFile> moldes) {
@@ -37,6 +40,7 @@ public class  PostService {
         List<String> fileUrls = new ArrayList<>();
         if(User.isAuthenticated()){
             User user = userRepository.findById(postForm.getUserId()).orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+            Category category = categoryRepository.findById(postForm.getCategoryId()).orElseThrow(() -> new NotFoundException("Categoria não encontrada"));
             Post postModel = Post.toModel(postForm);
 
             for (MultipartFile file : moldes) {
@@ -50,6 +54,7 @@ public class  PostService {
                 postModel.setPostImage("");
             }
             postModel.setAverageStars(0.0);
+            postModel.setCategory(category);
             postModel.setUser(user);
             AtomicInteger i = new AtomicInteger(0   );
             postModel.getItems().forEach(c ->{

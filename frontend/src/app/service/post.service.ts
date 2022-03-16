@@ -1,3 +1,4 @@
+import { Categoria } from './../../model/category-dto';
 import { CommentForm } from './../../model/comment-form';
 import { PostForm } from './../../model/post-form';
 import { PageablePostDto } from './../../model/pageable-post-dto';
@@ -52,15 +53,15 @@ export class PostService {
     const headers =   new HttpHeaders({
       "Authorization": `Bearer ${this.token.getToken()}`
     })
-      return this.http.get<PageablePostDto>(`${this.locator.services.Posts}/categories/${categoria}`,{headers})
+      return this.http.get<PageablePostDto>(`${this.locator.services.Posts}/categories/name/${categoria}`,{headers})
   }
 
 
-  obterTodasCategorias():Observable<string[]>{
+  obterTodasCategorias():Observable<Categoria[]>{
     const headers =   new HttpHeaders({
       "Authorization": `Bearer ${this.token.getToken()}`
     })
-      return this.http.get<string[]>(`${this.locator.services.Posts}/categories`,{headers})
+      return this.http.get<Categoria[]>(`${this.locator.services.Posts}/categories`,{headers})
   }
 
   cadastrarPost(postForm:PostForm,moldes:File[]){

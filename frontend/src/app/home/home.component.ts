@@ -1,3 +1,4 @@
+import { Categoria } from './../../model/category-dto';
 import { TokenStorageService } from './../service/token-storage.service';
 import { PageablePostDto } from './../../model/pageable-post-dto';
 import { PostService } from './../service/post.service';
@@ -17,7 +18,7 @@ export class HomeComponent implements OnInit{
   activePage:number = 0;
   selectedIndex: number = 0;
   selectedSearch:any = 'userFilter';
-  categories:string[] = []; 
+  categories:Categoria[] = []; 
   roles: string[] = []; 
   authority: string = "";
 
@@ -84,14 +85,14 @@ export class HomeComponent implements OnInit{
   obterCategorias(){
     this.postService.obterTodasCategorias().subscribe(categories =>{
       this.categories = categories;
-      this.categories.unshift("TODOS");
+      this.categories.unshift(new Categoria("TODOS"));
     },error => console.log(error))
   }
 
   setIndex(index: number) {
     this.selectedIndex = index;
     if(index!=0){
-      this.postService.obterPostsPorCategoria(this.categories[index].toLowerCase()).subscribe(posts =>{
+      this.postService.obterPostsPorCategoria(this.categories[index].name.toLowerCase()).subscribe(posts =>{
         this.posts = posts;
         console.log(posts)
       },error => console.log(error))

@@ -52,10 +52,9 @@ public class Post {
     @ManyToOne
     private Category category;
 
-    public Post(String title,String description, Category category,List<PostItem> items) {
+    public Post(String title,String description,List<PostItem> items) {
         this.title = title;
         this.description = description;
-        this.category = category;
         this.items = items;
     }
 
@@ -63,7 +62,6 @@ public class Post {
         return new Post(
                 postForm.getTitle(),
                 postForm.getDescription(),
-                Category.of(postForm.getCategory()),
                 postForm.getItems().stream().map(PostItem::toModel).collect(Collectors.toList()));
     }
 
