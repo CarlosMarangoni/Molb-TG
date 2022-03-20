@@ -2,14 +2,12 @@ package com.carlos.costura.domain.service;
 
 import com.carlos.costura.domain.exception.ConflictException;
 import com.carlos.costura.domain.exception.PageNotFoundException;
-import com.carlos.costura.domain.model.Purchase;
-import com.carlos.costura.domain.model.Post;
-import com.carlos.costura.domain.model.PostItem;
-import com.carlos.costura.domain.model.User;
+import com.carlos.costura.domain.model.*;
 import com.carlos.costura.domain.model.dto.CartForm;
 import com.carlos.costura.domain.model.dto.CartItem;
 import com.carlos.costura.domain.model.enumeration.PaymentMethod;
 import com.carlos.costura.domain.model.pk.PostItemPK;
+import com.carlos.costura.domain.model.pk.SaleItemPK;
 import com.carlos.costura.domain.repository.CartRepository;
 import com.carlos.costura.domain.repository.PostItemRepository;
 import com.carlos.costura.domain.repository.PostRepository;
@@ -41,7 +39,7 @@ public class CartService {
         List<PostItem> postItemList = new ArrayList<>();
         BigDecimal valorTotal = BigDecimal.ZERO;
         Purchase purchase = Purchase.toModel(cartForm);
-        purchase.setUser(user);
+        purchase.setBuyer(user);
         for (CartItem i : cartForm.getItems()) {
             Post post = postRepository.findById(i.getPostId()).orElseThrow(() -> new PageNotFoundException("Post não encontrado."));
             if(post.getUser().getId().equals(user.getId())){
@@ -56,16 +54,17 @@ public class CartService {
                 throw new PageNotFoundException("Item não encontrado.");
             }
         }
+        List <SaleItem> saleItemList = new ArrayList<>();
         for (PostItem i : postItemList) {
             var postItem = postItemRepository.findById(i.getPostItemPK()).get();
             valorTotal = valorTotal.add(postItem.getPrice());
         }
 
-        purchase.setItems(postItemList);
+        purchase.getItems().forEach(i ->{
+            i.getSaleItemPK().setPurchase(purchase);
+        });
         purchase.setTotal(valorTotal);
         purchase.setPaymentMethod(PaymentMethod.PAYPAL);
         return userService.buy(purchase,user);
-
-
     }
 }

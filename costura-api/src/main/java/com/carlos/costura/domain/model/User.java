@@ -47,11 +47,8 @@ public class User implements UserDetails {
     @NotNull
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "buyer")
     private List<Purchase> purchaseList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<Sale> saleList = new ArrayList<>();
 
     @OneToMany(mappedBy="followersPK.to")
     private List<Followers> followers;

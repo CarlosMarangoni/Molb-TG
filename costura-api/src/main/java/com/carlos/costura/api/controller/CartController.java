@@ -1,13 +1,11 @@
 package com.carlos.costura.api.controller;
 
 import com.carlos.costura.domain.model.Purchase;
-import com.carlos.costura.domain.model.Sale;
 import com.carlos.costura.domain.model.User;
 import com.carlos.costura.domain.model.dto.CartForm;
 import com.carlos.costura.domain.model.dto.PurchaseOutput;
-import com.carlos.costura.domain.model.dto.SaleOutput;
 import com.carlos.costura.domain.repository.CartRepository;
-import com.carlos.costura.domain.repository.SaleRepository;
+import com.carlos.costura.domain.repository.PurchaseRepository;
 import com.carlos.costura.domain.service.CartService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +22,7 @@ public class CartController {
 
     private CartRepository cartRepository;
 
-    private SaleRepository saleRepository;
+    private PurchaseRepository purchaseRepository;
 
     @PostMapping("/buy")
     public ResponseEntity<?> buy(@RequestBody CartForm cartForm){
@@ -32,18 +30,18 @@ public class CartController {
         return ResponseEntity.ok(saved);
     }
 
-    @GetMapping("/purchases")
-    public ResponseEntity<?> getPurchases(){
-        User user = User.isAuthenticatedReturnUser();
-        List<Purchase> purchasesList = cartRepository.findAllByUser(user.getId());
-        return ResponseEntity.ok(purchasesList.stream().map(PurchaseOutput::toOutput));
-    }
+//    @GetMapping("/purchases")
+//    public ResponseEntity<?> getPurchases(){
+//        User user = User.isAuthenticatedReturnUser();
+//        List<Purchase> purchasesList = cartRepository.findAllByUser(user.getId());
+//        return ResponseEntity.ok(purchasesList.stream().map(PurchaseOutput::toOutput));
+//    }
 
-    @GetMapping("/sales")
-    public ResponseEntity<?> getSales(){
-        User user = User.isAuthenticatedReturnUser();
-        List<Sale> saleList = saleRepository.findAllByUser(user.getId());
-        return ResponseEntity.ok(saleList.stream().map(SaleOutput::toOutput));
-    }
+//    @GetMapping("/sales")
+//    public ResponseEntity<?> getSales(){
+//        User user = User.isAuthenticatedReturnUser();
+//        List<Purchase> saleList = saleRepository.findAllByUser(user.getId());
+//        return ResponseEntity.ok(saleList.stream().map(SaleOutput::toOutput));
+//    }
 
 }

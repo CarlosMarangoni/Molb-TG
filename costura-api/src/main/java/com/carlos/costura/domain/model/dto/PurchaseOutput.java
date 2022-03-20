@@ -18,7 +18,7 @@ public class PurchaseOutput {
 
     private Long id;
 
-    private List<PostItemForm> items;
+    private List<SaleItemForm> items;
 
     private BigDecimal total;
 
@@ -29,7 +29,7 @@ public class PurchaseOutput {
     public static PurchaseOutput toOutput(Purchase purchase){
         return new PurchaseOutput(
             purchase.getId(),
-            purchase.getItems().stream().map(i -> PostItemForm.toForm(i)).collect(Collectors.toList()),
+            purchase.getItems().stream().map(i -> SaleItemForm.toForm(i)).collect(Collectors.toList()),
             purchase.getTotal(),
             purchase.getPaymentMethod(),
             purchase.getDate()

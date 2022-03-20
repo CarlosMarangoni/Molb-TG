@@ -22,6 +22,5 @@ public class PostItemPK implements Serializable {
     @ManyToOne
     private Post post;
 
-
     private Integer item;
 }

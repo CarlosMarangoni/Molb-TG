@@ -58,11 +58,19 @@ public class Post {
         this.items = items;
     }
 
+    public Post(Long id) {
+        this.id = id;
+    }
+
     public static Post toModel(PostForm postForm) {
         return new Post(
                 postForm.getTitle(),
                 postForm.getDescription(),
                 postForm.getItems().stream().map(PostItem::toModel).collect(Collectors.toList()));
+    }
+
+    public static Post of(Long postId) {
+        return new Post(postId);
     }
 
     public void plusOneComment() {

@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -25,27 +26,32 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JsonIgnore
-    private User user;
-
-    @OneToMany
-    private List<PostItem> items = new ArrayList<>();
+    @OneToMany(mappedBy = "saleItemPK.purchase",cascade = CascadeType.ALL)
+    private List<SaleItem> items = new ArrayList<>();
 
     @CreationTimestamp
     private OffsetDateTime date;
+
+    @ManyToOne
+    private User buyer;
 
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
     private BigDecimal total;
 
-    public Purchase(List<PostItem> postItemsList){
-        this.items = postItemsList;
+//    public Purchase(List<PostItem> postItemsList){
+//        this.items = postItemsList;
+//    }
+
+
+    public Purchase(List<SaleItem> items) {
+        this.items = items;
     }
 
     public static Purchase toModel(CartForm cartForm) {
         return new Purchase(
+                cartForm.getItems().stream().map(SaleItem::toModel).collect(Collectors.toList())
         );
     }
 }

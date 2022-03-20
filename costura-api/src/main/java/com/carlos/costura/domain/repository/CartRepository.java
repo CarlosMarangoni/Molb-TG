@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public interface CartRepository extends JpaRepository<Purchase,Long> {
 
-    @Query("SELECT p FROM Purchase p WHERE :userId = p.user.id " +
-            "ORDER BY p.date DESC")
-    List<Purchase> findAllByUser(@Param("userId") Long userId);
+//    @Query("SELECT p FROM Purchase p WHERE :userId = p.user.id " +
+//            "ORDER BY p.date DESC")
+//    List<Purchase> findAllByUser(@Param("userId") Long userId);
 
 }

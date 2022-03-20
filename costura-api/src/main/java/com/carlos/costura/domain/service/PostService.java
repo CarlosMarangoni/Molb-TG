@@ -71,17 +71,6 @@ public class  PostService {
 
     }
 
-//    public void addLike(Long postId) {
-//        User user = User.isAuthenticatedReturnUser();
-//        Like like = new Like();
-//        Post likedPost = postRepository.findById(postId).get();
-//        like.getLikesPK().setPost(likedPost);
-//        like.getLikesPK().setUser(user);
-//        likedPost.plusOneLike();
-//        likeRepository.save(like);
-//
-//    }
-
     public Post addComment(CommentForm commentForm, Long postId) {
         User user = User.isAuthenticatedReturnUser();
         Comment commentModel = Comment.toModel(commentForm);

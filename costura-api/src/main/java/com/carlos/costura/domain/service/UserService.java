@@ -8,6 +8,7 @@ import com.carlos.costura.domain.model.dto.RegistrationForm;
 import com.carlos.costura.domain.model.enumeration.PaymentMethod;
 import com.carlos.costura.domain.model.enumeration.RoleName;
 import com.carlos.costura.domain.model.pk.FollowersPK;
+import com.carlos.costura.domain.model.pk.SaleItemPK;
 import com.carlos.costura.domain.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,15 +35,15 @@ public class UserService {
 
     private RoleRepository roleRepository;
 
-    private PostItemRepository postItemRepository;
+    private SaleItemRepository saleItemRepository;
 
     private S3Service s3Service;
 
     private CartRepository cartRepository;
 
-    private SaleRepository saleRepository;
-
     private FollowersRepository followersRepository;
+
+    private PurchaseRepository purchaseRepository;
 
     @Transactional
     public User save(RegistrationForm user, MultipartFile imageFile) {
@@ -118,38 +119,27 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public boolean buy(Purchase purchase, User loggedUser) {
+    public boolean  buy(Purchase purchase, User loggedUser) {
         loggedUser = userRepository.findById(loggedUser.getId()).get();
         List<Purchase> purchaseList = loggedUser.getPurchaseList();
-        List<PostItem> boughtItems = new ArrayList<>();
-        List<PostItem> itemsToBuy = new ArrayList<>();
+        List<SaleItem> boughtItems = new ArrayList<>();
+        List<SaleItem> itemsToBuy = new ArrayList<>();
 
         for (Purchase p : purchaseList) {
-            for (PostItem i : p.getItems()) {
+            for (SaleItem i : p.getItems()) {
                 boughtItems.add(i);
             }
         }
         itemsToBuy = purchase.getItems();
 
-        for (PostItem i : itemsToBuy) {
-            if (boughtItems.contains(i)) {
-                i = postItemRepository.findById(i.getPostItemPK()).get();
-                throw new ConflictException("Você já comprou o item " + i.getDescription() + " da postagem: " + i.getPostItemPK().getPost().getId());
+        for (SaleItem i : itemsToBuy) {
+            if (saleItemRepository.existsBySaleItemPK_PostAndAndSaleItemPK_ItemAndSaleItemPK_Purchase_Buyer(i.getSaleItemPK().getPost(),i.getSaleItemPK().getItem(),loggedUser)) {
+                throw new ConflictException("Você já comprou o item " + i.getSaleItemPK().getItem() + " da postagem: " + i.getSaleItemPK().getPost().getId());
             }
         }
-        purchase.getItems().forEach(i -> {
-            PostItem item = postItemRepository.findById(i.getPostItemPK()).get();
-            Sale venda = new Sale(i.getPostItemPK().getPost().getUser(),item,item.getPrice(), PaymentMethod.PAYPAL);
-            saleRepository.save(venda);
-        });
         cartRepository.save(purchase);
-//        saleRepository.save(sale);
-        this.registerSale(purchase.getItems());
         
         return true;
         }
-
-    private void registerSale(List<PostItem> items) {
-    }
 }
 
