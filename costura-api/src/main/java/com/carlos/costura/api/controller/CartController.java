@@ -1,10 +1,15 @@
 package com.carlos.costura.api.controller;
 
+import com.carlos.costura.domain.model.PostItem;
 import com.carlos.costura.domain.model.Purchase;
+import com.carlos.costura.domain.model.SaleItem;
 import com.carlos.costura.domain.model.User;
 import com.carlos.costura.domain.model.dto.CartForm;
 import com.carlos.costura.domain.model.dto.PurchaseOutput;
+import com.carlos.costura.domain.model.dto.SaleItemOutput;
+import com.carlos.costura.domain.model.pk.PostItemPK;
 import com.carlos.costura.domain.repository.CartRepository;
+import com.carlos.costura.domain.repository.PostItemRepository;
 import com.carlos.costura.domain.repository.PurchaseRepository;
 import com.carlos.costura.domain.service.CartService;
 import lombok.AllArgsConstructor;
@@ -24,24 +29,26 @@ public class CartController {
 
     private PurchaseRepository purchaseRepository;
 
+    private PostItemRepository postItemRepository;
+
     @PostMapping("/buy")
     public ResponseEntity<?> buy(@RequestBody CartForm cartForm){
         boolean saved = cartService.save(cartForm);
         return ResponseEntity.ok(saved);
     }
 
-//    @GetMapping("/purchases")
-//    public ResponseEntity<?> getPurchases(){
-//        User user = User.isAuthenticatedReturnUser();
-//        List<Purchase> purchasesList = cartRepository.findAllByUser(user.getId());
-//        return ResponseEntity.ok(purchasesList.stream().map(PurchaseOutput::toOutput));
-//    }
+    @GetMapping("/purchases")
+    public ResponseEntity<?> getPurchases(){
+        User user = User.isAuthenticatedReturnUser();
+        List<Purchase> purchasesList = cartRepository.findAllByUser(user.getId());
+        return ResponseEntity.ok(purchasesList.stream().map(PurchaseOutput::toOutput));
+    }
 
-//    @GetMapping("/sales")
-//    public ResponseEntity<?> getSales(){
-//        User user = User.isAuthenticatedReturnUser();
-//        List<Purchase> saleList = saleRepository.findAllByUser(user.getId());
-//        return ResponseEntity.ok(saleList.stream().map(SaleOutput::toOutput));
-//    }
+    @GetMapping("/sales")
+    public ResponseEntity<?> getSales(){
+        User user = User.isAuthenticatedReturnUser();
+        List<SaleItemOutput> saleList = cartRepository.findAllSalesByUser(user.getId());
+        return ResponseEntity.ok((saleList));
+    }
 
 }
