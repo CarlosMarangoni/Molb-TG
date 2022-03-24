@@ -1,7 +1,7 @@
-<mat-toolbar color="primary">
+<mat-toolbar class="shadow" style="background: #151515;">
     <div fxHide.gt-xs>
         <button mat-icon-button (click)="onToggleSidenav()">
-        <mat-icon>menu</mat-icon>
+        <mat-icon style="color:white">menu</mat-icon>
     </button>
     </div>
     <div>
@@ -32,6 +32,10 @@
                 <a [routerLink]="['/owner']">Portal Admin <mat-icon style="vertical-align: middle;">assignment_ind</mat-icon></a>
 
 
+            </li>
+            <li class="btn" style="color: white;" [routerLink]="['/cart']">
+                <mat-icon>shopping_cart</mat-icon>
+                <span class="cart-items">2</span>
             </li>
             <li>
                 <button *ngIf="info.token;else loggedOut" mat-icon-button [matMenuTriggerFor]="menu">

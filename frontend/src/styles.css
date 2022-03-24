@@ -1,14 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
 :root {
-    --color-primary: #ec9d95;
-    --color-secondary: #FEDBD8;
-}
-
-html,
-body {
-    height: 100%;
-    margin: 0;
+    --color-primary: #ef8f38;
+    --color-secondary: #fff;
 }
 
 .navbar-brand {
@@ -55,8 +49,8 @@ body {
 }
 
 .active {
-    color: red !important;
-    border: #ec9d95;
+    color: #e27715 !important;
+    border: #f8cb7c;
 }
 
 .text-primary {
@@ -74,7 +68,7 @@ body {
 .btn-primary.active,
 .open>.dropdown-toggle.btn-primary {
     color: #fff;
-    background-color: var(--color-secondary) !important;
+    background-color: #e9b787fb !important;
     border-color: var(--color-primary) !important;
     /*set the color you want here*/
 }
@@ -95,12 +89,34 @@ body {
     /*set the color you want here*/
 }
 
+.btn-terciary {
+    background-color: #151515 !important;
+    border-color: #f49237 !important;
+    color: #fff !important;
+}
+
+.btn-terciary:hover,
+.btn-terciary:focus,
+.btn-terciary:active,
+.btn-terciary.active,
+.open>.terciary-toggle.btn-secondary {
+    color: #fff;
+    background-color: gray !important;
+    border-color: var(--color-secondary) !important;
+    /*set the color you want here*/
+}
+
+.btn-quadriary {
+    background-color: #7e549f !important;
+    border-color: #C1549C !important;
+}
+
 .bg-primary {
     background-color: var(--color-primary) !important;
 }
 
 .border-primary {
-    border-color: var(--color-primary) !important;
+    border-color: #171717 !important;
 }
 
 .bg-secondary {
@@ -137,7 +153,7 @@ body {
 
 .cart-items {
     border: 1px solid #ccc;
-    background-color: white;
+    background-color: #f59237;
     border-radius: 50%;
     padding: 4px 10px;
 }
