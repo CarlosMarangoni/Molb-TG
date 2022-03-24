@@ -29,6 +29,12 @@ import { NgRatingBarModule } from 'ng-rating-bar';
 import { NewPostComponent } from './new-post/new-post.component';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { MatMenuModule } from '@angular/material/menu'
+import { MatSidenavModule } from '@angular/material/sidenav'
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { HeaderComponent } from './header/header.component'
+import {FlexLayoutModule} from "@angular/flex-layout";
+import { MatListModule } from '@angular/material/list';
+import { SidenavListComponent } from './sidenav-list/sidenav-list.component'
 
 registerLocaleData(ptBr);
 
@@ -44,7 +50,9 @@ registerLocaleData(ptBr);
     LoginComponent,
     ForgotPasswordComponent,
     RegisterComponent,
-    NewPostComponent
+    NewPostComponent,
+    HeaderComponent,
+    SidenavListComponent
   ],
   imports: [
     BrowserModule,
@@ -60,10 +68,19 @@ registerLocaleData(ptBr);
     HttpClientModule,
     NgRatingBarModule,
     CurrencyMaskModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    FlexLayoutModule,
+    MatListModule
   ],
   exports:[
- 
+    MatSidenavModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    FlexLayoutModule,
+    MatListModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'pt' }],
   bootstrap: [AppComponent]

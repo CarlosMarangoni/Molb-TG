@@ -36,7 +36,7 @@ public class PostOutput {
 
     private List<CommentOutput> comments;
 
-    private List<PostItemForm> items;
+    private List<PostItemOutput> items;
 
     public static PostOutput toOutput(Post post){
         return new PostOutput(
@@ -51,7 +51,7 @@ public class PostOutput {
                 post.getCreatedAt(),
                 post.getCategory().getName(),
                 post.getComments().stream().map(CommentOutput::toOutput).collect(Collectors.toList()),
-                post.getItems().stream().map(PostItemForm::toForm).collect(Collectors.toList()));
+                post.getItems().stream().map(PostItemOutput::toOutput).collect(Collectors.toList()));
     }
 
 }

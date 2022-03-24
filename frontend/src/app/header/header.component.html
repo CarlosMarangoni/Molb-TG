@@ -1,0 +1,77 @@
+<mat-toolbar color="primary">
+    <div fxHide.gt-xs>
+        <button mat-icon-button (click)="onToggleSidenav()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    </div>
+    <div>
+        <a [routerLink]="['/home']">Molsew</a>
+    </div>
+    <div fxFlex fxLayout fxLayoutAlign="space-around" fxHide.xs>
+        <ul class="navigation-items">
+            <li>
+                <a [routerLink]="['/home']">
+                    <mat-icon style="vertical-align: middle;">home</mat-icon>Início
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+        <ul fxLayout fxLayout="15px" class="navigation-items">
+            <li class="mx-4">
+                <a [routerLink]="['/owner']">Seja um vendedor! <mat-icon style="vertical-align: middle;">email</mat-icon></a>
+
+
+            </li>
+            <li class="mx-4">
+                <a [routerLink]="['/owner']">Sobre nós <mat-icon style="vertical-align: middle;">info</mat-icon></a>
+
+
+            </li>
+            <li *ngIf="authority === 'admin'" class="mx-4">
+                <a [routerLink]="['/owner']">Portal Admin <mat-icon style="vertical-align: middle;">assignment_ind</mat-icon></a>
+
+
+            </li>
+            <li>
+                <button *ngIf="info.token;else loggedOut" mat-icon-button [matMenuTriggerFor]="menu">
+                    <img [src]="info.profilePic" style="width: 100%;border-radius: 50%;" alt="">
+                    <span class="dropdown-toggle"></span>
+                    
+              </button>
+
+            </li>
+
+        </ul>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item [routerLink]="['/profile/',this.info.id]">
+          <mat-icon>person</mat-icon>
+          <span>Perfil</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Configurações</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+    </mat-menu>
+    <ng-template #loggedOut>
+        <div class="welcome-message mx-2">
+            <a class="" [routerLink]="['/login']">Entre ou cadastre-se!</a>
+        </div>
+    </ng-template>
+</mat-toolbar>

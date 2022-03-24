@@ -8,7 +8,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class MessengerService {
 
   subject = new Subject<PostItem[]>();
-
+  itemExists:boolean = false;
   postItems : PostItem[] = new Array<PostItem>() ;
 
   constructor() {
@@ -16,8 +16,18 @@ export class MessengerService {
    }
 
   sendMsg(postItem:PostItem) {
-    this.postItems.push(postItem)
-    this.subject.next(this.postItems) //Triggering an event
+    for (let i in this.postItems) {
+      if (this.postItems[i].postId === postItem.postId && this.postItems[i].item === postItem.item) {
+        this.itemExists = true
+        console.log("Item já existe!")
+        break;
+      }
+    }
+    if (!this.itemExists) {
+      this.postItems.push(postItem)
+      this.subject.next(this.postItems) //Triggering an event
+      console.log("Item adicionado ao carrinho!")
+    }
   }
 
   getMsg() {

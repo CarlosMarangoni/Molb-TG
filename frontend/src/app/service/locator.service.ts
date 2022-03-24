@@ -19,14 +19,11 @@ export class LocatorService {
     this.services.Comment = this.urlBase + "posts/${postId}/comment";
     this.services.Like = this.urlBase + "posts/${postId}/like";
     this.services.Login = this.urlBase + "auth/signin";
+    this.services.Buy = this.urlBase + "buy"
 
     this.services.Register = this.urlBase + "auth/signup";
     this.services.Users = this.urlBase + "users";
     this.services.User = this.urlBase + "users/${userId}";
     this.services.Follow = this.urlBase + "user/${userId}/follow";
-
-    this.services.Romaneio = this.urlBase + "romaneios/";
-    this.services.ObterCoordenadas = this.urlBase + "romaneios/coordenadas/";
-
   }
 }

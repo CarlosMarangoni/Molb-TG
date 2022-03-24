@@ -1,0 +1,24 @@
+<mat-nav-list>
+    <a mat-list-item [routerLink]="['/home']" (click)="onSidenavClose()">
+        <mat-icon>home</mat-icon><span class="nav-caption">Início</span>
+    </a>
+    <a *ngIf="authority === 'user'" mat-list-item [routerLink]="['/home']" (click)="onSidenavClose()">
+        <mat-icon>email</mat-icon><span class="nav-caption">Seja um vendedor!</span>
+    </a>
+    <a mat-list-item [routerLink]="['/home']" (click)="onSidenavClose()">
+        <mat-icon>info</mat-icon><span class="nav-caption">Sobre nós</span>
+    </a>
+    <a *ngIf="authority === 'admin'" mat-list-item [routerLink]="['/owner']" (click)="onSidenavClose()">
+        <mat-icon>assignment_ind</mat-icon><span class="nav-caption">Portal Admin</span>
+    </a>
+    <mat-list-item [matMenuTriggerFor]="menu">
+        <mat-icon>expand_more</mat-icon>
+        <a matline>{{info.username}}</a>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="['/profile/',this.info.id]" (click)="onSidenavClose()" style="width: 248px;"><mat-icon>person</mat-icon>Perfil</button>
+            <button mat-menu-item (click)="onSidenavClose()"><mat-icon>settings</mat-icon>Configurações</button>
+            <button mat-menu-item (click)="logout()"><mat-icon>exit_to_app</mat-icon>Logout</button>
+
+        </mat-menu>
+    </mat-list-item>
+</mat-nav-list>

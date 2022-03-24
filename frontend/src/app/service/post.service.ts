@@ -1,3 +1,4 @@
+import { CartForm } from './../../model/cart-form';
 import { Categoria } from './../../model/category-dto';
 import { CommentForm } from './../../model/comment-form';
 import { PostForm } from './../../model/post-form';
@@ -55,7 +56,6 @@ export class PostService {
     })
       return this.http.get<PageablePostDto>(`${this.locator.services.Posts}/categories/name/${categoria}`,{headers})
   }
-
 
   obterTodasCategorias():Observable<Categoria[]>{
     const headers =   new HttpHeaders({
@@ -121,5 +121,13 @@ export class PostService {
     });
     
     return this.http.post<Post>(`${this.locator.services.Posts}/${postId}/comment`,commentForm,{headers})
+  }
+
+  comprar(cartForm:CartForm){
+    const headers =   new HttpHeaders({
+      "Authorization": `Bearer ${this.token.getToken()}`
+    });
+
+    return this.http.post<CartForm>(`${this.locator.services.Buy}`,cartForm,{headers})
   }
 }
