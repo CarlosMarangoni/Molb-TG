@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="text-right m-4">
+    <div *ngIf="!profileOwner" class="text-right m-4">
         <span class="btn btn-primary btn-lg" *ngIf="userFollows && !owner" (click)="followUser()">Seguindo</span>
         <span class="btn btn-primary btn-lg" *ngIf="userFollows === false && !owner" (click)="followUser()">Seguir</span>
     </div>

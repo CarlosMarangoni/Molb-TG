@@ -44,7 +44,7 @@ body {
 }
 
 .list-group-mine .list-group-item:hover {
-    background-color: white;
+    background-color: black;
     color: var(--color-primary);
 }
 

@@ -34,7 +34,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { HeaderComponent } from './header/header.component'
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { MatListModule } from '@angular/material/list';
-import { SidenavListComponent } from './sidenav-list/sidenav-list.component'
+import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
+import { PortalAdminComponent } from './portal-admin/portal-admin.component';
+import { AdminUsersComponent } from './portal-admin/admin-users/admin-users.component';
+import { AdminCategoryComponent } from './portal-admin/admin-category/admin-category.component'
 
 registerLocaleData(ptBr);
 
@@ -52,7 +55,10 @@ registerLocaleData(ptBr);
     RegisterComponent,
     NewPostComponent,
     HeaderComponent,
-    SidenavListComponent
+    SidenavListComponent,
+    PortalAdminComponent,
+    AdminUsersComponent,
+    AdminCategoryComponent
   ],
   imports: [
     BrowserModule,

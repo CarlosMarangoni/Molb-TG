@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
   authority: string = "";
   roles: string[] = [];
   public owner: boolean = false;
+  public profileOwner:boolean = false;
   public canEditDesc: boolean = false;
   public userFollows:boolean = false;
   
@@ -69,6 +70,10 @@ export class ProfileComponent implements OnInit {
         return true;
       });
     }
+    if (this.id === Number(this.token.getUserId())){
+      this.profileOwner = true;
+    }
+
     if (this.id === Number(this.token.getUserId()) && this.authority === 'creator'){
       this.owner = true;
   }

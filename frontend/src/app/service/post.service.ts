@@ -73,7 +73,7 @@ export class PostService {
     const data = new Blob([JSON.stringify({
       userId:postForm.userId,
       description:postForm.description,
-      category:postForm.category,
+      categoryId:postForm.categoryId,
       title:postForm.title,
       items:postForm.items
     })],{
@@ -97,7 +97,7 @@ export class PostService {
     const data = new Blob([JSON.stringify({
       userId:postForm.userId,
       description:postForm.description,
-      category:postForm.category,
+      categoryId:postForm.categoryId,
       title:postForm.title,
       items:postForm.items
     })],{

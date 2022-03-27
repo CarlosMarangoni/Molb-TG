@@ -10,7 +10,7 @@
     <div fxFlex fxLayout fxLayoutAlign="space-around" fxHide.xs>
         <ul class="navigation-items">
             <li>
-                <a [routerLink]="['/home']">
+                <a [routerLink]="['/home']" routerLinkActive="active">
                     <mat-icon style="vertical-align: middle;">home</mat-icon>Início
                 </a>
             </li>
@@ -29,7 +29,7 @@
 
             </li>
             <li *ngIf="authority === 'admin'" class="mx-4">
-                <a [routerLink]="['/owner']">Portal Admin <mat-icon style="vertical-align: middle;">assignment_ind</mat-icon></a>
+                <a [routerLink]="['/admin']" routerLinkActive="active">Portal Admin <mat-icon style="vertical-align: middle;">assignment_ind</mat-icon></a>
 
 
             </li>

@@ -16,7 +16,7 @@ import { NgForm } from "@angular/forms";
 export class NewPostComponent implements OnInit {
   public uploaded: boolean = false;
   public modelagens: Array<PostItem> = [];
-  private postForm: PostForm = new PostForm(0, "","", "", []);
+  private postForm: PostForm = new PostForm(0, "",0, "", []);
   form: any = {};
   public file: File | undefined;
   public moldesFiles:Array<File> = [];
@@ -37,7 +37,7 @@ export class NewPostComponent implements OnInit {
     this.obterCategorias();
   }
 
-  onSubmit(f: NgForm,content:any) {    
+  onSubmit(f: NgForm,content:any) { 
     for (let i = 0; i < this.modelagens.length; i++) {
       let a = new PostItem();
       a.price = this.modelagens[i].price;
@@ -48,8 +48,8 @@ export class NewPostComponent implements OnInit {
       this.postForm.userId = Number(this.tokenStorage.getUserId());
       this.postForm.title = this.form.title;
       this.postForm.description = this.form.description;
-      this.postForm.category = this.form.category;
-
+      this.postForm.categoryId = this.form.category;
+      console.log(this.postForm);
       this.postService
         .cadastrarPostComArquivo(this.postForm, this.file!,this.moldesFiles!)
         .subscribe(
@@ -62,8 +62,8 @@ export class NewPostComponent implements OnInit {
       this.postForm.userId = Number(this.tokenStorage.getUserId());
       this.postForm.title = this.form.title;
       this.postForm.description = this.form.description;
-      this.postForm.category = this.form.category;
-      console.log(this.moldesFiles);
+      this.postForm.categoryId = this.form.category;
+      console.log(this.postForm);
       this.postService.cadastrarPost(this.postForm,this.moldesFiles!).subscribe(
         (a) => {
           console.log(a);
@@ -87,6 +87,7 @@ export class NewPostComponent implements OnInit {
   removerItem(i: number) {
     this.modelagens.splice(i, 1);
     this.moldesFiles.splice(i,1);
+    this.fileValid.splice(i,1)
   }
 
   onChange(event: any) {
