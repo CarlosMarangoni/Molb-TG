@@ -31,7 +31,7 @@ export class UserService {
     const headers =   new HttpHeaders({
       "Authorization": `Bearer ${this.token.getToken()}`
     })
-    return this.http.put<User>(`${this.locator.services.Users}/${userId}`,description,{headers})
+    return this.http.put<User>(`${this.locator.services.Users}/description/${userId}`,description,{headers})
   }
 
   seguirUsuario(userId:number):Observable<User>{

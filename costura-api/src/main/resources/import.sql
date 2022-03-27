@@ -5,6 +5,7 @@ INSERT INTO roles values(1,'ROLE_USER');
 INSERT INTO roles values(2,'ROLE_ADMIN');
 INSERT INTO roles values(3,'ROLE_CREATOR');
 INSERT INTO users_roles values(1,2);
+INSERT INTO users_roles values(1,3);
 INSERT INTO users_roles values(2,1);
 INSERT INTO users_roles values(3,3);
 INSERT INTO category values (1,'CALCA');

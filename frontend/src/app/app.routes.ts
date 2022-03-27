@@ -1,3 +1,4 @@
+import { EditUserComponent } from './edit-user/edit-user.component';
 import { AdminCategoryComponent } from "./portal-admin/admin-category/admin-category.component";
 import { AdminUsersComponent } from "./portal-admin/admin-users/admin-users.component";
 import { PortalAdminComponent } from "./portal-admin/portal-admin.component";
@@ -25,8 +26,9 @@ export const rootRouterConfig: Routes = [
     component: PortalAdminComponent,
     children: [
       { path: '', redirectTo: 'users',pathMatch:'prefix' },
-      { path: 'users', component: AdminUsersComponent },
+      { path: 'users', component: AdminUsersComponent,children:[] },
       { path: 'category', component: AdminCategoryComponent },
+      //{ path: 'users/:id', component: EditUserComponent }
     ]
   }
 ];

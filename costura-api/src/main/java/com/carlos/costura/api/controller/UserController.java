@@ -2,8 +2,10 @@ package com.carlos.costura.api.controller;
 
 import com.carlos.costura.domain.exception.PageNotFoundException;
 import com.carlos.costura.domain.model.User;
+import com.carlos.costura.domain.model.dto.AuthorityDTO;
 import com.carlos.costura.domain.model.dto.RegistrationForm;
 import com.carlos.costura.domain.model.dto.UserOutput;
+import com.carlos.costura.domain.repository.RoleRepository;
 import com.carlos.costura.domain.repository.UserRepository;
 import com.carlos.costura.domain.service.UserService;
 import lombok.AllArgsConstructor;
@@ -27,6 +29,8 @@ public class UserController {
 
     private UserService userService;
 
+    private RoleRepository roleRepository;
+
     @GetMapping("/users")
     public ResponseEntity<List<UserOutput>> getUsers(){
         List<User> users = userRepository.findAll();
@@ -41,11 +45,21 @@ public class UserController {
 
     }
 
-    @PutMapping("/users/{id}")
+    @GetMapping("/roles")
+    public ResponseEntity<?> getAllRoles(){
+        return ResponseEntity.ok().body(roleRepository.findAll());
+    }
+
+    @PutMapping("/users/description/{id}")
     public ResponseEntity<UserOutput> updateUserDesc(@PathVariable Long id,@RequestBody String description){
         User user = userService.updateUserDesc(id,description);
         return ResponseEntity.ok().body(UserOutput.toOutput(user));
 
+    }
+
+    @PutMapping("/users/roles/{id}")
+    public void updateUserPermissions(@PathVariable Long id,@RequestBody AuthorityDTO permissions){
+        userService.updateUserPermissions(id,permissions);
     }
 
     @PostMapping("/users/{id}/follow")

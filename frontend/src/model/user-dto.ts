@@ -8,6 +8,7 @@ export class User {
     profileImage:string = "";
     description:string = "";
     name:string = "";
+    permissions:string[] = [];
     following:FollowingDto[] = [];
     followers:FollowerDto[] = [];
     posts:PostSummaryDto[] = [];

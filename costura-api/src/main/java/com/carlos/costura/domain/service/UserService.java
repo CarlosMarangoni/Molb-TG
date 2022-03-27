@@ -4,12 +4,14 @@ import com.carlos.costura.domain.exception.AuthorizationException;
 import com.carlos.costura.domain.exception.ConflictException;
 import com.carlos.costura.domain.exception.PageNotFoundException;
 import com.carlos.costura.domain.model.*;
+import com.carlos.costura.domain.model.dto.AuthorityDTO;
 import com.carlos.costura.domain.model.dto.RegistrationForm;
 import com.carlos.costura.domain.model.enumeration.PaymentMethod;
 import com.carlos.costura.domain.model.enumeration.RoleName;
 import com.carlos.costura.domain.model.pk.FollowersPK;
 import com.carlos.costura.domain.model.pk.SaleItemPK;
 import com.carlos.costura.domain.repository.*;
+import com.carlos.costura.domain.utils.ObjectUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,10 +24,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -44,6 +43,8 @@ public class UserService {
     private FollowersRepository followersRepository;
 
     private PurchaseRepository purchaseRepository;
+
+    private AuthorityRepository authorityRepository;
 
     @Transactional
     public User save(RegistrationForm user, MultipartFile imageFile) {
@@ -119,6 +120,17 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public void updateUserPermissions(Long id, AuthorityDTO permissions) {
+        User user = userRepository.findById(id).orElseThrow(() -> new PageNotFoundException("Página não encontrada."));
+        Set<Role> roles = new HashSet<>();
+        permissions.getPermissions().forEach(p ->{
+            RoleName name = RoleName.valueOf(p.toUpperCase(Locale.ROOT));
+            roles.add(roleRepository.findByName(name).get());
+        });
+        user.setRoles(roles);
+        userRepository.save(user);
+    }
+
     public boolean  buy(Purchase purchase, User loggedUser) {
         loggedUser = userRepository.findById(loggedUser.getId()).get();
         List<Purchase> purchaseList = loggedUser.getPurchaseList();
@@ -141,5 +153,7 @@ public class UserService {
         
         return true;
         }
+
+
 }
 

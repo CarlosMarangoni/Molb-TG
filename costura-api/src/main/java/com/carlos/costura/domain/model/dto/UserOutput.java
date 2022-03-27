@@ -23,6 +23,8 @@ public class UserOutput {
 
     private String name;
 
+    private List<String> permissions;
+
     private List<FollowerOutput> following;
 
     private List<FollowerOutput> followers;
@@ -36,6 +38,7 @@ public class UserOutput {
                 user.getDescription(),
                 user.getProfileImage(),
                 user.getName(),
+                user.getAuthorities().stream().map(a -> a.getAuthority().toString()).collect(Collectors.toList()),
                 user.getFollowing().stream().map(f->FollowerOutput.toOutput(f.getFollowersPK().getTo())).collect(Collectors.toList()),
                 user.getFollowers().stream().map(f->FollowerOutput.toOutput(f.getFollowersPK().getFrom())).collect(Collectors.toList()),
                 user.getPosts().stream().map(PostSummary::toSummary).collect(Collectors.toList()));
