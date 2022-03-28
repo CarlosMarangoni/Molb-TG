@@ -1,0 +1,28 @@
+<div class="pt-5">
+    <form action="">
+        <div class="mx-3 d-flex justify-content-around" style="min-width: 40%">
+            <div>ID: {{user.id}}</div>
+            <div>Username: {{user.user}}</div>
+        </div>
+
+        <div class="mt-5 text-center">
+            Permissões:
+            <div>
+                <span *ngFor="let role of user.permissions">
+                {{role}} <br>
+
+            </span>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <select class="form-control" name="roles" id="roles">
+            <option *ngFor="let role of roles">{{role.name}}</option>
+            
+        </select>
+            <div class="text-right">
+                <div class="btn btn-primary">+</div>
+            </div>
+        </div>
+        <button class="btn" type="submit"></button>
+    </form>
+</div>

@@ -38,7 +38,7 @@ import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
 import { PortalAdminComponent } from './portal-admin/portal-admin.component';
 import { AdminUsersComponent } from './portal-admin/admin-users/admin-users.component';
 import { AdminCategoryComponent } from './portal-admin/admin-category/admin-category.component';
-import { EditUserComponent } from './edit-user/edit-user.component'
+import { EditUserComponent } from './portal-admin/edit-user/edit-user.component';
 
 registerLocaleData(ptBr);
 

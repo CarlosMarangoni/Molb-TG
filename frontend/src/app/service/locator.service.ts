@@ -23,6 +23,7 @@ export class LocatorService {
 
     this.services.Register = this.urlBase + "auth/signup";
     this.services.Users = this.urlBase + "users";
+    this.services.Roles = this.urlBase + "roles";
     this.services.User = this.urlBase + "users/${userId}";
     this.services.Follow = this.urlBase + "user/${userId}/follow";
   }

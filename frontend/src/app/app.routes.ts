@@ -1,4 +1,5 @@
-import { EditUserComponent } from './edit-user/edit-user.component';
+
+
 import { AdminCategoryComponent } from "./portal-admin/admin-category/admin-category.component";
 import { AdminUsersComponent } from "./portal-admin/admin-users/admin-users.component";
 import { PortalAdminComponent } from "./portal-admin/portal-admin.component";
@@ -11,6 +12,7 @@ import { ProfileComponent } from "./profile/profile.component";
 import { Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
 import { PostDetailComponent } from "./post-detail/post-detail.component";
+import { EditUserComponent } from "./portal-admin/edit-user/edit-user.component";
 export const rootRouterConfig: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "home", component: HomeComponent },
@@ -26,9 +28,10 @@ export const rootRouterConfig: Routes = [
     component: PortalAdminComponent,
     children: [
       { path: '', redirectTo: 'users',pathMatch:'prefix' },
-      { path: 'users', component: AdminUsersComponent,children:[] },
+      { path: 'users', component: AdminUsersComponent },
       { path: 'category', component: AdminCategoryComponent },
-      //{ path: 'users/:id', component: EditUserComponent }
+      { path: 'users/edit/:id', component: EditUserComponent }
     ]
-  }
+  },
+  //{ path:'admin/users/:id',component: EditUserComponent}
 ];

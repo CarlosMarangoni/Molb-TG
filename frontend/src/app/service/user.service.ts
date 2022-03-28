@@ -1,3 +1,4 @@
+import { Role } from './../../model/role-dto';
 import { UserForm } from './../../model/user-form';
 import { TokenStorageService } from './token-storage.service';
 import { Observable } from 'rxjs';
@@ -27,6 +28,12 @@ export class UserService {
     return this.http.get<User[]>(`${this.locator.services.Users}`,{headers})
   }
 
+  obterPermissoes(){
+    const headers =   new HttpHeaders({
+      "Authorization": `Bearer ${this.token.getToken()}`
+    })
+    return this.http.get<Role[]>(`${this.locator.services.Roles}`,{headers})
+  }
   atualizarDescricao(userId:number,description:String):Observable<User>{
     const headers =   new HttpHeaders({
       "Authorization": `Bearer ${this.token.getToken()}`

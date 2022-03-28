@@ -16,7 +16,7 @@
             <td class="align-middle">{{user.user}}</td>
             <td class="align-middle"><span *ngFor="let permission of user.permissions">{{permission}}<br></span> </td>
             <td class="align-middle">
-                <span class="bi bi-pencil rounded-circle">              
+                <span [routerLink]="['./edit/',user.id]" class="btn bi bi-pencil rounded-circle">              
             </span>
             </td>
         </tr>
