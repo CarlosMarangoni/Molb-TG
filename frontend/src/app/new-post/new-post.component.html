@@ -1,5 +1,5 @@
 <div class="container bg-secondary">
-
+    <div style="padding-top: 200px;">
     <form name="form" enctype="multipart/form-data" (ngSubmit)="f.form.valid && onSubmit(f,modal)" #f="ngForm" novalidate method="post">
         <div class="text-center p-4">
             <div class="d-flex justify-content-center">
@@ -101,6 +101,7 @@
 
         </div>
     </form>
+</div>
 </div>
 
 <ng-template #modal let-modal>

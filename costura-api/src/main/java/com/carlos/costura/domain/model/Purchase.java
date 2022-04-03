@@ -40,10 +40,6 @@ public class Purchase {
 
     private BigDecimal total;
 
-//    public Purchase(List<PostItem> postItemsList){
-//        this.items = postItemsList;
-//    }
-
 
     public Purchase(List<SaleItem> items) {
         this.items = items;

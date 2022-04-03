@@ -1,16 +1,17 @@
 <div class="container">
+    <div style="padding-top: 200px;">
     <div class="border-bottom pb-4">
-        <div class="text-center">
+        <div class="text-center d-flex justify-content-center border-bottom border-primary pb-5">
             <div>
-                <img class="rounded-circle border m-1" [src]="post.profileImage" alt="" width="150px">
+                <img class="rounded-circle border border-primary m-1" [src]="post.profileImage" alt="" width="150px">
             </div>
-            <span class="text-center" style="font-size: xx-large;">{{post.user}}</span>
+            <div class="text-center align-self-center" style="font-size: xx-large;">{{post.user}}</div>
         </div>
     </div>
     <div class="">
         <div class="text-center mt-5 mb-2" style="font-size: xx-large;">{{post.title}}</div>
         <div class="text-center">
-            <img *ngIf="post.postImage != ''; else noImage" class="border border-primary border-5 rounded" width="300px" [src]="post.postImage" alt="">
+            <img *ngIf="post.postImage != ''; else noImage" class="pt-2 rounded m-auto d-block" width="300px" [src]="post.postImage" alt="">
             <ng-template #noImage>
                 <img class="border border-primary border-5" src='/assets/img/no-image.png' alt="">
             </ng-template>
@@ -19,14 +20,15 @@
     <div class="text-center py-5 border-bottom">
         <b style="font-size: large;">{{post.description}}</b><br>
         <div class="mt-2">
-            <ng-rating-bar [value]="post.averageStars" [ratingCount]="5" [disabled]=true colorActive="#ef8f38" [styles]="{fontSize: '40px'}"></ng-rating-bar>
+            <ng-rating-bar [value]="post.averageStars" [ratingCount]="5" [disabled]=true colorActive="#daae51" [styles]="{fontSize: '40px'}"></ng-rating-bar>
         </div>
     </div>
     <div class="mt-5 mx-5 px-5">
-        <div class="border border-primary border rounded d-flex justify-content-around my-3 align-items-center" *ngFor="let item of post.items;let i = index">
+        <div class="border border-primary border rounded d-flex justify-content-around my-3 align-items-center" *ngFor="let item of post.items;let i = index;">
             <div class="pl-2">{{i+1}}</div>
             <div class="text-center" style="width: 75%;">{{item.description}}</div><span *ngIf="item.price >0 ;else free">{{item.price | currency:'BRL'}}</span>
-            <div class="text-right flex-shrink-1" *ngIf="!hasBought && item.price > 0 && !owner && authority.includes('admin');else download">
+            <ng-container *ngTemplateOutlet="download; context: {index: i}"></ng-container>
+            <div class="text-right flex-shrink-1"  *ngIf="hasBought[i]==false && item.price > 0 && !owner && !authority.includes('admin');">
 
                 <div>
                     <div class="btn btn-sm btn-primary" (click)="addToCart(item)">
@@ -40,8 +42,8 @@
             <ng-template #free>
                 <span>Grátis</span>
             </ng-template>
-            <ng-template #download>
-                <div class="btn btn-sm btn-primary">
+            <ng-template #download let-index="index">
+                <div *ngIf="hasBought[index]==true || item.price == 0 || owner || authority.includes('admin')" class="btn btn-sm btn-primary" (click)="downloadFile(index)">
                     <mat-icon>vertical_align_bottom</mat-icon>
                 </div>
             </ng-template>
@@ -57,7 +59,7 @@
             <div> {{comment.user}}</div>
             <div class="text-right" style="width: 90%;">
                 <div>
-                    <ng-rating-bar [value]="comment.stars" [ratingCount]="5" [disabled]=true colorActive="#ef8f38"></ng-rating-bar>
+                    <ng-rating-bar [value]="comment.stars" [ratingCount]="5" [disabled]=true colorActive="#daae51"></ng-rating-bar>
                 </div>
             </div>
         </div>
@@ -76,7 +78,7 @@
             <div class="d-flex justify-content-between">
                 <textarea class="form-control" placeholder="Escreva um comentário..." [(ngModel)]="comment" name="comment" id="comment"></textarea>
                 <div class="m-auto text-center" style="width: 25%">
-                    <ng-rating-bar name="stars" id="stars" [value]="stars" [ratingCount]="5" colorActive="#ef8f38" (valueChange)="onValueChange($event)" [styles]="{fontSize: '20px'}"></ng-rating-bar>
+                    <ng-rating-bar name="stars" id="stars" [value]="stars" [ratingCount]="5" colorActive="#daae51" (valueChange)="onValueChange($event)" [styles]="{fontSize: '20px'}"></ng-rating-bar>
                 </div>
                 <button class="btn btn-primary" type="submit" [ngClass]="{disabled: comment.length == 0}">
                         Publicar
@@ -85,4 +87,5 @@
             </div>
         </form>
     </div>
+</div>
 </div>

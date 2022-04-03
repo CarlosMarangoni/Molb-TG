@@ -1,4 +1,5 @@
 <div class="container">
+    <div style="padding-top: 200px;">
     <div *ngIf="!profileOwner" class="text-right m-4">
         <span class="btn btn-primary btn-lg" *ngIf="userFollows && !owner" (click)="followUser()">Seguindo</span>
         <span class="btn btn-primary btn-lg" *ngIf="userFollows === false && !owner" (click)="followUser()">Seguir</span>
@@ -28,7 +29,7 @@
                 <div class="text-center mt-3" *ngIf="canEditDesc" style="width: 700px;">
                     <textarea class="form-control" type="text" [(ngModel)]="user.description" width="100%"></textarea>
                 </div>
-                <div *ngIf="canEditDesc == false && owner"><i class="btn bi bi-pen-fill" (click)="canEditDesc = true"></i></div>
+                <div *ngIf="canEditDesc == false && profileOwner"><i class="btn bi bi-pen-fill" (click)="canEditDesc = true"></i></div>
                 <div *ngIf="canEditDesc"><i class="btn bi bi-save" (click)="saveEditDesc()"></i></div>
 
             </div>
@@ -63,4 +64,5 @@
                 </button>
         </div>
     </div>
+</div>
 </div>

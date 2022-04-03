@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PostItemRepository extends JpaRepository<PostItem, PostItemPK> {
 
+    boolean existsByPostItemPK_Post_IdAndPostItemPK_Item(Long postId,Integer item);
 
     boolean existsByPostItemPK(PostItemPK postItemPK);
 }

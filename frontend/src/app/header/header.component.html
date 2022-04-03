@@ -1,40 +1,37 @@
-<mat-toolbar class="shadow justify-content-between pt-2" style="background: #151515;">
-    <div fxHide.gt-xs>
-        <button mat-icon-button (click)="onToggleSidenav()">
-            <mat-icon style="color:white">menu</mat-icon>
-        </button>
-    </div>
-    <div fxHide.xs>        
-        <a [routerLink]="['/home']"><img class="pl-5" height="120px" src="/assets/img/Mowb-white.png" alt=""></a>
-    </div>
-    <div fxHide.xs>
-        <div class="d-flex justify-content-between">
+<nav id="header" class="fixed w-full z-30 top-0 text-white" style="background:white">
+      <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
+        <div class="pl-4 flex items-center">
+          <a class="toggleColour text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl brand-font" href="#">
+            Molb
+          </a>
+        </div>
+        <div class="block lg:hidden pr-4">
+          <button id="nav-toggle" class="flex items-center p-1 text-pink-800 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
             <div>
-                <a [routerLink]="['/home']" routerLinkActive="active">
-                    <mat-icon style="vertical-align: middle;">home</mat-icon>Início
-                </a>
+                <button mat-icon-button (click)="onToggleSidenav()">
+                    <mat-icon style="color:black">menu</mat-icon>
+                </button>
             </div>
-            <div class="mx-4">
-                <a [routerLink]="['/contact-us']" routerLinkActive="active">Seja um vendedor! <mat-icon
-                        style="vertical-align: middle;">email</mat-icon></a>
-
-
-            </div>
-            <div class="mx-4">
-                <a [routerLink]="['/owner']">Sobre nós <mat-icon style="vertical-align: middle;">info</mat-icon></a>
-
-
-            </div>
-            <div class="btn mx-3" style="color: white;" [routerLink]="['/cart']">
+          </button>
+        </div>
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 lg:bg-transparent text-black p-4 lg:p-0 z-20" id="nav-content" fxHide.xs>
+          <ul class="list-reset lg:flex justify-end flex-1 items-center">
+            <li class="mr-3">
+              <a class="inline-block py-2 px-4 text-black font-bold no-underline" href="#"  [routerLink]="['/home']" routerLinkActive="active">Início</a>
+            </li>
+            <li class="mr-3">
+              <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#" [routerLink]="['/contact-us']" routerLinkActive="active">Seja um vendedor</a>
+            </li>
+            <li class="mr-3">
+              <a class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4" href="#" [routerLink]="['/owner']">Sobre nós</a>
+            </li>
+            <li class="btn mr-3" style="color: black;" [routerLink]="['/cart']">
                 <mat-icon>shopping_cart</mat-icon>
                 <span class="cart-items">{{qty}}</span>
-            </div>
-        </div>
-    </div>
-    <div class="d-flex justify-content-between">
-        
-        <div *ngIf="isAdmin(authority)" class="mx-4">
-            <a [routerLink]="['/admin']" routerLinkActive="active">Admin <mat-icon
+            </li>
+          </ul>
+          <div *ngIf="isAdmin(authority)" class="">
+            <a [routerLink]="['/admin']" routerLinkActive="active" style="color: black;">Admin <mat-icon
                     style="vertical-align: middle;">assignment_ind</mat-icon></a>
         </div>
         <button *ngIf="info.token;else loggedOut" mat-icon-button [matMenuTriggerFor]="menu">
@@ -42,8 +39,10 @@
             <span class="dropdown-toggle"></span>
 
         </button>
-
-    </div>
+        </div>
+      </div>
+      <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
+    </nav>
     
     <mat-menu #menu="matMenu">
         <button mat-menu-item [routerLink]="['/profile/',this.info.id]">
@@ -61,7 +60,6 @@
     </mat-menu>
     <ng-template #loggedOut>
         <div class="welcome-message mx-2">
-            <a class="" [routerLink]="['/login']">Entre ou cadastre-se!</a>
+            <a class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out" [routerLink]="['/login']">Entre ou cadastre-se!</a>
         </div>
     </ng-template>
-</mat-toolbar>

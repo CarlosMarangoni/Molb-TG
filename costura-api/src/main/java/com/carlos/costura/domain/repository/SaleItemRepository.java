@@ -12,4 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface SaleItemRepository extends JpaRepository<SaleItem, SaleItemPK> {
 
     boolean existsBySaleItemPK_PostAndAndSaleItemPK_ItemAndSaleItemPK_Purchase_Buyer(Post post, Integer item, User buyer);
+
+    boolean existsBySaleItemPK_Post_IdAndSaleItemPK_Item(Long postId,Integer item);
 }

@@ -137,4 +137,11 @@ export class PostService {
 
     return this.http.post<CartForm>(`${this.locator.services.Buy}`,cartForm,{headers})
   }
+
+  usuarioComprou(userId:string,postId:number,item:number){
+    const headers =   new HttpHeaders({
+      "Authorization": `Bearer ${this.token.getToken()}`
+    })
+    return this.http.get<boolean>(`${this.locator.services.Users}/${userId}/post/${postId}/item/${item}`,{headers})
+   }
 }

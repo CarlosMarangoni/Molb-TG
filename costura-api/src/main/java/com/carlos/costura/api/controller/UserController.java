@@ -1,12 +1,16 @@
 package com.carlos.costura.api.controller;
 
 import com.carlos.costura.domain.exception.PageNotFoundException;
+import com.carlos.costura.domain.model.Post;
+import com.carlos.costura.domain.model.Purchase;
+import com.carlos.costura.domain.model.SaleItem;
 import com.carlos.costura.domain.model.User;
 import com.carlos.costura.domain.model.dto.AuthorityDTO;
 import com.carlos.costura.domain.model.dto.RegistrationForm;
 import com.carlos.costura.domain.model.dto.UserOutput;
-import com.carlos.costura.domain.repository.RoleRepository;
-import com.carlos.costura.domain.repository.UserRepository;
+import com.carlos.costura.domain.model.pk.PostItemPK;
+import com.carlos.costura.domain.model.pk.SaleItemPK;
+import com.carlos.costura.domain.repository.*;
 import com.carlos.costura.domain.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +34,12 @@ public class UserController {
     private UserService userService;
 
     private RoleRepository roleRepository;
+
+    private PurchaseRepository purchaseRepository;
+
+    private PostRepository postRepository;
+
+    private PostItemRepository postItemRepository;
 
     @GetMapping("/users")
     public ResponseEntity<List<UserOutput>> getUsers(){
@@ -61,6 +71,30 @@ public class UserController {
     public boolean updateUserPermissions(@PathVariable Long id,@RequestBody AuthorityDTO permissions){
         boolean saved = userService.updateUserPermissions(id,permissions);
         return saved;
+    }
+
+    @GetMapping("/users/{userId}/post/{postId}/item/{postItem}")
+    public boolean userHasBought(@PathVariable Long userId,@PathVariable Long postId,@PathVariable Integer postItem){
+       User user = userRepository.findById(userId).orElseThrow(()-> new PageNotFoundException("Usuário não encontrado"));
+       boolean hasBought = false;
+
+        boolean exists = postItemRepository.existsByPostItemPK_Post_IdAndPostItemPK_Item(postId,postItem);
+        if(exists){
+            List<Purchase> purchaseList = user.getPurchaseList();
+            for (Purchase p : purchaseList) {
+                List<SaleItem> itemList = p.getItems();
+                for (SaleItem i : itemList) {
+                    if (i.getSaleItemPK().getPost().getId().equals(postId) && i.getSaleItemPK().getItem().equals(postItem)){
+                        hasBought = true;
+                    }
+                }
+
+            }
+        }else{
+            throw new PageNotFoundException("Post e item não encontrado");
+        }
+
+       return hasBought;
     }
 
     @PostMapping("/users/{id}/follow")
