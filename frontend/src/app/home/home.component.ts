@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit{
   selectedSearch:any = 'userFilter';
   categories:Categoria[] = []; 
   roles: string[] = []; 
-  authority: string = "";
+  authority: string[] = [];
+  panelOpenState = false;
 
   constructor(private postService:PostService,private token: TokenStorageService){
     this.postService=postService;
@@ -29,16 +30,13 @@ export class HomeComponent implements OnInit{
   ngOnInit(): void {
     if (this.token.getToken()) {
       this.roles = this.token.getAuthorities();
-      this.roles.every(role => {
+      this.roles.forEach(role => {
         if (role === 'ROLE_ADMIN') {
-          this.authority = 'admin';
-          return false;
+          this.authority.push('admin');
         } else if (role === 'ROLE_CREATOR') {
-          this.authority = 'creator';
-          return false;
+          this.authority.push('creator');
         }
-        this.authority = 'user';
-        return true;
+        this.authority.push('user');;
       });
     }
     this.postService.obterTodasPostagensPaginadas(this.activePage)

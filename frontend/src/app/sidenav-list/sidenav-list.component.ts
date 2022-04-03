@@ -12,7 +12,7 @@ export class SidenavListComponent implements OnInit {
   value:string = '';
   roles: string[] = [];
   info:any;
-  authority: string = "";
+  authority: string[] = [];
 
   @Output() sidenavClose = new EventEmitter();
 
@@ -28,16 +28,13 @@ export class SidenavListComponent implements OnInit {
     }
     if (this.token.getToken()) {
       this.roles = this.token.getAuthorities();
-      this.roles.every(role => {
+      this.roles.forEach(role => {
         if (role === 'ROLE_ADMIN') {
-          this.authority = 'admin';
-          return false;
+          this.authority.push('admin');
         } else if (role === 'ROLE_CREATOR') {
-          this.authority = 'creator';
-          return false;
+          this.authority.push('creator');
         }
-        this.authority = 'user';
-        return true;
+        this.authority.push('user');;
       });
     }
   }

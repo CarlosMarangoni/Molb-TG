@@ -35,10 +35,13 @@ import { HeaderComponent } from './header/header.component'
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { MatListModule } from '@angular/material/list';
 import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 import { PortalAdminComponent } from './portal-admin/portal-admin.component';
 import { AdminUsersComponent } from './portal-admin/admin-users/admin-users.component';
 import { AdminCategoryComponent } from './portal-admin/admin-category/admin-category.component';
 import { EditUserComponent } from './portal-admin/edit-user/edit-user.component';
+import { CreateCategoryComponent } from './portal-admin/create-category/create-category.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 registerLocaleData(ptBr);
 
@@ -60,7 +63,9 @@ registerLocaleData(ptBr);
     PortalAdminComponent,
     AdminUsersComponent,
     AdminCategoryComponent,
-    EditUserComponent
+    EditUserComponent,
+    CreateCategoryComponent,
+    ContactUsComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +85,8 @@ registerLocaleData(ptBr);
     MatSidenavModule,
     MatToolbarModule,
     FlexLayoutModule,
-    MatListModule
+    MatListModule,
+    MatExpansionModule
   ],
   exports:[
     MatSidenavModule,

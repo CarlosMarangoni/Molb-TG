@@ -1,20 +1,20 @@
 <div class="d-flex justify-content-between m-2">
     <div></div>
-    <div class="btn btn-success">+</div>
+    <div class="btn btn-success" [routerLink]="['./create']" >+</div>
 </div>
 
 <table class="table table-striped table-light border border-10 border-secondary">
     <thead>
         <th>#</th>
-        <th></th>
+        <th>Nome</th>
         <th></th>
     </thead>
     <tbody>
-        <tr>
-            <td>1</td>
-            <td>VESTIDO</td>
+        <tr *ngFor="let category of categories">
+            <td>{{category.id}}</td>
+            <td>{{category.name}}</td>
             <td></td>
-            <td><span class="bi bi-pencil rounded-circle">
+            <td><span class="bi bi-pencil rounded-circle btn" (click)="editCategory()">
                 
             </span></td>
         </tr>

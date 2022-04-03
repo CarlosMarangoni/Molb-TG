@@ -6,6 +6,7 @@ import { LocatorService } from './locator.service';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from 'src/model/user-dto';
+import { RoleSummary } from 'src/model/role-summary-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -34,11 +35,19 @@ export class UserService {
     })
     return this.http.get<Role[]>(`${this.locator.services.Roles}`,{headers})
   }
+
   atualizarDescricao(userId:number,description:String):Observable<User>{
     const headers =   new HttpHeaders({
       "Authorization": `Bearer ${this.token.getToken()}`
     })
     return this.http.put<User>(`${this.locator.services.Users}/description/${userId}`,description,{headers})
+  }
+
+  atualizarPermissoes(userId:number,permissions:RoleSummary){
+    const headers =   new HttpHeaders({
+      "Authorization": `Bearer ${this.token.getToken()}`
+    })
+    return this.http.put(`${this.locator.services.Users}/roles/${userId}`,permissions,{headers})
   }
 
   seguirUsuario(userId:number):Observable<User>{

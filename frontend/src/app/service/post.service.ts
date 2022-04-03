@@ -64,6 +64,13 @@ export class PostService {
       return this.http.get<Categoria[]>(`${this.locator.services.Posts}/categories`,{headers})
   }
 
+  cadastrarCategoria(category:Categoria):Observable<Categoria>{
+    const headers =   new HttpHeaders({
+      "Authorization": `Bearer ${this.token.getToken()}`
+    })
+      return this.http.post<Categoria>(`${this.locator.services.Posts}/categories`,category,{headers})
+  }
+
   cadastrarPost(postForm:PostForm,moldes:File[]){
     const headers =   new HttpHeaders({
       "Authorization": `Bearer ${this.token.getToken()}`

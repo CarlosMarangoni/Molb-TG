@@ -23,7 +23,7 @@ export class PostDetailComponent implements OnInit {
   public message:string = '';
   public hasBought = false;
   public roles: string[] = [];
-  public authority: string = "";
+  public authority: string[] = [];
 
   constructor(private postService:PostService,private route: ActivatedRoute,private token:TokenStorageService,private msg:MessengerService) { 
     this.postService = postService;
@@ -43,16 +43,13 @@ export class PostDetailComponent implements OnInit {
     
     if (this.token.getToken()) {
       this.roles = this.token.getAuthorities();
-      this.roles.every(role => {
+      this.roles.forEach(role => {
         if (role === 'ROLE_ADMIN') {
-          this.authority = 'admin';
-          return false;
+          this.authority.push('admin');
         } else if (role === 'ROLE_CREATOR') {
-          this.authority = 'creator';
-          return false;
+          this.authority.push('creator');
         }
-        this.authority = 'user';
-        return true;
+        this.authority.push('user');;
       });
     }
 }

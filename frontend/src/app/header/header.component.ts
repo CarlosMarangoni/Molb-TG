@@ -1,5 +1,6 @@
 import { TokenStorageService } from './../service/token-storage.service';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { MessengerService } from '../service/messenger.service';
 
 @Component({
   selector: 'app-header',
@@ -12,11 +13,12 @@ export class HeaderComponent implements OnInit {
   value:string = '';
   roles: string[] = [];
   info:any;
-  authority: string = "";
+  authority: Array<string> = [];
+  qty:number = 0;
 
   @Output() public sidenavToggle = new EventEmitter();
 
-  constructor(private token: TokenStorageService) { }
+  constructor(private token: TokenStorageService,private msg:MessengerService) { }
 
   ngOnInit(): void {
     this.info = {
@@ -28,18 +30,19 @@ export class HeaderComponent implements OnInit {
     }
     if (this.token.getToken()) {
       this.roles = this.token.getAuthorities();
-      this.roles.every(role => {
+      this.roles.forEach(role => {
         if (role === 'ROLE_ADMIN') {
-          this.authority = 'admin';
-          return false;
+          this.authority.push('admin');
         } else if (role === 'ROLE_CREATOR') {
-          this.authority = 'creator';
-          return false;
+          this.authority.push('creator');
         }
-        this.authority = 'user';
-        return true;
+        this.authority.push('user');;
       });
     }
+
+    this.msg.getCartQty().subscribe(qtd =>
+      this.qty = qtd
+      )
   }
   
   onToggleSidenav = () => {
@@ -49,6 +52,20 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.token.signOut();
     window.location.href = '/login'
+  }
+  plusOne(){
+    
+  }
+
+  isAdmin(authority:Array<string>){
+    if(authority.includes('admin')){
+      return true;
+      console.log("is admin")
+    }else{
+      return false;
+      console.log("is not admin")
+    }
+    console.log("done")
   }
 
 }

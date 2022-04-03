@@ -58,8 +58,9 @@ public class UserController {
     }
 
     @PutMapping("/users/roles/{id}")
-    public void updateUserPermissions(@PathVariable Long id,@RequestBody AuthorityDTO permissions){
-        userService.updateUserPermissions(id,permissions);
+    public boolean updateUserPermissions(@PathVariable Long id,@RequestBody AuthorityDTO permissions){
+        boolean saved = userService.updateUserPermissions(id,permissions);
+        return saved;
     }
 
     @PostMapping("/users/{id}/follow")

@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'Molsew';
   roles: string[] = [];
-  authority: string = "";
+  authority: string[] = [];
   mostrarMenu:boolean = false;
 
   constructor(private tokenStorage: TokenStorageService) { }
@@ -19,16 +19,13 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.roles = this.tokenStorage.getAuthorities();
-      this.roles.every(role => {
+      this.roles.forEach(role => {
         if (role === 'ROLE_ADMIN') {
-          this.authority = 'admin';
-          return false;
+          this.authority.push('admin');
         } else if (role === 'ROLE_CREATOR') {
-          this.authority = 'creator';
-          return false;
+          this.authority.push('creator');
         }
-        this.authority = 'user';
-        return true;
+        this.authority.push('user');;
       });
     }
     

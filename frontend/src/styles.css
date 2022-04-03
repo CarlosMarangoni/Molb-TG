@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 :root {
     --color-primary: #ef8f38;
     --color-secondary: #fff;
@@ -23,12 +24,11 @@
 
 html,
 body {
-    font-family: "Ubuntu", sans-serif;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
 body {
-    min-height: 400px;
-    margin-bottom: 100px;
+    height: 100vh;
     clear: both;
 }
 
@@ -44,7 +44,7 @@ body {
 }
 
 .list-group-mine .list-group-item:hover {
-    background-color: black;
+    background-color: #fff;
     color: var(--color-primary);
 }
 
@@ -59,7 +59,7 @@ body {
 
 .btn-primary {
     background-color: var(--color-primary) !important;
-    border-color: var(--color-secondary) !important;
+    border-color: var(--color-primary) !important;
 }
 
 .btn-primary:hover,
@@ -182,12 +182,6 @@ a:active {
     color: lightgray;
 }
 
-.navigation-items {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
 mat-toolbar {
     border-radius: 3px;
 }
@@ -206,3 +200,40 @@ mat-toolbar {
 .welcome-message {
     font-size: small;
 }
+
+.fontest{
+    font-family: 'Varela Round', sans-serif;
+}
+
+.vertical-center {
+    min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+  
+    display: flex;
+    align-items: center;
+  }
+
+  .img-wrapper {
+    position: relative;
+  }
+  
+  .img-responsive {
+    width: 100%;
+    height: auto;
+  }
+  
+  .img-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+  
+  .img-overlay:before {
+    content: ' ';
+    display: block;
+    /* adjust 'height' to position overlay content vertically */
+    height: 98%;
+  }

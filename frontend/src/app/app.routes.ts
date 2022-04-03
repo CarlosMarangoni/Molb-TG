@@ -13,6 +13,8 @@ import { Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
 import { PostDetailComponent } from "./post-detail/post-detail.component";
 import { EditUserComponent } from "./portal-admin/edit-user/edit-user.component";
+import { CreateCategoryComponent } from "./portal-admin/create-category/create-category.component";
+import { ContactUsComponent } from "./contact-us/contact-us.component";
 export const rootRouterConfig: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "home", component: HomeComponent },
@@ -30,8 +32,9 @@ export const rootRouterConfig: Routes = [
       { path: '', redirectTo: 'users',pathMatch:'prefix' },
       { path: 'users', component: AdminUsersComponent },
       { path: 'category', component: AdminCategoryComponent },
-      { path: 'users/edit/:id', component: EditUserComponent }
+      { path: 'users/edit/:id', component: EditUserComponent },
+      { path: 'category/create', component: CreateCategoryComponent }
     ]
   },
-  //{ path:'admin/users/:id',component: EditUserComponent}
+  { path:'contact-us',component: ContactUsComponent}
 ];

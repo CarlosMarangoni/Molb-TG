@@ -8,7 +8,7 @@ INSERT INTO users_roles values(1,2);
 INSERT INTO users_roles values(1,3);
 INSERT INTO users_roles values(2,1);
 INSERT INTO users_roles values(3,3);
-INSERT INTO category values (1,'CALCA');
+INSERT INTO category values (1,'CALÇA');
 INSERT INTO category values (2,'CAMISETA');
 INSERT INTO category values (3,'LINGERIE');
 INSERT INTO category values (4,'MASCARA');

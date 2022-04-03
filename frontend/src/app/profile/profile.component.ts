@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   public following:number = 0;
   public postCount:number = 0;
   public posts:Post[] = [];
-  authority: string = "";
+  authority: string[] = [];
   roles: string[] = [];
   public owner: boolean = false;
   public profileOwner:boolean = false;
@@ -58,23 +58,20 @@ export class ProfileComponent implements OnInit {
 
     if (this.token.getToken()) {
       this.roles = this.token.getAuthorities();
-      this.roles.every(role => {
+      this.roles.forEach(role => {
         if (role === 'ROLE_ADMIN') {
-          this.authority = 'admin';
-          return false;
+          this.authority.push('admin');
         } else if (role === 'ROLE_CREATOR') {
-          this.authority = 'creator';
-          return false;
+          this.authority.push('creator');
         }
-        this.authority = 'user';
-        return true;
+        this.authority.push('user');;
       });
     }
     if (this.id === Number(this.token.getUserId())){
       this.profileOwner = true;
     }
 
-    if (this.id === Number(this.token.getUserId()) && this.authority === 'creator'){
+    if (this.id === Number(this.token.getUserId()) && this.authority.includes('creator')){
       this.owner = true;
   }
 

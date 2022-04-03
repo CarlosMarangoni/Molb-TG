@@ -1,14 +1,9 @@
 <div class="container">
-    <div class="row" style="display: flex;flex-wrap: wrap">
-        <div class="col-4 mt-4 rounded-left" style="background: #f49237;">
-            <ul class="list-group list-group-mine mt-5">
-                <li class="list-group-item" *ngFor="let category of categories; let i = index" [class.active]="selectedIndex === i" (click)="setIndex(i)">{{category.name}}</li>
-            </ul>
-        </div>
+    <div class="row">      
 
-        <div class="col-8">
-            <div class="row mt-4 d-flex justify-content-between rounded-right" style="background: #f49237;">
-                <div class="input-group col-md-4 m-2">
+        <div class="col-12">
+            <div class="row mt-4 d-flex justify-content-between rounded-right">
+                <div class="input-group col-12 m-2">
                     <input class="form-control py-2" type="search" name="search" [(ngModel)]="filtro">
                     <span class="input-group-append">
                 <button class="btn btn-terciary rounded-right" type="button" id="dropdownFilter" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi-funnel-fill dropdown-toggle"></i></button>
@@ -31,27 +26,6 @@
             </span>
                 </div>
 
-
-                <!--<div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle m-2" type="button" id="dropdownPosts" data-bs-toggle="dropdown" aria-expanded="false">
-            
-            </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownPosts">
-                        <div class="form-check">
-                            <li><input class="form-check-input" type="radio" name="radioUsers" id="radioAllUsers" value="allUsers" checked>
-                                <label class="dropdown-item form-check-label p-0" for="radioAllUsers">
-                            Todos usuários                            
-                        </label>
-                            </li>
-                            <li><input class="form-check-input" type="radio" name="radioUsers" value="followedUsers" id="radioFollowedUsers">
-                                <label class="dropdown-item form-check-label p-0" for="radioFollowedUsers">
-                            Usuários seguidos
-                        </label>
-                            </li>
-                        </div>
-                    </ul>
-                </div>-->
-
             </div>
             <!-- PAGINAÇÃO -->
             <div class="d-flex justify-content-center my-2">
@@ -68,13 +42,32 @@
                     </li>
                 </ul>
             </div>
-            <div *ngIf="authority === 'creator'" class="d-flex justify-content-end">
+
+               <!-- FIM PAGINAÇÃO -->
+
+            <div *ngIf="authority.includes('creator')" class="d-flex justify-content-end">
                 <div class="btn btn-terciary" [routerLink]="['/new-post']">+</div>
             </div>
-
             <div class="row">
-                <div *ngFor="let post of obterPosts()" class="col-md-4 my-1">
-                    <div class="post p-4 bg-secondary rounded col-sm card border border-primary" style="height: 100%;">
+                <div class="col-md-2 mt-4">                    
+                    <mat-accordion>
+                        <mat-expansion-panel (opened)="panelOpenState = true"
+                                             (closed)="panelOpenState = false">
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                              Categorias
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <ul class="list-group list-group-mine">
+                            <li class="list-group-item" *ngFor="let category of categories; let i = index" [class.active]="selectedIndex === i" (click)="setIndex(i)">{{category.name}}</li>
+                        </ul>
+                        </mat-expansion-panel>
+                      </mat-accordion>
+                </div>
+                <div class="col-10">
+                    <div class="row">
+                <div *ngFor="let post of obterPosts()" class="col-md-4 mt-2">
+                    <div class="post p-4 bg-secondary rounded col-sm card" style="height: 100%;">
                         <a class="btn mb-2" [routerLink]="['/profile/',post.userId]">
                             <span class="text-left"><img class="border border-primary rounded-circle" width="50px"[src]='post.profileImage' alt="">{{post.user}}</span></a>
 
@@ -87,6 +80,8 @@
                         <div class="text-center card-body"><b>{{post.title}}</b></div>
                     </div>
                 </div>
+            </div>
+        </div>
             </div>
         </div>
     </div>

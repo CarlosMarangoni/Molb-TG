@@ -1,5 +1,5 @@
 import { PostItem } from './../../model/postItem-dto';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
@@ -8,11 +8,16 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class MessengerService {
 
   subject = new Subject<PostItem[]>();
+  cart = new Subject<number>();
   itemExists:boolean = false;
-  postItems : PostItem[] = new Array<PostItem>() ;
+  postItems : PostItem[] = new Array<PostItem>();
+  cartLength:number = 0;
+
+  @Output() public onAddItemToCart = new EventEmitter();
 
   constructor() {
     this.subject = new BehaviorSubject<PostItem[]>(new Array<PostItem>())
+    this.cart = new BehaviorSubject<number>(0);
    }
 
   sendMsg(postItem:PostItem) {
@@ -25,13 +30,19 @@ export class MessengerService {
     }
     if (!this.itemExists) {
       this.postItems.push(postItem)
+      this.cartLength++;
       this.subject.next(this.postItems) //Triggering an event
+      this.cart.next(this.cartLength)
       console.log("Item adicionado ao carrinho!")
     }
   }
 
   getMsg() {
     return this.subject;
+  }
+
+  getCartQty() {
+    return this.cart;
   }
 
 

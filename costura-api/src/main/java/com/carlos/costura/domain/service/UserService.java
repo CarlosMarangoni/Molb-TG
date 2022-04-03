@@ -120,7 +120,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void updateUserPermissions(Long id, AuthorityDTO permissions) {
+    public boolean updateUserPermissions(Long id, AuthorityDTO permissions) {
         User user = userRepository.findById(id).orElseThrow(() -> new PageNotFoundException("Página não encontrada."));
         Set<Role> roles = new HashSet<>();
         permissions.getPermissions().forEach(p ->{
@@ -129,6 +129,7 @@ public class UserService {
         });
         user.setRoles(roles);
         userRepository.save(user);
+        return true;
     }
 
     public boolean  buy(Purchase purchase, User loggedUser) {

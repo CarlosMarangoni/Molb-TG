@@ -2,13 +2,13 @@
     <a mat-list-item [routerLink]="['/home']" (click)="onSidenavClose()">
         <mat-icon>home</mat-icon><span class="nav-caption">Início</span>
     </a>
-    <a *ngIf="authority === 'user'" mat-list-item [routerLink]="['/home']" (click)="onSidenavClose()">
+    <a *ngIf="authority.includes('user')" mat-list-item [routerLink]="['/home']" (click)="onSidenavClose()">
         <mat-icon>email</mat-icon><span class="nav-caption">Seja um vendedor!</span>
     </a>
     <a mat-list-item [routerLink]="['/home']" (click)="onSidenavClose()">
         <mat-icon>info</mat-icon><span class="nav-caption">Sobre nós</span>
     </a>
-    <a *ngIf="authority === 'admin'" mat-list-item [routerLink]="['/owner']" (click)="onSidenavClose()">
+    <a *ngIf="authority.includes('admin')" mat-list-item [routerLink]="['/admin']" (click)="onSidenavClose()">
         <mat-icon>assignment_ind</mat-icon><span class="nav-caption">Portal Admin</span>
     </a>
     <mat-list-item [matMenuTriggerFor]="menu">
