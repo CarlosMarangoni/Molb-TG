@@ -127,7 +127,7 @@
             <!-- FIM PAGINAÇÃO -->
 
             <div *ngIf="authority.includes('creator')" class="d-flex justify-content-end">
-                <div class="btn btn-terciary gradient" [routerLink]="['/new-post']">+</div>
+                <div class="lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-3 py-2 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out pointer" [routerLink]="['/new-post']">+</div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-2 mt-4">
@@ -148,7 +148,7 @@
                 <div class="col-10">
                     <div class="row">
                         <div *ngFor="let post of obterPosts()" class="col-md-3 mt-1">
-                            <div class="post p-4 bg-secondary rounded col-sm card" style="height: 100%;">
+                            <div class="post p-4 bg-secondary rounded col-sm card transform transition hover:scale-105 duration-300 ease-in-out" style="height: 100%;">
                                 <a class="btn mb-2" [routerLink]="['/profile/',post.userId]">
                                     <span class=""><img class="border border-primary rounded-circle m-auto d-block"
                                             width="50px" [src]='post.profileImage' alt="">{{post.user}}</span></a>

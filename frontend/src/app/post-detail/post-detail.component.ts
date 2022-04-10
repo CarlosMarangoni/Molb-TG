@@ -94,4 +94,13 @@ export class PostDetailComponent implements OnInit {
     
   }
 
+  showBlurred(url:string){
+    var win = window.open(url)
+    win?.document.write('<html><head><title>Preview modelagem</title><link rel="stylesheet" type="text/css" href="styles.css"></head><body>')
+    win?.document.write(`<img src="${url}" style="filter: blur(1.5rem);">`);
+    win?.document.write('</body></html>');
+    win?.print();
+    win?.close();
+  }
+
 }

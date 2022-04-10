@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
       }else{
         this.userService.cadastrarUsuario(this.userForm).subscribe(data=>{
           console.log(data)
-        },error=>console.log(error.error.message))
+        },error=> window.alert(error.error.message))
       }
       f.resetForm();
       this.addUserSuccess = true;

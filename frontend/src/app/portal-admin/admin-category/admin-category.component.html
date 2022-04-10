@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between m-2">
     <div></div>
-    <div class="btn btn-success" [routerLink]="['./create']" >+</div>
+    <div class="lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-3 py-2 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out pointer" [routerLink]="['./create']" >+</div>
 </div>
 
 <table class="table table-striped table-light border border-10 border-secondary">
@@ -14,7 +14,7 @@
             <td>{{category.id}}</td>
             <td>{{category.name}}</td>
             <td></td>
-            <td><span class="bi bi-pencil rounded-circle btn" (click)="editCategory()">
+            <td><span class="btn btn-warning bi bi-pencil rounded-circle" (click)="editCategory()">
                 
             </span></td>
         </tr>

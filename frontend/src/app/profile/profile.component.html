@@ -43,6 +43,12 @@
         <div class="btn btn-primary btn-sm m-3" [routerLink]="['/new-post']">Adicionar postagem +</div>
     </div>
 
+    <div class="d-flex justify-content-center mt-5 pt-5 font-weight-bold" *ngIf="posts.length == 0">
+        
+        <h1>Nenhuma postagem realizada.</h1>
+    
+    </div>
+
     <div *ngFor="let post of posts" class="border-bottom border-primary mt-5 mx-5">
         <div class="d-flex justify-content-around">
             <div class="btn flex-shrink-1 mb-3 btn" [routerLink]="['/posts/',post.id]">
