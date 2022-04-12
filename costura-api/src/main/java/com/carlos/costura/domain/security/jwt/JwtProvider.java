@@ -19,7 +19,7 @@ public class JwtProvider {
     private String jwtSecret;
 
     @Value("${molsew.app.jwtExpiration}")
-    private int jwtExpiration;
+    private String jwtExpiration;
 
     public String generateJwtToken(Authentication authentication) {
 
@@ -28,7 +28,7 @@ public class JwtProvider {
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpiration*1000))
+                .setExpiration(new Date((new Date()).getTime() + Integer.parseInt(jwtExpiration)*1000))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
