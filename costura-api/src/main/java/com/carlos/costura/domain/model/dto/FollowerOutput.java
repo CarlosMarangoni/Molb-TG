@@ -10,12 +10,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FollowerOutput {
 
+    private String profileImageUrl;
+
     private String user;
 
     private String name;
 
     public static FollowerOutput toOutput(User user){
         return new FollowerOutput(
+                user.getProfileImage(),
                 user.getUser(),
                 user.getName()
         );

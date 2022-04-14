@@ -4,8 +4,10 @@ import { UserService } from './../service/user.service';
 import { Post } from './../../model/post-dto';
 import { User } from './../../model/user-dto';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FollowerDto } from 'src/model/follower-dto';
+import { FollowingDto } from 'src/model/following-dto';
 
 
 @Component({
@@ -19,8 +21,10 @@ export class ProfileComponent implements OnInit {
   public id: number = 0;
   public user:User = new User();
   public loggedUser:User = new User();
-  public followers:number = 0;
-  public following:number = 0;
+  public followersQtd:number = 0;
+  public followersArray:FollowerDto[] = [];
+  public followingArray:FollowingDto[] = [];
+  public followingQtd:number = 0;
   public postCount:number = 0;
   public posts:Post[] = [];
   authority: string[] = [];
@@ -31,18 +35,19 @@ export class ProfileComponent implements OnInit {
   public userFollows:boolean = false;
   
 
-  constructor(private route: ActivatedRoute,private userService:UserService,
+  constructor(private route: ActivatedRoute,private userService:UserService,private router:Router,
     private postService:PostService,private token:TokenStorageService,private modalService: NgbModal) {
     this.route=route;
     this.userService = userService;
+    
    }
 
   ngOnInit(): void {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     this.userService.obterUsuario(this.id).subscribe(user =>{
     this.user = user;      
-    this.followers = this.user.followers.length;
-    this.following = this.user.following.length;
+    this.followersQtd = this.user.followers.length;
+    this.followingQtd = this.user.following.length;
     this.postCount = this.user.posts.length;
     this.postService.obterPostsdeUsuario(this.id).subscribe(post =>{
       this.posts = post
@@ -89,13 +94,31 @@ export class ProfileComponent implements OnInit {
     this.userService.seguirUsuario(this.id).subscribe(user =>{
       if(this.userFollows){
         this.userFollows = false;
-        this.followers--
+        this.followersQtd--
       }else{
         this.userFollows = true;
-        this.followers++
+        this.followersQtd++
       }
     });
   }  
+
+  showFollowers(content:any){
+    this.modalService.open(content,
+      {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+         this.router.navigateByUrl(`/admin/users`);
+       });
+
+    this.followersArray = this.user.followers
+  }
+
+  showFollowing(content:any){
+    this.modalService.open(content,
+      {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+         this.router.navigateByUrl(`/admin/users`);
+       });
+
+    this.followingArray = this.user.following;
+  }
 
   }
 
