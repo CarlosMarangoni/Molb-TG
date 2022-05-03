@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,22 +19,12 @@ public class PurchaseOutput {
 
     private Long id;
 
-    private List<SaleItemForm> items;
+    private List<SaleItemForm> items = new ArrayList<>();
 
     private BigDecimal total;
 
-    private PaymentMethod paymentMethod;
+    private String paymentMethod;
 
     private OffsetDateTime data;
-
-    public static PurchaseOutput toOutput(Purchase purchase){
-        return new PurchaseOutput(
-            purchase.getId(),
-            purchase.getItems().stream().map(i -> SaleItemForm.toForm(i)).collect(Collectors.toList()),
-            purchase.getTotal(),
-            purchase.getPaymentMethod(),
-            purchase.getDate()
-        );
-    }
 }
 

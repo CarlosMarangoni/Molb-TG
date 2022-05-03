@@ -6,8 +6,10 @@ import com.carlos.costura.domain.model.SaleItem;
 import com.carlos.costura.domain.model.User;
 import com.carlos.costura.domain.model.dto.CartForm;
 import com.carlos.costura.domain.model.dto.PurchaseOutput;
+import com.carlos.costura.domain.model.dto.SaleItemForm;
 import com.carlos.costura.domain.model.dto.SaleItemOutput;
 import com.carlos.costura.domain.model.pk.PostItemPK;
+import com.carlos.costura.domain.model.pk.SaleItemPK;
 import com.carlos.costura.domain.repository.CartRepository;
 import com.carlos.costura.domain.repository.PostItemRepository;
 import com.carlos.costura.domain.repository.PurchaseRepository;
@@ -17,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -37,11 +40,40 @@ public class CartController {
         return ResponseEntity.ok(saved);
     }
 
+    @GetMapping("/purchases/{purchaseId}")
+    public ResponseEntity<?> getPurchase(@PathVariable Long purchaseId){
+        User user = User.isAuthenticatedReturnUser();
+        Purchase purchase = cartRepository.findById(purchaseId).get();
+        PurchaseOutput purchaseOutput = getPurchaseOutput(purchase);
+
+        return ResponseEntity.ok(purchaseOutput);
+    }
+
+    private PurchaseOutput getPurchaseOutput(Purchase purchase) {
+        PurchaseOutput purchaseOutput = new PurchaseOutput();
+        purchaseOutput.setId(purchase.getId());
+        purchaseOutput.setData(purchase.getDate());
+        purchaseOutput.setPaymentMethod(purchase.getPaymentMethod().toString());
+        purchaseOutput.setTotal(purchase.getTotal());
+        for (SaleItem i :
+                purchase.getItems()) {
+            SaleItemForm saleItemForm = new SaleItemForm();
+            saleItemForm.setItem(i.getSaleItemPK().getItem());
+            saleItemForm.setPostId(i.getSaleItemPK().getPost().getId());
+            PostItem postItem = postItemRepository.findByPostItemPK_ItemAndPostItemPK_Post(i.getSaleItemPK().getItem(),i.getSaleItemPK().getPost());
+            saleItemForm.setDescription(postItem.getDescription());
+            saleItemForm.setPrice(postItem.getPrice());
+            purchaseOutput.getItems().add(saleItemForm);
+        }
+        return purchaseOutput;
+    }
+
     @GetMapping("/purchases")
     public ResponseEntity<?> getPurchases(){
         User user = User.isAuthenticatedReturnUser();
         List<Purchase> purchasesList = cartRepository.findAllByUser(user.getId());
-        return ResponseEntity.ok(purchasesList.stream().map(PurchaseOutput::toOutput));
+        List<PurchaseOutput> purchaseOutputList = purchasesList.stream().map(p -> getPurchaseOutput(p)).collect(Collectors.toList());
+        return ResponseEntity.ok(purchaseOutputList);
     }
 
     @GetMapping("/sales")

@@ -132,7 +132,7 @@ public class UserService {
         return true;
     }
 
-    public boolean  buy(Purchase purchase, User loggedUser) {
+    public boolean buy(Purchase purchase, User loggedUser) {
         loggedUser = userRepository.findById(loggedUser.getId()).get();
         List<Purchase> purchaseList = loggedUser.getPurchaseList();
         List<SaleItem> boughtItems = new ArrayList<>();

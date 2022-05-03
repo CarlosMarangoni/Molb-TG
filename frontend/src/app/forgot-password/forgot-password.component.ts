@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/model/user-dto';
 
 @Component({
   selector: 'app-forgot-password',
@@ -8,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForgotPasswordComponent implements OnInit {
 
+  public emailExists:boolean = false;
+  public user:User=new User();
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  recoverPassword(email:string){
+    console.log(email)
   }
 
 }

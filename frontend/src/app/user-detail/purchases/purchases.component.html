@@ -1,0 +1,16 @@
+<table class="table border border-10 border-secondary">
+    <thead>
+        <th>#</th>
+        <th>Total</th>
+        <th>Método de pagamento</th>
+        <th>Data</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let purchase of purchases" class="hover-overlay pointer" [routerLink]="['/purchases/',purchase.id]">
+            <td>{{purchase.id}}</td>
+            <td>{{purchase.total | currency:'BRL'}}</td>
+            <td>{{purchase.paymentMethod}}</td>
+            <td>{{purchase.data | date:'medium'}}</td>
+        </tr>
+    </tbody>
+</table>

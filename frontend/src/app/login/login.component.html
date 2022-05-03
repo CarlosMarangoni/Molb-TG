@@ -40,7 +40,7 @@
                 <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger">
                     Login falhou: {{errorMessage}}
                 </div>
-                <a style="font-size: x-small;">Esqueceu a senha? Clique aqui.</a>
+                <span style="font-size: x-small;" >Esqueceu a senha? Clique <a  style="color: blue;" [routerLink]="['/forgot-password']">aqui.</a></span>
             </div>
 
         </form>

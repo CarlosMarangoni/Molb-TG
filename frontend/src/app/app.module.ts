@@ -42,6 +42,11 @@ import { AdminCategoryComponent } from './portal-admin/admin-category/admin-cate
 import { EditUserComponent } from './portal-admin/edit-user/edit-user.component';
 import { CreateCategoryComponent } from './portal-admin/create-category/create-category.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { PurchasesComponent } from './user-detail/purchases/purchases.component';
+import { SalesComponent } from './user-detail/sales/sales.component';
+import { PurchaseComponent } from './purchase/purchase.component';
+import { SaleComponent } from './sale/sale.component';
 
 registerLocaleData(ptBr);
 
@@ -65,7 +70,12 @@ registerLocaleData(ptBr);
     AdminCategoryComponent,
     EditUserComponent,
     CreateCategoryComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    UserDetailComponent,
+    PurchasesComponent,
+    SalesComponent,
+    PurchaseComponent,
+    SaleComponent
   ],
   imports: [
     BrowserModule,

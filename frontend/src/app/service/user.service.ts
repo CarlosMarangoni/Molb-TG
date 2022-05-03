@@ -7,6 +7,8 @@ import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from 'src/model/user-dto';
 import { RoleSummary } from 'src/model/role-summary-dto';
+import { PurchaseDto } from 'src/model/purchase-dto';
+import { SaleDto } from 'src/model/sale-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -103,5 +105,28 @@ export class UserService {
     return this.http.request(request);
 
   }
+
+  obterCompra(id:number){
+    const headers =   new HttpHeaders({
+      "Authorization": `Bearer ${this.token.getToken()}`
+    })
+    return this.http.get<PurchaseDto>(`${this.locator.services.Purchases}/${id}`,{headers})
+  }
+
+
+  obterCompras(){
+    const headers =   new HttpHeaders({
+      "Authorization": `Bearer ${this.token.getToken()}`
+    })
+    return this.http.get<PurchaseDto[]>(`${this.locator.services.Purchases}`,{headers})
+  }
+
+  obterVendas(){
+    const headers =   new HttpHeaders({
+      "Authorization": `Bearer ${this.token.getToken()}`
+    })
+    return this.http.get<SaleDto[]>(`${this.locator.services.Sales}`,{headers})
+  }
+
 
 }

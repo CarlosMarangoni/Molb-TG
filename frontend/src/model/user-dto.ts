@@ -5,6 +5,7 @@ import { PostSummaryDto } from "./post-summary-dto";
 export class User {
     id:number = 0;
     user:string = "";
+    username:string = "";
     profileImage:string = "";
     description:string = "";
     name:string = "";

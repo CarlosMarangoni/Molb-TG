@@ -17,6 +17,8 @@ public class UserOutput {
 
     private String user;
 
+    private String username;
+
     private String description;
 
     private String profileImage;
@@ -35,6 +37,7 @@ public class UserOutput {
         return new UserOutput(
                 user.getId(),
                 user.getUser(),
+                user.getEmail(),
                 user.getDescription(),
                 user.getProfileImage(),
                 user.getName(),

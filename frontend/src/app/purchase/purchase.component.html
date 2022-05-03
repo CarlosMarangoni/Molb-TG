@@ -1,0 +1,32 @@
+<div class="container">
+    <div style="padding-top: 200px;">
+    <h1 class="text-center mt-5"><strong>Compra #{{ purchase.id }}</strong></h1>
+    
+        <div>
+            <table class="table table-striped table-light border border-10 border-secondary">
+                <thead>
+                    <tr>
+                        <th scope="col">Post</th>
+                        <th scope="col">Item do post</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of purchase.items;">
+                        <td>{{item.postId}}</td>
+                        <td>{{item.item}}</td>
+                        <td>{{item.description}}</td>
+                        <td>{{item.price | currency:'BRL'}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-around">
+                <div></div>
+                <div></div>
+                <h3 class="text-right"><strong>Total: </strong>{{purchase.total | currency:'BRL'}}</h3>
+            </div>
+        </div>
+</div>
+</div>

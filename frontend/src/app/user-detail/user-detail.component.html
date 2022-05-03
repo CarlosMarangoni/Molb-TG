@@ -1,0 +1,16 @@
+<div class="container">
+    <div style="padding-top: 200px;">
+    <div class="row justify-content-around border rounded" style="min-height: 600px;">
+        <div class="col-2 border-right pt-4">
+            <div class="btn text-center w-100" [routerLink]="['purchases']" routerLinkActive="active" *ngIf="isUser(authority)">Compras</div>
+            <div class="btn text-center w-100" [routerLink]="['sales']" routerLinkActive="active" *ngIf="isCreator(authority)">Vendas</div>
+        </div>
+        <div class="col-10">
+            <router-outlet></router-outlet>
+
+        </div>
+
+    </div>
+</div>
+
+</div>

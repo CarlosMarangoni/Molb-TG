@@ -21,7 +21,7 @@ public interface CartRepository extends JpaRepository<Purchase,Long> {
     List<Purchase> findAllByUser(@Param("userId") Long userId);
 
     @Query("SELECT new com.carlos.costura.domain.model.dto.SaleItemOutput(" +
-            "saleItem.saleItemPK.post.id,saleItem.saleItemPK.item,postItem.description,postItem.price,purchase.date) " +
+            "saleItem.saleItemPK.post.id,saleItem.saleItemPK.item,postItem.description,postItem.price,purchase.date,purchase.buyer.user) " +
             "from SaleItem saleItem" +
             " JOIN PostItem postItem ON postItem.postItemPK.post.id = saleItem.saleItemPK.post.id " +
             "AND postItem.postItemPK.item = saleItem.saleItemPK.item " +

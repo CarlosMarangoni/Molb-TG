@@ -34,7 +34,7 @@ public class CartService {
     @Autowired
     private PostItemRepository postItemRepository;
 
-    public boolean  save(CartForm cartForm) {
+    public boolean save(CartForm cartForm) {
         User user = User.isAuthenticatedReturnUser();
         List<PostItem> postItemList = new ArrayList<>();
         BigDecimal valorTotal = BigDecimal.ZERO;
@@ -54,7 +54,7 @@ public class CartService {
                 throw new PageNotFoundException("Item não encontrado.");
             }
         }
-        List <SaleItem> saleItemList = new ArrayList<>();
+
         for (PostItem i : postItemList) {
             var postItem = postItemRepository.findById(i.getPostItemPK()).get();
             valorTotal = valorTotal.add(postItem.getPrice());

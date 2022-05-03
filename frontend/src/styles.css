@@ -140,7 +140,7 @@ body {
 }
 
 .hover-overlay:hover {
-    filter: saturate(2.1);
+    background: #daae51;
 }
 
 .zoom-hover:hover {

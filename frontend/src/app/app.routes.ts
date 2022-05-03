@@ -15,6 +15,11 @@ import { PostDetailComponent } from "./post-detail/post-detail.component";
 import { EditUserComponent } from "./portal-admin/edit-user/edit-user.component";
 import { CreateCategoryComponent } from "./portal-admin/create-category/create-category.component";
 import { ContactUsComponent } from "./contact-us/contact-us.component";
+import { UserDetailComponent } from "./user-detail/user-detail.component";
+import { PurchasesComponent } from "./user-detail/purchases/purchases.component";
+import { SalesComponent } from "./user-detail/sales/sales.component";
+import { PurchaseComponent } from "./purchase/purchase.component";
+import { SaleComponent } from "./sale/sale.component";
 export const rootRouterConfig: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "home", component: HomeComponent },
@@ -36,5 +41,16 @@ export const rootRouterConfig: Routes = [
       { path: 'category/create', component: CreateCategoryComponent }
     ]
   },
-  { path:'contact-us',component: ContactUsComponent}
+  { path:'contact-us',component: ContactUsComponent},
+  { path:'purchases/:id',component: PurchaseComponent},
+  { path:'sales/:id',component: SaleComponent},
+  {
+    path: "users",
+    component: UserDetailComponent,
+    children: [
+      { path: '', redirectTo: 'purchases',pathMatch:'prefix' },
+      { path: 'purchases', component: PurchasesComponent },
+      { path: 'sales', component: SalesComponent }
+    ]
+  },
 ];

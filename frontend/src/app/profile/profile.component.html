@@ -56,7 +56,7 @@
         <div *ngFor="let post of posts" class="border-bottom border-primary mt-5 mx-5">
             <div class="d-flex justify-content-around">
                 <div class="btn flex-shrink-1 mb-3 btn" [routerLink]="['/posts/',post.id]">
-                    <img *ngIf="post.postImage != ''; else noImage" class="zoom-hover" [src]="post.postImage"
+                    <img *ngIf="post.postImage != ''; else noImage" class="transform transition hover:scale-105 duration-300 ease-in-out" [src]="post.postImage"
                         width="300px" style="max-height: 300px;" alt="">
                     <ng-template #noImage>
                         <img src='/assets/img/no-image.png' width="300px" style="max-height: 300px;" alt="">
@@ -90,7 +90,7 @@
             </span>
         </button>
     </div>
-    <span class="mx-auto lg:mx-0 gradient text-white font-bold rounded-full my-3 py-2 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">{{followingQtd}} seguidores</span>
+    <span class="mx-auto lg:mx-0 gradient text-white font-bold rounded-full my-3 py-2 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">{{followersQtd}} seguidores</span>
     <div class="modal-body d-flex justify-content-center  border-top">
         <table class="table-striped w-100">
             <tbody>

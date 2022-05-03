@@ -49,10 +49,14 @@
             <mat-icon>person</mat-icon>
             <span>Perfil</span>
         </button>
-        <button mat-menu-item>
-            <mat-icon>settings</mat-icon>
-            <span>Configurações</span>
+        <button mat-menu-item *ngIf="isCreator(authority)" [routerLink]="['/users/sales']">
+            <mat-icon>attach_money</mat-icon>
+            <span>Minhas vendas</span>
         </button>
+        <button mat-menu-item *ngIf="isUser(authority)" [routerLink]="['/users/purchases']">
+          <mat-icon>shopping_basket</mat-icon>
+          <span>Minhas compras</span>
+      </button>
         <button mat-menu-item (click)="logout()">
             <mat-icon>exit_to_app</mat-icon>
             <span>Logout</span>

@@ -20,6 +20,8 @@ export class LocatorService {
     this.services.Like = this.urlBase + "posts/${postId}/like";
     this.services.Login = this.urlBase + "auth/signin";
     this.services.Buy = this.urlBase + "buy"
+    this.services.Purchases = this.urlBase + "purchases"
+    this.services.Sales = this.urlBase + "sales"
 
     this.services.Register = this.urlBase + "auth/signup";
     this.services.Users = this.urlBase + "users";

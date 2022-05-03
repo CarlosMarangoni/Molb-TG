@@ -1,25 +1,21 @@
-import { TokenStorageService } from './../service/token-storage.service';
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { MessengerService } from '../service/messenger.service';
+import { Component, OnInit, Output } from '@angular/core';
+import { TokenStorageService } from '../service/token-storage.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
+  selector: 'app-user-detail',
+  templateUrl: './user-detail.component.html',
   styles: [
   ]
 })
-export class HeaderComponent implements OnInit {
+export class UserDetailComponent implements OnInit {
 
-  value:string = '';
+  public authority:Array<string> = [];
+ 
   roles: string[] = [];
-  info:any;
-  owner:boolean = false;
-  authority: Array<string> = [];
-  qty:number = 0;
 
-  @Output() public sidenavToggle = new EventEmitter();
+  @Output() info:any;  
 
-  constructor(private token: TokenStorageService,private msg:MessengerService) { }
+  constructor(private token: TokenStorageService) { }
 
   ngOnInit(): void {
     this.info = {
@@ -40,20 +36,8 @@ export class HeaderComponent implements OnInit {
         this.authority.push('user');;
       });
     }
-
-    this.msg.getCartQty().subscribe(qtd =>
-      this.qty = qtd
-      )
-  }
-  
-  onToggleSidenav = () => {
-    this.sidenavToggle.emit();
   }
 
-  logout() {
-    this.token.signOut();
-    window.location.href = '/login'
-  }
 
   isUser(authority:Array<string>){
     if(authority.includes('user')){
@@ -70,13 +54,4 @@ export class HeaderComponent implements OnInit {
       return false;
     }
   }
-
-  isAdmin(authority:Array<string>){
-    if(authority.includes('admin')){
-      return true;
-    }else{
-      return false;
-    }
-  }
-
 }
