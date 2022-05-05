@@ -72,7 +72,7 @@
         Nenhum comentário encontrado.
 
     </div>
-    <div *ngIf="owner == false">
+    <div *ngIf="owner == false && hasBought.includes(true)">
         <div class="alert alert-dark" *ngIf="message.length>0">{{message}}</div>
         <form action="" method="post" (ngSubmit)="onSubmit(f)" #f="ngForm">
             <div class="d-flex justify-content-between">

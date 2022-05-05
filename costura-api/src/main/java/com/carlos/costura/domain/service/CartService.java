@@ -34,7 +34,7 @@ public class CartService {
     @Autowired
     private PostItemRepository postItemRepository;
 
-    public boolean save(CartForm cartForm) {
+    public Purchase save(CartForm cartForm) {
         User user = User.isAuthenticatedReturnUser();
         List<PostItem> postItemList = new ArrayList<>();
         BigDecimal valorTotal = BigDecimal.ZERO;

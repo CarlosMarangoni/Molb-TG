@@ -11,8 +11,8 @@
         <tr *ngFor="let sale of sales" class="hover-overlay">
             <td>{{sale.postId}}</td>
             <td>{{sale.item}}</td>
-            <td>{{sale.price  | currency:'BRL'}}</td>
             <td>{{sale.description}}</td>
+            <td>{{sale.price  | currency:'BRL'}}</td>
             <td>{{sale.data | date:'medium'}}</td>
             <td>{{sale.buyer}}</td>
         </tr>

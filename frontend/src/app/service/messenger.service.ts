@@ -45,5 +45,12 @@ export class MessengerService {
     return this.cart;
   }
 
+  resetCart(){
+    this.postItems = [];
+    this.cartLength = 0;
+    this.subject.next(this.postItems);
+    this.cart.next(this.cartLength);
+  }
+
 
 }

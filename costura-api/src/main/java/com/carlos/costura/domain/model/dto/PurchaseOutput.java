@@ -26,5 +26,6 @@ public class PurchaseOutput {
     private String paymentMethod;
 
     private OffsetDateTime data;
+
 }
 

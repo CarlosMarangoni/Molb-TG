@@ -17,6 +17,8 @@ import com.carlos.costura.domain.service.CartService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,9 +37,11 @@ public class CartController {
     private PostItemRepository postItemRepository;
 
     @PostMapping("/buy")
-    public ResponseEntity<?> buy(@RequestBody CartForm cartForm){
-        boolean saved = cartService.save(cartForm);
-        return ResponseEntity.ok(saved);
+    public ResponseEntity<?> buy(@RequestBody CartForm cartForm, UriComponentsBuilder uriComponentsBuilder){
+        Purchase purchase = cartService.save(cartForm);
+        UriComponents uriComponents = uriComponentsBuilder.path("/purchases/{id}").buildAndExpand(purchase.getId());
+        var location = uriComponents.toUri();
+        return ResponseEntity.created(location).body(getPurchaseOutput(purchase));
     }
 
     @GetMapping("/purchases/{purchaseId}")

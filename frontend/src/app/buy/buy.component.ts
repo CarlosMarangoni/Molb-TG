@@ -5,8 +5,9 @@ import { PostItem } from './../../model/postItem-dto';
 import { TokenStorageService } from './../service/token-storage.service';
 import { Post } from './../../model/post-dto';
 import { PostService } from './../service/post.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-buy',
   templateUrl: './buy.component.html',
@@ -23,7 +24,7 @@ export class BuyComponent implements OnInit {
   public total:number = 0;
   public cartForm:CartForm = new CartForm();
 
-  constructor(private route: ActivatedRoute,private postService:PostService,private token:TokenStorageService,private msg:MessengerService) {
+  constructor(private route: ActivatedRoute,private postService:PostService,private token:TokenStorageService,private msg:MessengerService,private modalService: NgbModal,private router:Router) {
 
   
    }
@@ -44,7 +45,7 @@ export class BuyComponent implements OnInit {
   }
 
 
-  onSubmit(){
+  onSubmit(f: NgForm,content:any){
     for (let i = 0; i < this.cartList.length; i++) {
       let a = new PostItem();
       a.postId = this.cartList[i].postId;
@@ -53,9 +54,15 @@ export class BuyComponent implements OnInit {
     }
 
     this.postService.comprar(this.cartForm).subscribe(i =>{
+      
+      this.modalService.open(content,
+        {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+           this.router.navigateByUrl(`/purchases/${i.id}`);
+         });
       console.log("Comprado")
     },error => console.log(error))
     console.log(this.cartForm)
+    this.msg.resetCart();
   }
 
 

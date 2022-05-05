@@ -2,7 +2,7 @@
     <div style="padding-top: 200px;">
     <h1 class="text-center mt-5"><strong>Carrinhos de compras</strong></h1>
     <div class="alert border border-10 border-secondary text-center" *ngIf="cartList.length === 0">O carrinho está vazio.</div>
-    <form name="form" (ngSubmit)="onSubmit()" novalidate method="post">
+    <form name="form" (ngSubmit)="onSubmit(f,modal)" novalidate method="post" #f="ngForm">
         <div>
             <table class="table table-striped table-light border border-10 border-secondary" *ngIf="cartList.length > 0">
                 <thead>
@@ -68,3 +68,28 @@
 
 </div>
 </div>
+
+<ng-template #modal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            Postagens
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+  
+            <span aria-hidden="true">
+                ×
+            </span>
+        </button>
+    </div>
+    <div class="modal-body d-flex justify-content-center">
+        <h4>Compra realizada com sucesso!</h4>
+    </div>
+    <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cross click')">
+            Cancelar
+        </button>
+        <button type="button" class="btn btn-success" (click)="modal.close('Save click')">
+            OK
+        </button>
+    </div>
+</ng-template>

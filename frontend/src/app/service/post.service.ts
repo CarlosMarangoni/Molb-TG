@@ -9,6 +9,7 @@ import { Post } from './../../model/post-dto';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { PurchaseDto } from 'src/model/purchase-dto';
 
 
 
@@ -135,7 +136,7 @@ export class PostService {
       "Authorization": `Bearer ${this.token.getToken()}`
     });
 
-    return this.http.post<CartForm>(`${this.locator.services.Buy}`,cartForm,{headers})
+    return this.http.post<PurchaseDto>(`${this.locator.services.Buy}`,cartForm,{headers})
   }
 
   usuarioComprou(userId:string,postId:number,item:number){

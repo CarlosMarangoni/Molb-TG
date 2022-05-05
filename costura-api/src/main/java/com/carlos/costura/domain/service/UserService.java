@@ -132,7 +132,7 @@ public class UserService {
         return true;
     }
 
-    public boolean buy(Purchase purchase, User loggedUser) {
+    public Purchase buy(Purchase purchase, User loggedUser) {
         loggedUser = userRepository.findById(loggedUser.getId()).get();
         List<Purchase> purchaseList = loggedUser.getPurchaseList();
         List<SaleItem> boughtItems = new ArrayList<>();
@@ -150,9 +150,9 @@ public class UserService {
                 throw new ConflictException("Você já comprou o item " + i.getSaleItemPK().getItem() + " da postagem: " + i.getSaleItemPK().getPost().getId());
             }
         }
-        cartRepository.save(purchase);
+        var savedPurchase = cartRepository.save(purchase);
         
-        return true;
+        return savedPurchase;
         }
 
 
