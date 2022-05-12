@@ -25,7 +25,8 @@ public interface CartRepository extends JpaRepository<Purchase,Long> {
             "from SaleItem saleItem" +
             " JOIN PostItem postItem ON postItem.postItemPK.post.id = saleItem.saleItemPK.post.id " +
             "AND postItem.postItemPK.item = saleItem.saleItemPK.item " +
-            "JOIN Purchase purchase ON saleItem.saleItemPK.purchase.id = purchase.id")
+            "JOIN Purchase purchase ON saleItem.saleItemPK.purchase.id = purchase.id " +
+            "WHERE saleItem.saleItemPK.post.user.id = :userId")
     List<SaleItemOutput> findAllSalesByUser(@Param("userId") Long userId);
 
 }
