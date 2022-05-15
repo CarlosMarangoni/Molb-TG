@@ -19,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -100,7 +102,7 @@ public class PostsController {
 
     @PostMapping
     public ResponseEntity<PostOutput> addPost(@RequestParam(name = "file",required = false) MultipartFile imageFile,
-                                              @Valid @RequestPart("post") PostForm postForm,@RequestParam(name = "moldes",required = true)List<MultipartFile> moldes,UriComponentsBuilder uriComponentsBuilder){
+                                              @Valid @RequestPart("post") PostForm postForm,@RequestParam(name = "moldes",required = true)List<MultipartFile> moldes,UriComponentsBuilder uriComponentsBuilder) throws MessagingException, IOException {
         Post savedPost = postService.save(postForm,imageFile,moldes);
         UriComponents uriComponents = uriComponentsBuilder.path("/posts/{id}").buildAndExpand(savedPost.getId());
         var location = uriComponents.toUri();

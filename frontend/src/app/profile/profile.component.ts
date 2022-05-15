@@ -49,6 +49,8 @@ export class ProfileComponent implements OnInit {
     this.followersQtd = this.user.followers.length;
     this.followingQtd = this.user.following.length;
     this.postCount = this.user.posts.length;
+    this.followingArray =  this.user.following
+    this.followersArray = this.user.followers
     this.postService.obterPostsdeUsuario(this.id).subscribe(post =>{
       this.posts = post
     },
@@ -92,12 +94,19 @@ export class ProfileComponent implements OnInit {
 
   followUser(){
     this.userService.seguirUsuario(this.id).subscribe(user =>{
+      let followerDTO = new FollowerDto();
+      followerDTO.profileImageUrl = this.token.getProfilePic();
+      followerDTO.user = this.token.getUsername();
       if(this.userFollows){
         this.userFollows = false;
-        this.followersQtd--
+        this.followersQtd--        
+        console.log('removendo antes ' + this.followersArray.length)
+        this.followersArray.forEach((item,index) => {if(item.user=== followerDTO.user) this.followersArray.splice(index,1)});
+        console.log('removido ' + this.followersArray.length)
       }else{
         this.userFollows = true;
-        this.followersQtd++
+        this.followersQtd++;
+        this.followersArray.push(followerDTO);
       }
     });
   }  
@@ -117,6 +126,9 @@ export class ProfileComponent implements OnInit {
          this.router.navigateByUrl(`/admin/users`);
        });
 
+       this.userService.obterUsuario(this.id).subscribe(data => {
+         console.log(data)
+       })
     this.followingArray = this.user.following;
   }
 

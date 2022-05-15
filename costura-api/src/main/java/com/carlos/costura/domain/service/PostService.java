@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.webjars.NotFoundException;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +37,9 @@ public class  PostService {
 
     private S3Service s3Service;
 
-    public Post save(PostForm postForm,MultipartFile imageFile,List<MultipartFile> moldes) {
+    private EmailService emailService;
+
+    public Post save(PostForm postForm,MultipartFile imageFile,List<MultipartFile> moldes) throws MessagingException, IOException {
         AtomicInteger atomicSum = new AtomicInteger(0);
         List<String> fileUrls = new ArrayList<>();
         if(User.isAuthenticated()){
@@ -64,6 +68,7 @@ public class  PostService {
                 i.getAndIncrement();
             });
 
+            emailService.sendEmail(postModel);
             return postRepository.save(postModel);
         }else {
             throw new AuthorizationException("Acesso negado.");
