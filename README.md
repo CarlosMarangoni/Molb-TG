@@ -28,7 +28,7 @@ Consulte **Implantação** para saber como implantar o projeto.
 - Abra a IDE para o backend e abra o projeto de back-end
 - Rode o projeto de back-end, atentando-se as propriedades presentes no application.properties do projeto, pois é necessário chaves do S3 para rodar o projeto.
 - Abra a IDE para o frontend e abra o projeto de front-end
-- Rode o comando npm install na raíz do projeto do frontend para instalar as dependências;
+- Rode o comando npm install na raíz do projeto do front-end para instalar as dependências;
 - Rode o comando npm run start na raíz do projeto
 
 ## ✒️ Autor
