@@ -2,12 +2,6 @@
 
 Projeto realizado como trabalho de graduação da FATEC - Sorocaba, onde o objetivo é criar um e-commerce para facilitar a vida de costureiras autônomas que buscam novas modelagens de roupa.
 
-## 🚀 Começando
-
-Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
-
-Consulte **Implantação** para saber como implantar o projeto.
-
 ### 📋 Pré-requisitos
 
 - JDK 11
