@@ -1,4 +1,4 @@
-# Molb-TG
+# Molb
 
 Projeto realizado como trabalho de graduação da FATEC - Sorocaba, onde o objetivo é criar um e-commerce para facilitar a vida de costureiras autônomas que buscam novas modelagens de roupa.
 
