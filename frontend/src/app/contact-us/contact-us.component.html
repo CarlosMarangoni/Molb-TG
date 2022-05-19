@@ -1,5 +1,5 @@
 <div class="container">
-    <div style="padding-top: 200px;">
+    <div class="" style="padding-top: 200px;">
 <h1 class="text-center m-3 active"><strong>Venha fazer parte do Mowb, se torne um vendedor!</strong></h1>
     <div class="img-wrapper">
         <img class="img-responsive" src="/assets/img/happy_sale.jpg" alt="" width="100%"> 
@@ -14,7 +14,7 @@
     </div>
 </div>
 <div class="d-flex justify-content-around mt-2 flex-sm-row flex-column">
-    <div class="text-center shadow m-2">
+    <div class="text-center m-2">
         <mat-icon>phone</mat-icon><br>
         <h2>Por telefone</h2>
         <div class="text-center mb-3">Ligue para a central e converse com nosso time para fazer parte do nosso time de vendedores!</div>
@@ -29,4 +29,43 @@
 
 </div>
 </div>
+
+<h2 class="text-center">OU</h2>
+<h3 class="text-center">Mande uma mensagem diretamente para nosso time!</h3>
+<form name="form" (ngSubmit)="onSubmit(f,modal)" #f="ngForm">
+    <div class="text-center">
+        <mat-form-field appearance="outline" style="min-width: 98%;">
+            <mat-label>Mensagem</mat-label>
+            <textarea matInput name='message' id='message' [(ngModel)]="form.message" placeholder="Digite a mensagem" #message="ngModel" required></textarea>
+        </mat-form-field>
+    </div>
+    <div class="text-center">
+    <button type="submit" class="lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out" style="width: 50%;" type="submit">Enviar</button>
 </div>
+</form>
+</div>
+
+<ng-template #modal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+            Solicitação de contato
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+  
+            <span aria-hidden="true">
+                ×
+            </span>
+        </button>
+    </div>
+    <div class="modal-body d-flex justify-content-center">
+        <h4>Solicitação enviada com sucesso!</h4>
+    </div>
+    <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cross click')">
+            Cancelar
+        </button>
+        <button type="button" class="btn btn-success" (click)="modal.close('Save click')">
+            OK
+        </button>
+    </div>
+</ng-template>

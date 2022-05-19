@@ -17,7 +17,7 @@
                 </div>
                 <div class="text-danger" *ngIf="f.submitted && password.invalid">
                     <div *ngIf="password.errors?.required">Senha é obrigatória</div>
-                    <div *ngIf="password.errors?.minlength">Senha deve ter pelo menos 6 caracteres</div>
+                    <div *ngIf="password.errors?.minlength">Senha deve ter pelo menos 1 caracteres</div>
                 </div>
                 <mat-form-field appearance="outline" style="min-width: 40%">
                     <mat-label>E-mail</mat-label>
@@ -28,7 +28,7 @@
             <div class="text-center">
                 <mat-form-field appearance="fill" style="min-width: 40%">
                     <mat-label>Digite sua senha</mat-label>
-                    <input matInput [type]="hide ? 'password' : 'text'" name='password' id='password' [(ngModel)]="form.password" #password="ngModel" required minlength="4">
+                    <input matInput [type]="hide ? 'password' : 'text'" name='password' id='password' [(ngModel)]="form.password" #password="ngModel" required minlength="1">
                     <div class="btn" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </div>

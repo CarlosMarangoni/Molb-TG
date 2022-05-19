@@ -7,6 +7,7 @@ import { RoleSummary } from 'src/model/role-summary-dto';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
 import { Location } from '@angular/common';
+import { MessageDto } from 'src/model/message-dto';
 
 @Component({
   selector: 'app-edit-user',
@@ -65,5 +66,18 @@ export class EditUserComponent implements OnInit {
 
   backClicked(){
     this.location.back();
+  }
+
+  resetPassword(s:NgForm,content:any){
+    let message = new MessageDto();
+    message.message = this.form.password;
+    this.userService.resetarSenha(message,this.userId).subscribe(data =>{
+      console.log("Senha alterada")
+      this.modalService.open(content,
+        {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+           this.router.navigateByUrl(`/admin/users`);
+         });
+    },error=>alert(error.error.message))
+    s.resetForm()
   }
 }

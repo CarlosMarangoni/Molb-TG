@@ -5,6 +5,7 @@ import com.carlos.costura.domain.exception.ConflictException;
 import com.carlos.costura.domain.exception.PageNotFoundException;
 import com.carlos.costura.domain.model.*;
 import com.carlos.costura.domain.model.dto.AuthorityDTO;
+import com.carlos.costura.domain.model.dto.MessageDTO;
 import com.carlos.costura.domain.model.dto.RegistrationForm;
 import com.carlos.costura.domain.model.enumeration.PaymentMethod;
 import com.carlos.costura.domain.model.enumeration.RoleName;
@@ -18,11 +19,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.net.URI;
 import java.util.*;
 
@@ -42,9 +45,7 @@ public class UserService {
 
     private FollowersRepository followersRepository;
 
-    private PurchaseRepository purchaseRepository;
-
-    private AuthorityRepository authorityRepository;
+    private EmailService emailService;
 
     @Transactional
     public User save(RegistrationForm user, MultipartFile imageFile) {
@@ -156,5 +157,13 @@ public class UserService {
         }
 
 
+    public void notifyTeam(MessageDTO message) throws MessagingException, IOException {
+        User user =  User.isAuthenticatedReturnUser();
+        emailService.sendEmailToTeam(message,user);
+    }
+
+    public void notifyPasswordChangeRequest(MessageDTO message,User user) throws MessagingException, IOException {
+        emailService.sendEmailPasswordChangeRequest(message,user);
+    }
 }
 

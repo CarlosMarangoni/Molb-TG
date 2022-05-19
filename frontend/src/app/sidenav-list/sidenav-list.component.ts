@@ -49,4 +49,28 @@ export class SidenavListComponent implements OnInit {
     window.location.href = '/login'
   }
 
+  isUser(authority:Array<string>){
+    if(authority.includes('user')){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  isCreator(authority:Array<string>){
+    if(authority.includes('creator')){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  isAdmin(authority:Array<string>){
+    if(authority.includes('admin')){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 }

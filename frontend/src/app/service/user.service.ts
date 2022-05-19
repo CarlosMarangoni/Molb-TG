@@ -9,6 +9,7 @@ import { User } from 'src/model/user-dto';
 import { RoleSummary } from 'src/model/role-summary-dto';
 import { PurchaseDto } from 'src/model/purchase-dto';
 import { SaleDto } from 'src/model/sale-dto';
+import { MessageDto } from 'src/model/message-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -128,5 +129,25 @@ export class UserService {
     return this.http.get<SaleDto[]>(`${this.locator.services.Sales}`,{headers})
   }
 
+  contatarTime(message:MessageDto){
+    const headers =   new HttpHeaders({
+      "Authorization": `Bearer ${this.token.getToken()}`
+    })
+    return this.http.post(`${this.locator.services.Contact}`,message,{headers})
+  }
+
+  resetarSenhaEmail(message:MessageDto){
+    const headers =   new HttpHeaders({
+      "Authorization": `Bearer ${this.token.getToken()}`
+    })
+    return this.http.post(`${this.locator.services.Password}`,message,{headers})
+  }
+
+  resetarSenha(message:MessageDto,userId:number){
+    const headers =   new HttpHeaders({
+      "Authorization": `Bearer ${this.token.getToken()}`
+    })
+    return this.http.put(`${this.locator.services.Users}/${userId}/password`,message,{headers})
+  }
 
 }

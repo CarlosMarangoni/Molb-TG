@@ -8,6 +8,7 @@ import { PostService } from './../service/post.service';
 import { Component, OnInit } from '@angular/core';
 import {saveAs} from 'file-saver';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-post-detail',
@@ -26,8 +27,9 @@ export class PostDetailComponent implements OnInit {
   public hasBought:boolean[] = [];
   public roles: string[] = [];
   public authority: string[] = [];
+  public blurredImg: string = "";
 
-  constructor(private postService:PostService,private route: ActivatedRoute,private token:TokenStorageService,private msg:MessengerService,private http:HttpClient) { 
+  constructor(private postService:PostService,private route: ActivatedRoute,private token:TokenStorageService,private msg:MessengerService,private http:HttpClient,private modalService: NgbModal) { 
     this.postService = postService;
   }
 
@@ -94,13 +96,23 @@ export class PostDetailComponent implements OnInit {
     
   }
 
-  showBlurred(url:string){
-    var win = window.open(url)
+  showBlurred(content:any,url:string){
+    this.blurredImg = url
+    this.modalService.open(content,
+      {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+        
+       });
+
+    
+    
+    /*var win = window.open(url)
     win?.document.write('<html><head><title>Preview modelagem</title><link rel="stylesheet" type="text/css" href="styles.css"></head><body>')
-    win?.document.write(`<img src="${url}" style="filter: blur(1.5rem);">`);
+    win?.document.write(`<img src="${url}" style="filter: blur(1.5rem); height:100px;display:block;">`);
     win?.document.write('</body></html>');
     win?.print();
-    win?.close();
+    win?.close();*/
   }
+
+  
 
 }

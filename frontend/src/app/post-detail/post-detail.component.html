@@ -34,7 +34,7 @@
                     <div class="btn btn-sm btn-primary" (click)="addToCart(item)">
                         <mat-icon>add_shopping_cart</mat-icon>
                     </div>
-                    <div class="btn" (click)="showBlurred(item.moldeUrl)">
+                    <div class="btn" (click)="showBlurred(imageModal,item.moldeUrl)">
                         <mat-icon>remove_red_eye</mat-icon>
                     </div>
                 </div>
@@ -89,3 +89,22 @@
     </div>
 </div>
 </div>
+
+
+<ng-template #imageModal let-image>
+    <div class="modal-header">
+        <h4 class="modal-title text-center align-content-center" id="modal-basic-title">
+            Modelagem
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="image.dismiss('Cross click')">
+
+            <span aria-hidden="true">
+                ×
+            </span>
+        </button>
+    </div>
+    <div class="modal-body d-flex justify-content-center  border-top">
+        <img [src]="blurredImg" style="filter: blur(0.2rem);">
+
+    </div>
+</ng-template>

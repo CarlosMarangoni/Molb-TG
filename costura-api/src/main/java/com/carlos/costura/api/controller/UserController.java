@@ -6,6 +6,7 @@ import com.carlos.costura.domain.model.Purchase;
 import com.carlos.costura.domain.model.SaleItem;
 import com.carlos.costura.domain.model.User;
 import com.carlos.costura.domain.model.dto.AuthorityDTO;
+import com.carlos.costura.domain.model.dto.MessageDTO;
 import com.carlos.costura.domain.model.dto.RegistrationForm;
 import com.carlos.costura.domain.model.dto.UserOutput;
 import com.carlos.costura.domain.model.pk.PostItemPK;
@@ -14,12 +15,16 @@ import com.carlos.costura.domain.repository.*;
 import com.carlos.costura.domain.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -100,5 +105,26 @@ public class UserController {
     @PostMapping("/users/{id}/follow")
     public void followUser(@PathVariable Long id){
         userService.followUser(id);
+    }
+
+    @PostMapping("/contact")
+    public void contactTeam(@RequestBody MessageDTO messageDTO) throws MessagingException, IOException {
+        userService.notifyTeam(messageDTO);
+    }
+
+    @PostMapping("/password")
+    public void passwordChangeRequest(@RequestBody MessageDTO messageDTO) throws MessagingException, IOException {
+        User user = userRepository.findByEmail(messageDTO.getMessage()).orElseThrow(() -> new PageNotFoundException("Email não existe."));
+        userService.notifyPasswordChangeRequest(messageDTO,user);
+
+    }
+
+    @PutMapping("/users/{userId}/password")
+    public void changePassword(@PathVariable Long userId,@RequestBody MessageDTO messageDTO) throws MessagingException, IOException {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        User user = userRepository.findById(userId).orElseThrow(() -> new PageNotFoundException("Usuário não encontrado."));
+        String password = encoder.encode(messageDTO.getMessage());
+        user.setPassword(password);
+        userRepository.save(user);
     }
 }

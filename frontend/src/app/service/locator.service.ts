@@ -22,6 +22,8 @@ export class LocatorService {
     this.services.Buy = this.urlBase + "buy"
     this.services.Purchases = this.urlBase + "purchases"
     this.services.Sales = this.urlBase + "sales"
+    this.services.Contact = this.urlBase + "contact"
+    this.services.Password = this.urlBase + "password"
 
     this.services.Register = this.urlBase + "auth/signup";
     this.services.Users = this.urlBase + "users";

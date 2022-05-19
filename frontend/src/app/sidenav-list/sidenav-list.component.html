@@ -16,7 +16,8 @@
         <a matline>{{info.username}}</a>
         <mat-menu #menu="matMenu">
             <button mat-menu-item [routerLink]="['/profile/',this.info.id]" (click)="onSidenavClose()" style="width: 248px;"><mat-icon>person</mat-icon>Perfil</button>
-            <button mat-menu-item (click)="onSidenavClose()"><mat-icon>settings</mat-icon>Configurações</button>
+            <button mat-menu-item [routerLink]="['/users/sales']" *ngIf="isCreator(authority)" (click)="onSidenavClose()" style="width: 248px;"><mat-icon>attach_money</mat-icon>Minhas vendas</button>
+            <button mat-menu-item [routerLink]="['/users/purchases']" *ngIf="isUser(authority)" (click)="onSidenavClose()" style="width: 248px;"><mat-icon>shopping_basket</mat-icon>Minhas compras</button>            
             <button mat-menu-item (click)="logout()"><mat-icon>exit_to_app</mat-icon>Logout</button>
 
         </mat-menu>
