@@ -65,6 +65,11 @@ export class BuyComponent implements OnInit {
     this.msg.resetCart();
   }
 
+  evaluate(modal:NgbModal){
+    modal.dismissAll();
+    
+  }
+
 
 
 }

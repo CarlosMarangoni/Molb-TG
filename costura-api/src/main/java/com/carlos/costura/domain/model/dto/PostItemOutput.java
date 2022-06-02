@@ -17,6 +17,8 @@ public class PostItemOutput {
 
     private Integer item;
 
+    private String postImageUrl;
+
     private String moldeUrl;
 
     private String description;
@@ -27,6 +29,7 @@ public class PostItemOutput {
         return new PostItemOutput(
                 item.getPostItemPK().getPost().getId(),
                 item.getPostItemPK().getItem(),
+                item.getPostItemPK().getPost().getPostImage(),
                 item.getMoldeUrl(),
                 item.getDescription(),
                 item.getPrice());

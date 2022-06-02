@@ -18,7 +18,7 @@
                         <td>{{i+1}}</td>
                         <input type="hidden" name="itemPostId{{i}}" id="itemPostId{{i}}" [(ngModel)]="item.postId" #itemPostId{{i}}="ngModel">
                         <input type="hidden" name="itemItem{{i}}" id="itemItem{{i}}" [(ngModel)]="item.item" #itemItem{{i}}="ngModel">
-                        <td><img [src]="item.moldeUrl" alt="" style="height: 100px;"></td>
+                        <td><img [src]="item.postImageUrl" alt="" style="height: 100px;"></td>
                         <td>{{item.description}}</td>
                         <td>{{item.price | currency:'BRL'}}</td>
 
@@ -83,7 +83,10 @@
     </div>
     <div class="modal-body d-flex justify-content-center">
         <h4>Compra realizada com sucesso!</h4>
+
     </div>
+    <h3 class="mx-2 text-center">Por favor, avalie a postagem para ajudar os próximos usuários que vão comprar!</h3>
+
     <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-danger" (click)="modal.dismiss('Cross click')">
             Cancelar

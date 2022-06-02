@@ -48,10 +48,10 @@ INSERT INTO post_item values(1,'Molde mascara P','https://spring-amazon-storage-
 INSERT INTO post_item values(2,'Molde mascara M','https://spring-amazon-storage-molsew.s3.sa-east-1.amazonaws.com/modelagem2.jpg',30,11);
 INSERT INTO post values(12,0,0,'2021-08-31 13:59:35.453600','Vestido discreto ideal para casamentos','https://spring-amazon-storage-molsew.s3.sa-east-1.amazonaws.com/vestido1.jpg','Vestido simples',5,1);
 INSERT INTO post_item values(1,'Molde vestido P','https://spring-amazon-storage-molsew.s3.sa-east-1.amazonaws.com/modelagem2.jpg',25.2,12);
-INSERT INTO post_item values(2,'https://spring-amazon-storage-molsew.s3.sa-east-1.amazonaws.com/molde_3.png',30,12);
+INSERT INTO post_item values(2,'Molde vestido M','https://spring-amazon-storage-molsew.s3.sa-east-1.amazonaws.com/molde_3.png',30,12);
 INSERT INTO post values(13,0,0,'2021-08-31 13:59:35.453600','Vestido perfeito para arrasar na noite','https://spring-amazon-storage-molsew.s3.sa-east-1.amazonaws.com/vestido2.jpg','Vestido festivo',5,2);
 INSERT INTO post_item values(1,'Molde vestido P','https://spring-amazon-storage-molsew.s3.sa-east-1.amazonaws.com/modelagem2.jpg',25.2,13);
-INSERT INTO post_item values(2,'https://spring-amazon-storage-molsew.s3.sa-east-1.amazonaws.com/molde_3.png',30,13);
+INSERT INTO post_item values(2,'Molde vestido M','https://spring-amazon-storage-molsew.s3.sa-east-1.amazonaws.com/molde_3.png',30,13);
 INSERT INTO followers values (1,3);
 INSERT INTO followers values (2,3);
 INSERT INTO followers values (3,1);
