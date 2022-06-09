@@ -47,6 +47,8 @@ import { PurchasesComponent } from './user-detail/purchases/purchases.component'
 import { SalesComponent } from './user-detail/sales/sales.component';
 import { PurchaseComponent } from './purchase/purchase.component';
 import { SaleComponent } from './sale/sale.component';
+import { DashboardTestComponent } from './dashboard-test/dashboard-test.component';
+import { NgChartsModule } from 'ng2-charts';
 
 registerLocaleData(ptBr);
 
@@ -75,7 +77,8 @@ registerLocaleData(ptBr);
     PurchasesComponent,
     SalesComponent,
     PurchaseComponent,
-    SaleComponent
+    SaleComponent,
+    DashboardTestComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +99,8 @@ registerLocaleData(ptBr);
     MatToolbarModule,
     FlexLayoutModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    NgChartsModule
   ],
   exports:[
     MatSidenavModule,

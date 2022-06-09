@@ -35,9 +35,6 @@ public class Purchase {
     @ManyToOne
     private User buyer;
 
-    @Enumerated(EnumType.STRING)
-    private PaymentMethod paymentMethod;
-
     private BigDecimal total;
 
 

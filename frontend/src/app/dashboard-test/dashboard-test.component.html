@@ -1,0 +1,36 @@
+<div class="container" style="margin-top: 300px;">
+<div class="d-flex justify-content-between">
+
+      <div>
+      <div style="width: 400px;height:200px;">
+      <canvas baseChart width="300" height="300"
+                  [data]="lineChartData"
+                  [options]="lineChartOptions"
+                  [type]="lineChartType"></canvas>
+      </div>
+    </div>
+    <div>
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <button
+                class="bi-funnel-fill dropdown-toggle text-center"></button>
+            </mat-expansion-panel-header>
+            <ul class="list-group list-group-mine">
+                <li class="list-group-item" *ngFor="let year of years; let i = index"
+                    [class.active]="selectedIndex === i" (click)="setIndex(i)">{{year}}</li>
+            </ul>
+        </mat-expansion-panel>
+    </mat-accordion>
+      <table class="table table-responsive table-condensed">
+        <tr>
+          <th *ngFor="let label of lineChartData.labels">{{label}}</th>
+        </tr>
+        <tr *ngFor="let d of lineChartData.datasets; let i=index" [class]="'line-'+i">
+          <td *ngFor="let label of lineChartData.labels; let j=index">{{d && d.data[j]}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>

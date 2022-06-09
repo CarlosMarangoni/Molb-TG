@@ -41,7 +41,7 @@ export class PostService {
     const headers =   new HttpHeaders({
     "Authorization": `Bearer ${this.token.getToken()}`
   })
-    return this.http.get<PageablePostDto>(`${this.locator.services.Posts}?page=${activePage}&size=9`,{headers})     
+    return this.http.get<PageablePostDto>(`${this.locator.services.Posts}?page=${activePage}&size=8`,{headers})     
    }
 
    obterPostsdeUsuario(userId:number):Observable<Post[]>{

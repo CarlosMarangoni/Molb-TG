@@ -23,8 +23,6 @@ public class PurchaseOutput {
 
     private BigDecimal total;
 
-    private String paymentMethod;
-
     private OffsetDateTime data;
 
 }

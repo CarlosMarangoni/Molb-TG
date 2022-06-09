@@ -57,7 +57,6 @@ public class CartController {
         PurchaseOutput purchaseOutput = new PurchaseOutput();
         purchaseOutput.setId(purchase.getId());
         purchaseOutput.setData(purchase.getDate());
-        purchaseOutput.setPaymentMethod(purchase.getPaymentMethod().toString());
         purchaseOutput.setTotal(purchase.getTotal());
         for (SaleItem i :
                 purchase.getItems()) {

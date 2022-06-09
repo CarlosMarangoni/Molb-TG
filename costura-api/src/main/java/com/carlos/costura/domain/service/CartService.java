@@ -64,7 +64,6 @@ public class CartService {
             i.getSaleItemPK().setPurchase(purchase);
         });
         purchase.setTotal(valorTotal);
-        purchase.setPaymentMethod(PaymentMethod.PAYPAL);
         return userService.buy(purchase,user);
     }
 }

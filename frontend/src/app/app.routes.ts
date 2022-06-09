@@ -20,6 +20,7 @@ import { PurchasesComponent } from "./user-detail/purchases/purchases.component"
 import { SalesComponent } from "./user-detail/sales/sales.component";
 import { PurchaseComponent } from "./purchase/purchase.component";
 import { SaleComponent } from "./sale/sale.component";
+import { DashboardTestComponent } from "./dashboard-test/dashboard-test.component";
 export const rootRouterConfig: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "home", component: HomeComponent },
@@ -30,6 +31,7 @@ export const rootRouterConfig: Routes = [
   { path: "login", component: LoginComponent },
   { path: "forgot-password", component: ForgotPasswordComponent },
   { path: "register", component: RegisterComponent },
+  { path: "test", component: DashboardTestComponent },
   {
     path: "admin",
     component: PortalAdminComponent,
